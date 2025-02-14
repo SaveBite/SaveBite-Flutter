@@ -28,18 +28,28 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  bloc: ^9.0.0
   cupertino_icons: ^1.0.8
+  dartz: ^0.10.1
+  dio: ^5.8.0+1
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.0.0
+  flutter_screenutil: ^5.9.3
   flutter_svg: ^2.0.16
+  get_it: ^8.0.3
+  go_router: ^14.8.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  hive_generator: ^2.0.1
+  http: ^1.3.0
+  http_parser: ^4.1.2
+  image_picker: ^1.1.2
+  path_provider: ^2.1.5
+  shared_preferences: ^2.5.2
 
 dev_dependencies:
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
+  build_runner: ^2.4.11
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
@@ -70,7 +80,9 @@ flutter:
   fonts:
     - family: Noto Scans
       fonts:
-        - asset: assets/fonts/NotoSans-VariableFont_wdth,wght.ttf
+        - asset: assets/fonts/NotoSans-Regular.ttf
+        - asset: assets/fonts/NotoSans-Medium.ttf
+          weight: 500
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
