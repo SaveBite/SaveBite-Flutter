@@ -10,7 +10,7 @@ class UserModel {
   @HiveField(1)
   final String email;
   @HiveField(2)
-  final String otpToken;
+  final String? otpToken;
   @HiveField(3)
   final String type;
   @HiveField(4)

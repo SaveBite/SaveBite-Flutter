@@ -19,7 +19,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
     return UserModel(
       name: fields[0] as String,
       email: fields[1] as String,
-      otpToken: fields[2] as String,
+      otpToken: fields[2] as String?,
       type: fields[3] as String,
       isVerified: fields[4] as num,
       token: fields[5] as String,
