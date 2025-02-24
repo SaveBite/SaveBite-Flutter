@@ -43,7 +43,15 @@ class ServerFailure extends Failure {
     } else if (statusCode == 401) {
       return ServerFailure(errorMessage: 'password is not correct');
     } else if (statusCode == 422) {
-      return ServerFailure(errorMessage: body["data"][0]);
+      if (body["message"] == "Validation error") {
+        return ServerFailure(errorMessage: body["data"][0]);
+      } else if (body["message"] == "Something went wrong.") {
+        return ServerFailure(errorMessage: "the selected answer is invalid");
+      } else if (body["message"] == "messages.Wrong OTP code or expired") {
+        return ServerFailure(errorMessage: "wrong OTP code or expired");
+      } else {
+        return ServerFailure(errorMessage: 'something went wrong');
+      }
     } else {
       return ServerFailure(
           errorMessage: "There was an error, please try agaian");

@@ -54,19 +54,15 @@ class CheckYourEmailViewBody extends StatelessWidget {
                 children: [
                   Text(
                     'We have sent an email to',
-                    style: AppStyles.styleRegular16.copyWith(
-                      fontSize: 13
-                    ),
+                    style: AppStyles.styleRegular16.copyWith(fontSize: 13),
                   ),
                   SizedBox(
                     width: 4,
                   ),
                   Text(
                     BlocProvider.of<LostImageCubit>(context).email!,
-                    style: AppStyles.styleRegular16.copyWith(
-                      color: Color(0xff222222),
-                      fontSize: 13
-                    ),
+                    style: AppStyles.styleRegular16
+                        .copyWith(color: Color(0xff222222), fontSize: 11),
                   )
                 ],
               ),
@@ -75,9 +71,7 @@ class CheckYourEmailViewBody extends StatelessWidget {
               ),
               Text(
                 'with your image, Please Check it.',
-                style: AppStyles.styleRegular16.copyWith(
-                  fontSize: 13
-                ),
+                style: AppStyles.styleRegular16.copyWith(fontSize: 13),
               ),
               SizedBox(
                 height: 20,
@@ -88,7 +82,7 @@ class CheckYourEmailViewBody extends StatelessWidget {
                   Transform.scale(
                     scale: 0.9,
                     child: SvgPicture.asset(Assets.imagesForwardLeftIcon),
-                    ),
+                  ),
                   SizedBox(
                     width: 4,
                   ),
