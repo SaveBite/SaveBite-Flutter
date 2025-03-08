@@ -1,6 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:save_bite/features/authentication/login/domain/use_case/login_email_password__use_case.dart';
+import 'package:save_bite/features/authentication/lost_image/data/data_sources/lost_image_remote_data_source.dart';
+import 'package:save_bite/features/authentication/lost_image/data/repos/lost_image_repo_imp.dart';
+import 'package:save_bite/features/authentication/lost_image/domain/use_case/lost_image_use_case.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:save_bite/core/network/local_data_source.dart';
 import 'package:save_bite/core/network/network_info.dart';
@@ -15,6 +19,10 @@ import 'package:save_bite/features/authentication/verification/domain/repo/verif
 import 'package:save_bite/features/authentication/verification/domain/usecases/check_code_use_case.dart';
 import 'package:save_bite/features/authentication/verification/domain/usecases/resend_otp.dart';
 import 'package:save_bite/features/authentication/verification/presentation/bloc/otp_bloc.dart';
+import 'package:save_bite/features/authentication/login/data/data_source/login_remote_data_source.dart';
+import 'package:save_bite/features/authentication/login/data/repo/login_repo_imp.dart';
+import 'package:save_bite/features/authentication/login/domain/use_case/login_email_image_use_case.dart';
+import 'package:save_bite/features/authentication/lost_image/domain/use_case/lost_image_verfication_use_case.dart';
 
 final sl = GetIt.instance;
 
@@ -27,7 +35,6 @@ Future<void> init() async {
     sl.registerLazySingleton(() => sharedPreferences);
     sl.registerLazySingleton(() => http.Client());
     sl.registerLazySingleton(() => InternetConnectionChecker());
-
     //! Core Dependencies
     sl.registerLazySingleton<NetworkInfo>(
         () => NetworkInfoImpl(connectionChecker: sl()));
@@ -39,10 +46,42 @@ Future<void> init() async {
 
     print('📦 Initializing Authentication feature...');
 
+    //✅ LoginEmailImageUseCase
+    sl.registerSingleton<LoginEmailImageUseCase>(
+      LoginEmailImageUseCase(
+        loginRepo: LoginRepoImp(
+          loginRemoteDataSource: LoginRemoteDataSourceImp(),
+        ),
+      ),
+    );
+    //✅ LoginEmailPasswordUseCase
+    sl.registerSingleton<LoginEmailPasswordUseCase>(
+      LoginEmailPasswordUseCase(
+        loginRepo: LoginRepoImp(
+          loginRemoteDataSource: LoginRemoteDataSourceImp(),
+        ),
+      ),
+    );
+    //✅ LostImageUseCase
+    sl.registerSingleton<LostImageUseCase>(
+      LostImageUseCase(
+        lostImageRepo: LostImageRepoImp(
+          lostImageRemoteDataSource: LostImageRemoteDataSourceImp(),
+        ),
+      ),
+    );
+    //✅ LostImageUseCase
+    sl.registerSingleton<LostImageVerficationUseCase>(
+      LostImageVerficationUseCase(
+        lostImageRepo: LostImageRepoImp(
+          lostImageRemoteDataSource: LostImageRemoteDataSourceImp(),
+        ),
+      ),
+    );
+
     // ✅ Register AuthRemoteDataSource first
     sl.registerLazySingleton<AuthRemoteDataSource>(
         () => AuthRemoteDataSourceImpl(client: sl()));
-
 
     // ✅ Register Use Cases
     sl.registerLazySingleton(() => SignUpUseCase(authRepository: sl()));
@@ -52,7 +91,7 @@ Future<void> init() async {
 
     // ✅ Register Repos
     sl.registerLazySingleton<AuthRepository>(
-          () => AuthRepositoryImpl(authRemoteDataSource: sl()),
+      () => AuthRepositoryImpl(authRemoteDataSource: sl()),
     );
 
     //! Verification Feature
@@ -84,4 +123,3 @@ Future<void> init() async {
     rethrow;
   }
 }
-

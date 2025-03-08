@@ -34,12 +34,13 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
   // List of controllers for each OTP input box
   final List<TextEditingController> _controllers =
-  List.generate(4, (_) => TextEditingController());
+      List.generate(4, (_) => TextEditingController());
 
   @override
   void initState() {
     super.initState();
-    _otpToken = widget.otpToken; // Initialize with the token received from sign-up
+    _otpToken =
+        widget.otpToken; // Initialize with the token received from sign-up
 
     // Attach listener to all OTP input controllers to validate input
     for (var controller in _controllers) {
@@ -60,7 +61,9 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   void _validateInput() {
     setState(() {
       _isValid = _controllers.every(
-            (controller) => controller.text.isNotEmpty && RegExp(r'^\d$').hasMatch(controller.text),
+        (controller) =>
+            controller.text.isNotEmpty &&
+            RegExp(r'^\d$').hasMatch(controller.text),
       );
     });
   }
@@ -78,13 +81,13 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
     if (otpCode.length == 4 && _otpToken.isNotEmpty) {
       context.read<OTPBloc>().add(
-        CheckCodeEvent(
-          checkCodeEntity: CheckCodeEntity(
-            otp: otpCode,
-            otp_token: _otpToken, // ✅ Include OTP token
-          ),
-        ),
-      );
+            CheckCodeEvent(
+              checkCodeEntity: CheckCodeEntity(
+                otp: otpCode,
+                otp_token: _otpToken, // ✅ Include OTP token
+              ),
+            ),
+          );
     } else {
       setState(() {
         _isError = true;
@@ -102,8 +105,9 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
     // Dispatch resend event
     context.read<OTPBloc>().add(
-      ResendCodeEvent(resendCodeEntity: ResendCodeEntity(email: widget.email)),
-    );
+          ResendCodeEvent(
+              resendCodeEntity: ResendCodeEntity(email: widget.email)),
+        );
 
     // Enable resend button after 30 seconds
     Timer(const Duration(seconds: 30), () {
@@ -112,6 +116,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
       });
     });
   }
+
   int _resendCooldown = 60; // 60 seconds
   Timer? _timer;
 
@@ -134,7 +139,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
         child: BlocConsumer<OTPBloc, OTPState>(
           listener: (context, state) {
             if (state is ResendOtpSuccess) {
-              final newOtpToken = state.resendCodeResponseEntity.otpToken?.trim() ?? '';
+              final newOtpToken =
+                  state.resendCodeResponseEntity.otpToken?.trim() ?? '';
               if (newOtpToken.isNotEmpty) {
                 setState(() {
                   _otpToken = newOtpToken; // Update OTP token
@@ -142,10 +148,10 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                 });
                 print("🔄 Updated OTP Token: '$_otpToken'");
               } else {
-                print("🚨 Error: Resend response did NOT contain an OTP token!");
+                print(
+                    "🚨 Error: Resend response did NOT contain an OTP token!");
               }
-            }
-            else if (state is CheckCodeSuccessState) {
+            } else if (state is CheckCodeSuccessState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text("Verified successfully!")),
               );
@@ -153,13 +159,14 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                 context,
                 MaterialPageRoute(builder: (context) => ApprovedVerification()),
               );
-            }
-            else if (state is ErrorOTPState) {
+            } else if (state is ErrorOTPState) {
               setState(() {
                 _isError = true; // Show error state on incorrect OTP
               });
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message), duration: Duration(seconds: 3)),
+                SnackBar(
+                    content: Text(state.message),
+                    duration: Duration(seconds: 3)),
               );
             }
           },
@@ -175,6 +182,9 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    SizedBox(
+                      height: 90,
+                    ),
                     Text("Verification!", style: AppStyles.styleMedium23),
                     const SizedBox(height: 10),
                     Text(
@@ -194,7 +204,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: List.generate(
                         4,
-                            (index) => VerificationContainer(
+                        (index) => VerificationContainer(
                           isValid: _isValid,
                           isError: _isError, // Change color if error occurs
                           controller: _controllers[index],
@@ -225,7 +235,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                         ),
                         children: [
                           TextSpan(
-                            text:  "Click to resend",
+                            text: "Click to resend",
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w400,

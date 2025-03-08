@@ -85,7 +85,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
                       ),
                     ),
                     SvgPicture.asset(
-                      _isExpanded ? Assets.imagesUpIcon : Assets.imagesDownIcon,
+                      _isExpanded ? Assets.imagesUploadIcon : Assets.imagesDownIcon,
                       height: 22.5,
                       width: 22.5,
                     ),

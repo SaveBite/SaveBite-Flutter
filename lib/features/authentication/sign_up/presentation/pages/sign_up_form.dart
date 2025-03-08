@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:save_bite/features/authentication/login/presentation/views/login_email_image_view.dart';
 import 'package:save_bite/features/authentication/sign_up/presentation/bloc/authentication_bloc.dart';
 import 'package:save_bite/core/widgets/custom_elevated_button.dart';
 import '../../../../../core/utils/app_assets.dart';
@@ -25,7 +26,8 @@ class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController passwordConfirmationController = TextEditingController();
+  final TextEditingController passwordConfirmationController =
+      TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
 
@@ -54,8 +56,8 @@ class _SignUpFormState extends State<SignUpForm> {
 
   void _validateForm() {
     setState(() {
-      _isFormValid = (formKey.currentState?.validate() ?? false) &&
-          (isChecked == true);
+      _isFormValid =
+          (formKey.currentState?.validate() ?? false) && (isChecked == true);
     });
   }
 
@@ -146,14 +148,14 @@ class _SignUpFormState extends State<SignUpForm> {
                   },
                   icon: _togglePassword
                       ? const Icon(
-                    Icons.remove_red_eye_outlined,
-                    size: 22.5,
-                  )
+                          Icons.remove_red_eye_outlined,
+                          size: 22.5,
+                        )
                       : SvgPicture.asset(
-                    Assets.imagesEyeOff,
-                    width: 22.5,
-                    height: 22.5,
-                  ),
+                          Assets.imagesEyeOff,
+                          width: 22.5,
+                          height: 22.5,
+                        ),
                 ),
               ),
               CustomTextFormField(
@@ -162,8 +164,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 hintText: "Password",
                 obscureText: !_togglePassword,
                 validator: (value) =>
-                    validateConfirmPassword(
-                        value, passwordController.text),
+                    validateConfirmPassword(value, passwordController.text),
                 // Add confirm password validation
                 trailingIcon: IconButton(
                   onPressed: () {
@@ -173,14 +174,14 @@ class _SignUpFormState extends State<SignUpForm> {
                   },
                   icon: _togglePassword
                       ? const Icon(
-                    Icons.remove_red_eye_outlined,
-                    size: 22.5,
-                  )
+                          Icons.remove_red_eye_outlined,
+                          size: 22.5,
+                        )
                       : SvgPicture.asset(
-                    Assets.imagesEyeOff,
-                    width: 22.5,
-                    height: 22.5,
-                  ),
+                          Assets.imagesEyeOff,
+                          width: 22.5,
+                          height: 22.5,
+                        ),
                 ),
               ),
               const SizedBox(height: 10),
@@ -242,13 +243,13 @@ class _SignUpFormState extends State<SignUpForm> {
                 text: "Create Account",
                 isEnabled: _isFormValid,
                 onPressed: _submitForm,
-
               ),
               SizedBox(
                 height: 20.h,
               ),
               Center(
-                child: Text.rich(TextSpan(
+                child: Text.rich(
+                  TextSpan(
                     text: 'Aleardy have an account? ',
                     style: TextStyle(
                         fontSize: 13,
@@ -256,19 +257,27 @@ class _SignUpFormState extends State<SignUpForm> {
                         fontFamily: 'Noto Scans'),
                     children: <TextSpan>[
                       TextSpan(
-                          text: 'Login',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'Noto Scans',
-                            color: Color(0xff5EDA42),
-                            decorationColor: Color(0xff5EDA42),
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              // code to open / launch terms of service link here
-                            }),
-                    ])),
+                        text: 'Login',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Noto Scans',
+                          color: Color(0xff5EDA42),
+                          decorationColor: Color(0xff5EDA42),
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => LoginEmailImageView(),
+                              ),
+                            );
+                            // code to open / launch terms of service link here
+                          },
+                      ),
+                    ],
+                  ),
+                ),
               ),
               SizedBox(
                 height: 20.h,
@@ -282,7 +291,8 @@ class _SignUpFormState extends State<SignUpForm> {
 
   void _submitForm() {
     if (formKey.currentState!.validate() && isChecked == true) {
-      if (_imagePath == null || userTypeSelectedValue == null ||
+      if (_imagePath == null ||
+          userTypeSelectedValue == null ||
           drinkSelectedValue == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Please complete all required fields")),
