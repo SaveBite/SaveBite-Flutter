@@ -19,6 +19,12 @@ abstract class AppStyles {
     fontFamily: 'Noto Scans',
     color: Color(0xff333333),
   );
+  static const TextStyle styleMedium10 = TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Noto Scans',
+    color: Color(0xffB3B3B3),
+  );
   static const TextStyle styleSemiBold16 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
