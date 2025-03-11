@@ -35,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xffF2F2F2),
         body: pages[currentIndex],
         bottomNavigationBar: ClipRRect(
           borderRadius: BorderRadius.only(

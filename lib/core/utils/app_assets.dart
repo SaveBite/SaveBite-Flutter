@@ -30,6 +30,10 @@ class Assets {
   /// assets/images/eye_on.svg
   static const String imagesEyeOn = "assets/images/eye_on.svg";
 
+  /// Assets for imagesFilter
+  /// assets/images/filter.svg
+  static const String imagesFilter = "assets/images/filter.svg";
+
   /// Assets for imagesForwardLeftIcon
   /// assets/images/forward_left_icon.svg
   static const String imagesForwardLeftIcon = "assets/images/forward_left_icon.svg";
@@ -45,6 +49,10 @@ class Assets {
   /// Assets for imagesHome
   /// assets/images/home.svg
   static const String imagesHome = "assets/images/home.svg";
+
+  /// Assets for imagesI
+  /// assets/images/i.svg
+  static const String imagesI = "assets/images/i.svg";
 
   /// Assets for imagesLeftIcon
   /// assets/images/left_icon.svg
@@ -62,13 +70,17 @@ class Assets {
   /// assets/images/people.svg
   static const String imagesPeople = "assets/images/people.svg";
 
+  /// Assets for imagesPlus
+  /// assets/images/plus.svg
+  static const String imagesPlus = "assets/images/plus.svg";
+
+  /// Assets for imagesProductSearch
+  /// assets/images/product_search.svg
+  static const String imagesProductSearch = "assets/images/product_search.svg";
+
   /// Assets for imagesSearch
   /// assets/images/search.svg
   static const String imagesSearch = "assets/images/search.svg";
-
-  /// Assets for imagesSolarInfoCircleLinear
-  /// assets/images/solar_info-circle-linear.svg
-  static const String imagesSolarInfoCircleLinear = "assets/images/solar_info-circle-linear.svg";
 
   /// Assets for imagesSplashLogo
   /// assets/images/splash_logo.svg
@@ -86,12 +98,12 @@ class Assets {
   /// assets/images/upload_icon.svg
   static const String imagesUploadIcon = "assets/images/upload_icon.svg";
 
-  /// Assets for imagesVector
-  /// assets/images/Vector.svg
-  static const String imagesVector = "assets/images/Vector.svg";
-
   /// Assets for imagesVerifiedIcon
   /// assets/images/verified_icon.svg
   static const String imagesVerifiedIcon = "assets/images/verified_icon.svg";
+
+  /// Assets for imagesX
+  /// assets/images/x.svg
+  static const String imagesX = "assets/images/x.svg";
 }
 
