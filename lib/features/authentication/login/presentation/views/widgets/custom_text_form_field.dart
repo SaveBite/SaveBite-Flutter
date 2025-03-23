@@ -39,9 +39,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: AppStyles.styleRegular16.copyWith(
-        color: Color(0xff333333)
-      ),
+      style: AppStyles.styleRegular16.copyWith(color: Color(0xff333333)),
       validator: widget.validator,
       onChanged: widget.onChanged,
       obscureText: _isObscure,

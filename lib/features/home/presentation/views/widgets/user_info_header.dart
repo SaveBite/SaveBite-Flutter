@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:save_bite/core/utils/app_assets.dart';
 import 'package:save_bite/core/utils/app_styles.dart';
-import 'package:save_bite/features/authentication/login/presentation/manger/login_cubit/login_cubit.dart';
+import 'package:save_bite/features/authentication/login/data/model/save_user_data.dart';
 
 class UserInfoHeader extends StatelessWidget {
   const UserInfoHeader({
@@ -30,7 +29,7 @@ class UserInfoHeader extends StatelessWidget {
           width: 2,
         ),
         Text(
-          "${BlocProvider.of<LoginCubit>(context).userModel!.name}!",
+          "${SaveUserData.user!.name}!",
           style: AppStyles.styleMedium19.copyWith(
             color: Color(0xffFFFFFF),
           ),

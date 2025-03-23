@@ -17,7 +17,8 @@ class AuthModel extends AuthEntity {
         name: json['name'] ?? '',
         email: json['email'],
         type: json['type'],
-        isVerified: (json['is_verified'] == 1) // ✅ Convert int to bool to handle null value
+        isVerified: (json['is_verified'] ==
+            1) // ✅ Convert int to bool to handle null value
         );
   }
 

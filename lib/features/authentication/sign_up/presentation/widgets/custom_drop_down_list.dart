@@ -43,7 +43,9 @@ class _CustomDropdownState extends State<CustomDropdown> {
   Widget build(BuildContext context) {
     return FormField<OptionItem>(
       validator: (value) {
-        return _selectedItem == null ? 'Please complete this required field' : null;
+        return _selectedItem == null
+            ? 'Please complete this required field'
+            : null;
       },
       builder: (FormFieldState<OptionItem> state) {
         return Column(
@@ -85,7 +87,9 @@ class _CustomDropdownState extends State<CustomDropdown> {
                       ),
                     ),
                     SvgPicture.asset(
-                      _isExpanded ? Assets.imagesUploadIcon : Assets.imagesDownIcon,
+                      _isExpanded
+                          ? Assets.imagesUploadIcon
+                          : Assets.imagesDownIcon,
                       height: 22.5,
                       width: 22.5,
                     ),
@@ -122,17 +126,19 @@ class _CustomDropdownState extends State<CustomDropdown> {
 
                           widget.onOptionSelected(item);
                           state.didChange(item); // ✅ Notify form of change
-                          Form.of(context)?.validate(); // ✅ Force validation check
+                          Form.of(context)
+                              ?.validate(); // ✅ Force validation check
                         },
                         child: Container(
                           width: double.infinity,
-                          padding: EdgeInsets.symmetric(horizontal: 13, vertical: 16),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 13, vertical: 16),
                           decoration: BoxDecoration(
                             color: _selectedItem == item
                                 ? Color(0xff2E70FE)
                                 : _hoveredItem == item
-                                ? Color(0xff2E70FE)
-                                : Color(0xffFFFFFF),
+                                    ? Color(0xff2E70FE)
+                                    : Color(0xffFFFFFF),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
@@ -141,9 +147,10 @@ class _CustomDropdownState extends State<CustomDropdown> {
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Noto Scans',
-                              color: _selectedItem == item || _hoveredItem == item
-                                  ? Color(0xffFFFFFF)
-                                  : Color(0xff333333),
+                              color:
+                                  _selectedItem == item || _hoveredItem == item
+                                      ? Color(0xffFFFFFF)
+                                      : Color(0xff333333),
                             ),
                           ),
                         ),
@@ -177,6 +184,6 @@ class OptionItem {
   final String title; // Display title
   final dynamic backendValue; // Value sent to backend (can be String or int)
 
-  OptionItem({required this.id, required this.title, required this.backendValue});
+  OptionItem(
+      {required this.id, required this.title, required this.backendValue});
 }
-

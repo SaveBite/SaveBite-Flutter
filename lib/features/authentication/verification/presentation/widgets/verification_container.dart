@@ -20,7 +20,9 @@ class VerificationContainer extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: isError ? Color(0xffFF0000) : Color(0xff5EDA42), // ✅ Green by default, red on error
+          color: isError
+              ? Color(0xffFF0000)
+              : Color(0xff5EDA42), // ✅ Green by default, red on error
           width: 2,
         ),
         color: Colors.white,
@@ -35,7 +37,9 @@ class VerificationContainer extends StatelessWidget {
           fontSize: 28,
           fontWeight: FontWeight.w400,
           fontFamily: 'Noto Sans',
-          color: isError ? Color(0xffFF0000) : Colors.black, // ✅ Black by default, red on error
+          color: isError
+              ? Color(0xffFF0000)
+              : Colors.black, // ✅ Black by default, red on error
         ),
         decoration: const InputDecoration(
           counterText: "",

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:save_bite/features/home/widgets/search_any_thing_field.dart';
-import 'package:save_bite/features/home/widgets/user_info_header.dart';
+import 'package:save_bite/features/home/presentation/views/widgets/search_any_thing_field.dart';
+import 'package:save_bite/features/home/presentation/views/widgets/user_info_header.dart';
 
 class UserInfo extends StatelessWidget {
   const UserInfo({

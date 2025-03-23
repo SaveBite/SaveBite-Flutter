@@ -12,7 +12,4 @@ class SignUpUseCase {
   Future<Either<Failure, AuthEntity>> call(SignUpEntity signUpEntity) async {
     return await authRepository.signUp(signUpEntity);
   }
-
 }
-
-

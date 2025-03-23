@@ -6,5 +6,5 @@ Future<void> intialHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserModelAdapter());
   await Hive.openBox<UserModel?>(kUserBox);
-    await Hive.openBox<bool?>(kRemmberBox);
+  await Hive.openBox<bool?>(kRemmberBox);
 }

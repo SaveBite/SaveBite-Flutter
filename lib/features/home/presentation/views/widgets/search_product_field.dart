@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:save_bite/core/utils/app_assets.dart';
 import 'package:save_bite/core/utils/app_styles.dart';
+import 'package:save_bite/features/home/presentation/manger/products_cubit/products_cubit.dart';
 
 class SearchProductField extends StatelessWidget {
   const SearchProductField({
@@ -14,6 +16,11 @@ class SearchProductField extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.05,
       width: MediaQuery.of(context).size.width * 0.56,
       child: TextField(
+        onSubmitted: (value) {
+          BlocProvider.of<ProductsCubit>(context).serachForProduct(
+            productsName: value,
+          );
+        },
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(right: 10, top: 40),
           prefixIcon: Padding(

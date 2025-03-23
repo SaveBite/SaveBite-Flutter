@@ -1,4 +1,3 @@
-
 import '../../domain/entity/check_code_response_entity.dart';
 
 class CheckCodeResponseModel extends CheckCodeResponseEntity {
@@ -19,12 +18,11 @@ class CheckCodeResponseModel extends CheckCodeResponseEntity {
     );
   }
 
-
   Map<String, dynamic> toJson() => {
-    "name": name,
-    "email": email,
-    "type": type,
-    "is_verified": is_verified,
-    "token": token,
-  };
+        "name": name,
+        "email": email,
+        "type": type,
+        "is_verified": is_verified,
+        "token": token,
+      };
 }

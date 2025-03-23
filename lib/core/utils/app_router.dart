@@ -7,7 +7,7 @@ import 'package:save_bite/features/authentication/lost_image/presentation/views/
 import 'package:save_bite/features/authentication/lost_image/presentation/views/lost_image_view.dart';
 import 'package:save_bite/features/authentication/lost_image/presentation/views/lost_mage_verification_view.dart';
 import 'package:save_bite/features/authentication/sign_up/presentation/pages/sign_up_page.dart';
-import 'package:save_bite/features/home/home_view.dart';
+import 'package:save_bite/features/home/presentation/views/home_view.dart';
 import 'package:save_bite/features/splash/presenation/views/splash_view.dart';
 
 abstract class AppRouter {

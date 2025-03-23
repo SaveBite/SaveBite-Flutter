@@ -30,7 +30,7 @@ class _CustomTextButtonState extends State<CustomTextButton> {
         scale: _scale,
         child: Text(
           widget.title,
-          style:widget.textStyle,
+          style: widget.textStyle,
         ),
       ),
     );

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:save_bite/core/utils/app_assets.dart';
 import 'package:save_bite/core/utils/app_styles.dart';
+import 'package:save_bite/features/home/presentation/manger/stock_data_cubit/stock_data_cubit.dart';
 
 class CustomAllertWidget extends StatelessWidget {
   const CustomAllertWidget({
@@ -11,9 +13,6 @@ class CustomAllertWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: 12,
-      ),
       padding: EdgeInsets.symmetric(
         horizontal: 10,
         vertical: 24,
@@ -67,7 +66,12 @@ class CustomAllertWidget extends StatelessWidget {
             ],
           ),
           Spacer(),
-          SvgPicture.asset(Assets.imagesX),
+          GestureDetector(
+            onTap: () {
+              BlocProvider.of<StockDataCubit>(context).removeAlertMessage();
+            },
+            child: SvgPicture.asset(Assets.imagesX),
+          ),
         ],
       ),
     );
