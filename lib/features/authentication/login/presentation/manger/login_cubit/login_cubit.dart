@@ -32,8 +32,6 @@ class LoginCubit extends Cubit<LoginState> {
       ));
     }, (successValue) async {
       userModel = successValue;
-      SaveUserData.setUser(successValue);
-      SaveUserData.setRememberMe(rememberMe!);
       await saveUserAndRememberMe();
       emit(LoginSuccess());
     });
@@ -49,8 +47,6 @@ class LoginCubit extends Cubit<LoginState> {
       ));
     }, (successValue) async {
       userModel = successValue;
-      SaveUserData.setUser(successValue);
-      SaveUserData.setRememberMe(rememberMe!);
       await saveUserAndRememberMe();
       emit(LoginSuccess());
     });
@@ -72,6 +68,7 @@ class LoginCubit extends Cubit<LoginState> {
     await remmberBox.put('rememberMe', rememberMe);
     if (rememberMe!) {
       await userBox.put('user', userModel);
+      SaveUserData.user = userModel;
     } else {
       await userBox.delete('user');
     }
@@ -82,8 +79,9 @@ class LoginCubit extends Cubit<LoginState> {
     var remmberBox = Hive.box<bool?>(kRemmberBox);
 
     rememberMe = remmberBox.get('rememberMe') ?? false;
+    SaveUserData.rememberMe = remmberBox.get('rememberMe') ?? false;
+
     userModel = userBox.get('user');
-    SaveUserData.setUser(userModel!);
-    SaveUserData.setRememberMe(rememberMe!);
+    SaveUserData.user = userBox.get('user');
   }
 }

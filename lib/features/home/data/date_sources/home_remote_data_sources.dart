@@ -25,7 +25,6 @@ abstract class HomeRemoteDataSources {
 
 class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
   final Dio dio;
-  final String token = SaveUserData.user!.token;
 
   HomeRemoteDataSourcesImp({required this.dio});
   @override
@@ -36,7 +35,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
         'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/products?search=$productName',
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
+            'Authorization': 'Bearer ${SaveUserData.user!.token}',
           },
         ),
       );
@@ -51,7 +50,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
         'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/products?status=$sortBy',
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
+            'Authorization': 'Bearer ${SaveUserData.user!.token}',
           },
         ),
       );
@@ -66,7 +65,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
         'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/products?search=$productName&status=$sortBy',
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
+            'Authorization': 'Bearer ${SaveUserData.user!.token}',
           },
         ),
       );
@@ -81,7 +80,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
         'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/products',
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
+            'Authorization': 'Bearer ${SaveUserData.user!.token}',
           },
         ),
       );
@@ -100,7 +99,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
       'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/products',
       options: Options(
         headers: {
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer ${SaveUserData.user!.token}',
         },
       ),
     );
@@ -125,7 +124,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
       data: formData,
       options: Options(
         headers: {
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer ${SaveUserData.user!.token}',
         },
       ),
     );
@@ -154,7 +153,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
       'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/products/',
       options: Options(
         headers: {
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer ${SaveUserData.user!.token}',
         },
       ),
       data: {
@@ -170,9 +169,6 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
         "Month": month,
       },
     );
-    print('======================================');
-    print(response.data["data"]);
-    print('======================================');
     ProductModel product = ProductModel.fromJson(response.data["data"]);
     return product;
   }

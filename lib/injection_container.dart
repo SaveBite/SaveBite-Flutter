@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -5,6 +6,12 @@ import 'package:save_bite/features/authentication/login/domain/use_case/login_em
 import 'package:save_bite/features/authentication/lost_image/data/data_sources/lost_image_remote_data_source.dart';
 import 'package:save_bite/features/authentication/lost_image/data/repos/lost_image_repo_imp.dart';
 import 'package:save_bite/features/authentication/lost_image/domain/use_case/lost_image_use_case.dart';
+import 'package:save_bite/features/home/data/date_sources/home_remote_data_sources.dart';
+import 'package:save_bite/features/home/data/repos/home_repo_imp.dart';
+import 'package:save_bite/features/home/domain/use_cases/add_product_use_case.dart';
+import 'package:save_bite/features/home/domain/use_cases/get_product_use_case.dart';
+import 'package:save_bite/features/home/domain/use_cases/get_stock_data_use_case.dart';
+import 'package:save_bite/features/home/domain/use_cases/upload_products_use_case.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:save_bite/core/network/local_data_source.dart';
 import 'package:save_bite/core/network/network_info.dart';
@@ -70,7 +77,7 @@ Future<void> init() async {
         ),
       ),
     );
-    //✅ LostImageUseCase
+    //✅ LostImageVerficationUseCase
     sl.registerSingleton<LostImageVerficationUseCase>(
       LostImageVerficationUseCase(
         lostImageRepo: LostImageRepoImp(
@@ -117,6 +124,51 @@ Future<void> init() async {
           checkCodeUseCase: sl(),
           resendCodeUseCase: sl(),
         ));
+
+    //! 2- Home Feature :
+
+    //✅ Home Repo
+
+    //✅ GetProductsUseCase
+    sl.registerSingleton<GetProductUseCase>(
+      GetProductUseCase(
+        homeRepo: HomeRepoImp(
+          homeRemoteDataSources: HomeRemoteDataSourcesImp(
+            dio: Dio(),
+          ),
+        ),
+      ),
+    );
+    //✅ GetStockDataUseCase
+    sl.registerSingleton<GetStockDataUseCase>(
+      GetStockDataUseCase(
+        homeRepo: HomeRepoImp(
+          homeRemoteDataSources: HomeRemoteDataSourcesImp(
+            dio: Dio(),
+          ),
+        ),
+      ),
+    );
+    //✅ UploadProductsUseCase
+    sl.registerSingleton<UploadProductsUseCase>(
+      UploadProductsUseCase(
+        homeRepo: HomeRepoImp(
+          homeRemoteDataSources: HomeRemoteDataSourcesImp(
+            dio: Dio(),
+          ),
+        ),
+      ),
+    );
+    //✅ AddProductsUseCase
+    sl.registerSingleton<AddProductUseCase>(
+      AddProductUseCase(
+        homeRepo: HomeRepoImp(
+          homeRemoteDataSources: HomeRemoteDataSourcesImp(
+            dio: Dio(),
+          ),
+        ),
+      ),
+    );
   } catch (e, stackTrace) {
     print('🚨 Error during dependency initialization: $e');
     print('Stack trace: $stackTrace');

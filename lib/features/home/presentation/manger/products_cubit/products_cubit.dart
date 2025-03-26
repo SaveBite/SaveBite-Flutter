@@ -95,9 +95,6 @@ class ProductsCubit extends Cubit<ProductsState> {
     result.fold((failure) {
       emit(AddProductFailure(errorMessage: failure.errorMessage));
     }, (data) {
-      print('======================================');
-      print(data);
-      print('======================================');
       emit(AddProductSuccess());
     });
   }
