@@ -6,7 +6,8 @@ import '../entity/check_code_entity.dart';
 import '../entity/resend_code_entity.dart';
 
 abstract class VerificationRepo {
-  Future<Either<Failure, CheckCodeResponseEntity>>  checkCode(CheckCodeEntity checkCodeEntity);
-  Future<Either<Failure, ResendCodeResponseEntity>> resendOtp(ResendCodeEntity resendCodeEntity);
-
+  Future<Either<Failure, CheckCodeResponseEntity>> checkCode(
+      CheckCodeEntity checkCodeEntity);
+  Future<Either<Failure, ResendCodeResponseEntity>> resendOtp(
+      ResendCodeEntity resendCodeEntity);
 }

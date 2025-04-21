@@ -40,7 +40,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<CheckCodeResponseEntity> checkCode(CheckCodeModel checkCodeModel) async {
+  Future<CheckCodeResponseEntity> checkCode(
+      CheckCodeModel checkCodeModel) async {
     try {
       var uri = Uri.parse('$BASE_URL/otp/verify');
 
@@ -90,15 +91,15 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<ResendCodeResponseEntity> resendOtp(ResendCodeModel resendCodeModel) async {
+  Future<ResendCodeResponseEntity> resendOtp(
+      ResendCodeModel resendCodeModel) async {
     try {
       final uri = Uri.parse('$BASE_URL/otp?email=${resendCodeModel.email}');
 
-      final response = await client.get(uri,
-          headers: {
-            'Accept': 'application/json',
-            'Accept-Language': 'ar',
-          });
+      final response = await client.get(uri, headers: {
+        'Accept': 'application/json',
+        'Accept-Language': 'ar',
+      });
 
       print("📤 Sending Resend OTP request...");
       print("📩 Response: ${response.body}");
@@ -120,7 +121,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           throw ServerException(errorMessage);
         }
       } else {
-        final errorMessage = jsonDecode(response.body)['message'] ?? 'Unknown error';
+        final errorMessage =
+            jsonDecode(response.body)['message'] ?? 'Unknown error';
         throw ServerException(errorMessage);
       }
     } catch (e) {

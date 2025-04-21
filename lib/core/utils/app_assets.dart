@@ -9,6 +9,21 @@ class Assets {
   /// Assets for imagesChatBit
   /// assets/images/chat_bit.svg
   static const String imagesChatBit = "assets/images/chat_bit.svg";
+  /// Assets for imagesBellowBar
+  /// assets/images/bellow_bar.svg
+  static const String imagesBellowBar = "assets/images/bellow_bar.svg";
+
+  /// Assets for imagesBellowMinmum
+  /// assets/images/bellow_minmum.svg
+  static const String imagesBellowMinmum = "assets/images/bellow_minmum.svg";
+
+  /// Assets for imagesCalender
+  /// assets/images/calender.svg
+  static const String imagesCalender = "assets/images/calender.svg";
+
+  /// Assets for imagesChatBite
+  /// assets/images/chat_bite.svg
+  static const String imagesChatBite = "assets/images/chat_bite.svg";
 
   /// Assets for imagesClose
   /// assets/images/close.svg
@@ -62,6 +77,10 @@ class Assets {
   /// assets/images/more.svg
   static const String imagesMore = "assets/images/more.svg";
 
+  /// Assets for imagesNegativeStock
+  /// assets/images/negative_stock.svg
+  static const String imagesNegativeStock = "assets/images/negative_stock.svg";
+
   /// Assets for imagesNotification
   /// assets/images/notification.svg
   static const String imagesNotification = "assets/images/notification.svg";
@@ -73,6 +92,10 @@ class Assets {
   /// Assets for imagesPlus
   /// assets/images/plus.svg
   static const String imagesPlus = "assets/images/plus.svg";
+
+  /// Assets for imagesPostitiveStock
+  /// assets/images/postitive_stock.svg
+  static const String imagesPostitiveStock = "assets/images/postitive_stock.svg";
 
   /// Assets for imagesProductSearch
   /// assets/images/product_search.svg
@@ -90,9 +113,21 @@ class Assets {
   /// assets/images/stock.svg
   static const String imagesStock = "assets/images/stock.svg";
 
+  /// Assets for imagesStockOnHand
+  /// assets/images/stock_on_hand.svg
+  static const String imagesStockOnHand = "assets/images/stock_on_hand.svg";
+
+  /// Assets for imagesTapleHeaderIcon
+  /// assets/images/taple_header_icon.svg
+  static const String imagesTapleHeaderIcon = "assets/images/taple_header_icon.svg";
+
   /// Assets for imagesTracking
   /// assets/images/tracking.svg
   static const String imagesTracking = "assets/images/tracking.svg";
+
+  /// Assets for imagesUploadFile
+  /// assets/images/upload_file.svg
+  static const String imagesUploadFile = "assets/images/upload_file.svg";
 
   /// Assets for imagesUploadIcon
   /// assets/images/upload_icon.svg

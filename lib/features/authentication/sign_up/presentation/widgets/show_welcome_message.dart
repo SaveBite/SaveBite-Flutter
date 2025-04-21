@@ -16,8 +16,14 @@ class ShowWelcomeMessage extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          Text(WelcomeMessage,style: AppStyles.styleMedium23,),
-          Text(authMessage,style: AppStyles.styleRegular16,)
+          Text(
+            WelcomeMessage,
+            style: AppStyles.styleMedium23,
+          ),
+          Text(
+            authMessage,
+            style: AppStyles.styleRegular16,
+          )
         ],
       ),
     );

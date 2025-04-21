@@ -1,5 +1,6 @@
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:flutter/material.dart';
+
 class CustomInternationalPhoneNumber extends StatefulWidget {
   const CustomInternationalPhoneNumber({
     super.key,
@@ -11,10 +12,12 @@ class CustomInternationalPhoneNumber extends StatefulWidget {
   final TextEditingController _phoneController;
 
   @override
-  State<CustomInternationalPhoneNumber> createState() => _CustomInternationalPhoneNumberState();
+  State<CustomInternationalPhoneNumber> createState() =>
+      _CustomInternationalPhoneNumberState();
 }
 
-class _CustomInternationalPhoneNumberState extends State<CustomInternationalPhoneNumber> {
+class _CustomInternationalPhoneNumberState
+    extends State<CustomInternationalPhoneNumber> {
   PhoneNumber number = PhoneNumber(isoCode: 'EG'); // Default country: Egypt
   String dialCode = "+20"; // Default dial code
   @override
@@ -22,14 +25,15 @@ class _CustomInternationalPhoneNumberState extends State<CustomInternationalPhon
     return InternationalPhoneNumberInput(
       onInputChanged: (PhoneNumber newNumber) {
         setState(() {
-           dialCode = newNumber.dialCode ?? ""; // Update prefix on selection
+          dialCode = newNumber.dialCode ?? ""; // Update prefix on selection
         });
       },
       onInputValidated: (bool value) {
         print("Valid: $value");
       },
       selectorConfig: SelectorConfig(
-        selectorType: PhoneInputSelectorType.BOTTOM_SHEET, // Shows country selector as bottom sheet
+        selectorType: PhoneInputSelectorType
+            .BOTTOM_SHEET, // Shows country selector as bottom sheet
         useBottomSheetSafeArea: true,
       ),
       ignoreBlank: false,
@@ -38,8 +42,9 @@ class _CustomInternationalPhoneNumberState extends State<CustomInternationalPhon
       initialValue: number,
       textFieldController: widget._phoneController,
       formatInput: true,
-      keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),inputBorder: OutlineInputBorder(
-
+      keyboardType:
+          TextInputType.numberWithOptions(signed: true, decimal: true),
+      inputBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Color(0xff5EDA42), width: 1),
         borderRadius: BorderRadius.circular(4),
       ),
@@ -49,7 +54,8 @@ class _CustomInternationalPhoneNumberState extends State<CustomInternationalPhon
       inputDecoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
         // prefixText: "$dialCode ", // Dynamically updates country code
-        prefixStyle: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
+        prefixStyle: TextStyle(
+            color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
         errorStyle: TextStyle(color: Color(0xffFF0000), fontSize: 12),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xff5EDA42), width: 1),
@@ -67,7 +73,8 @@ class _CustomInternationalPhoneNumberState extends State<CustomInternationalPhon
           borderSide: BorderSide(color: Color(0xffFF0000)),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xffFF0000)), // Custom color for errors
+          borderSide:
+              BorderSide(color: Color(0xffFF0000)), // Custom color for errors
         ),
       ),
       textStyle: TextStyle(
@@ -77,6 +84,7 @@ class _CustomInternationalPhoneNumberState extends State<CustomInternationalPhon
       ),
       onSaved: (PhoneNumber newNumber) {
         print('On Saved: $newNumber');
-      },);
+      },
+    );
   }
 }

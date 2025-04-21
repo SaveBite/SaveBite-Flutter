@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class ResendCodeEntity extends Equatable{
+class ResendCodeEntity extends Equatable {
   final String email;
 
   const ResendCodeEntity({

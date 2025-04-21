@@ -6,7 +6,7 @@ import 'package:save_bite/core/utils/app_styles.dart';
 import 'package:save_bite/features/authentication/login/presentation/manger/login_cubit/login_cubit.dart';
 import 'package:save_bite/features/authentication/login/presentation/views/login_email_password_view.dart';
 import 'package:save_bite/features/authentication/login/presentation/views/widgets/custom_message_widget.dart';
-import 'package:save_bite/features/home/home_view.dart';
+import 'package:save_bite/features/home/presentation/views/home_view.dart';
 
 class LoadingPageEmailPasswordViewBody extends StatefulWidget {
   const LoadingPageEmailPasswordViewBody({super.key});
