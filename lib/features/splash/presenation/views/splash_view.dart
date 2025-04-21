@@ -40,7 +40,7 @@ class _SplahViewState extends State<SplahView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff5EDA42),
-      body: SplashViewBody(),
+      body: LoginEmailImageView(),
     );
   }
 }
