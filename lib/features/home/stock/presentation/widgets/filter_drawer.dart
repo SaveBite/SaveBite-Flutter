@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:save_bite/features/home/stock/presentation/widgets/filter_category_section.dart';
+import 'package:save_bite/features/home/stock/presentation/widgets/search_bar.dart';
+import '../../domain/entites/product_stock_response_entity.dart';
 
-class FilterDrawer extends StatelessWidget {
-  const FilterDrawer({super.key});
+class FilterDrawer extends StatefulWidget {
+  final VoidCallback? onClose;
+  final ProductStockResponseEntity stockData;
+
+
+  const FilterDrawer({super.key, this.onClose, required this.stockData});
+
+  @override
+  State<FilterDrawer> createState() => _FilterDrawerState();
+}
+
+class _FilterDrawerState extends State<FilterDrawer> {
+  bool isAnySelected = false;
+  String searchTerm = "";
+
+  void _onSelectionChanged(bool anySelected) {
+    setState(() {
+      isAnySelected = anySelected;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -9,61 +30,73 @@ class FilterDrawer extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.85,
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text("Filter",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        style: Theme.of(context).textTheme.titleMedium),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.pop(context),
-                  )
+                    icon: const Icon(Icons.close, color: Colors.grey),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      if (widget.onClose != null) widget.onClose!();
+                    },
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
-              const Text("Select the filter according to what you want.",
-                  style: TextStyle(color: Colors.grey)),
-              const SizedBox(height: 16),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Search Product Name or Category",
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
+              const Text(
+                "Select the filter according to what you want.",
+                style: TextStyle(
+                    color: Color(0xffB3B3B3),
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400),
               ),
               const SizedBox(height: 16),
-              const Text("Category", style: TextStyle(fontWeight: FontWeight.bold)),
+              buildSearchBar(
+                Colors.transparent, 0, 0, 14, "Search Product Name or Category",
+                onChanged: (value) {
+                  setState(() {
+                    searchTerm = value.toLowerCase();
+                  });
+                },
+              ),
+              const SizedBox(height: 16),
+              const Text("Category",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500, color: Colors.black)),
               const SizedBox(height: 12),
               Expanded(
-                child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) => CheckboxListTile(
-                    value: false,
-                    onChanged: (val) {},
-                    title: Text("Category $index"),
+                  child: FilterCategoryCheckbox(
+                stockData: widget.stockData,
+                onSelectionChanged: _onSelectionChanged,
+                    searchTerm : searchTerm
+              )),
+
+
+              // TODO : apply on the chart
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    if (widget.onClose != null) widget.onClose!();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                    isAnySelected ? const Color(0xFF5EDA42) : Colors.grey,
+                    minimumSize: const Size(220,48),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
+                  child: const Text("Apply filter",
+                      style: TextStyle(color: Colors.white,fontSize: 19,fontWeight: FontWeight.w700)),
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  // Apply filter logic here
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF5EDA42),
-                  minimumSize: const Size.fromHeight(48),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: const Text("Apply filter", style: TextStyle(color: Colors.white)),
               ),
             ],
           ),

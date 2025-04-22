@@ -105,5 +105,9 @@ class Assets {
   /// Assets for imagesX
   /// assets/images/x.svg
   static const String imagesX = "assets/images/x.svg";
+
+  /// Assets for tuneFilter
+  /// assets/images/x.svg
+  static const String imagesTuneFilter = "assets/images/tune_filter.svg";
 }
 

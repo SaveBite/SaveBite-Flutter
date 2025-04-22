@@ -38,37 +38,6 @@ class ApprovedVerification extends StatelessWidget {
                     fontFamily: 'Noto Scans'),
               ),
 
-              // Text.rich(
-              //     textAlign: TextAlign.center,
-              //     TextSpan(
-              //         text: 'your Account has been Created.\n',
-              //         style: TextStyle(
-              //             fontSize: 16,
-              //             color: Color(0xff999999),
-              //             fontWeight: FontWeight.w400,
-              //             fontFamily: 'Noto Scans'),
-              //         children: <TextSpan>[
-              //           TextSpan(
-              //             text: 'your Account has been Created. ',
-              //             style: TextStyle(
-              //               fontSize: 16,
-              //               fontWeight: FontWeight.w400,
-              //               fontFamily: 'Noto Scans',
-              //               color: Colors.black,
-              //               decorationColor: Color(0xff5EDA42),
-              //             ),
-              //           ),
-              //           // TextSpan(
-              //           //   text: 'with your image, Please Check it.  ',
-              //           //   style: TextStyle(
-              //           //     fontSize: 16,
-              //           //     fontWeight: FontWeight.w400,
-              //           //     fontFamily: 'Noto Scans',
-              //           //     color: Color(0xff999999),
-              //           //     decorationColor: Color(0xff5EDA42),
-              //           //   ),
-              //           // ),
-              //         ])),
               SizedBox(
                 height: 20,
               ),
