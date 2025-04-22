@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:save_bite/core/failure/failure.dart';
-import '../../../../../core/network/network_info.dart';
+import '../../../../core/network/network_info.dart';
 import '../../domain/entites/product_filter_entity.dart';
 import '../../domain/entites/product_stock_response_entity.dart';
 import '../../domain/repos/stock_repo.dart';

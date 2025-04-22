@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:save_bite/features/home/stock/data/models/product_filter_model.dart';
-import '../../../../../core/network/auth_local_data_source.dart';
+import 'package:save_bite/features/stock/data/models/product_filter_model.dart';
+import '../../../../core/network/auth_local_data_source.dart';
 import '../../domain/entites/product_filter_entity.dart';
 import '../../domain/entites/product_stock_response_entity.dart';
 import '../models/product_stock_response_model.dart';

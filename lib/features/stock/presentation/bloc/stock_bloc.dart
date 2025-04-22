@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../../core/failure/failure.dart';
+import '../../../../core/failure/failure.dart';
 import '../../domain/entites/product_filter_entity.dart';
 import '../../domain/entites/product_stock_response_entity.dart';
 import '../../domain/repos/stock_repo.dart';

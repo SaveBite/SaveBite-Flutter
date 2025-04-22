@@ -6,7 +6,7 @@ import '../bloc/stock_bloc.dart';
 import '../../domain/entites/product_filter_entity.dart';
 import 'stock_body.dart';
 import '../widgets/filter_drawer.dart';
-import '../../../../../core/widgets/loading_widget.dart';
+import '../../../../core/widgets/loading_widget.dart';
 
 class StockPage extends StatefulWidget {
   const StockPage({super.key});

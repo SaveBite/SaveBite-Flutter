@@ -15,8 +15,8 @@ import 'package:save_bite/features/splash/presenation/views/splash_view.dart';
 import 'constants.dart';
 import 'core/utils/app_styles.dart';
 import 'features/authentication/login/data/model/user_model.dart';
-import 'features/home/stock/domain/entites/product_filter_entity.dart';
-import 'features/home/stock/presentation/bloc/stock_bloc.dart';
+import 'features/stock/domain/entites/product_filter_entity.dart';
+import 'features/stock/presentation/bloc/stock_bloc.dart';
 import 'injection_container.dart' as di;
 
 void main() async {

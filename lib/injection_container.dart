@@ -48,11 +48,11 @@ import 'package:save_bite/features/authentication/lost_image/domain/use_case/los
 import 'package:save_bite/features/authentication/lost_image/domain/use_case/lost_image_verfication_use_case.dart';
 
 // Stock Feature Imports
-import 'features/home/stock/data/datasorces/stock_remote_data_source.dart';
-import 'features/home/stock/data/repos/stock_repo_impl.dart';
-import 'features/home/stock/domain/repos/stock_repo.dart';
-import 'features/home/stock/domain/usecases/stock_usecase.dart';
-import 'features/home/stock/presentation/bloc/stock_bloc.dart';
+import 'features/stock/data/datasorces/stock_remote_data_source.dart';
+import 'features/stock/data/repos/stock_repo_impl.dart';
+import 'features/stock/domain/repos/stock_repo.dart';
+import 'features/stock/domain/usecases/stock_usecase.dart';
+import 'features/stock/presentation/bloc/stock_bloc.dart';
 
 final sl = GetIt.instance;
 

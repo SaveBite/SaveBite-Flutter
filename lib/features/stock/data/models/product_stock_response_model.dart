@@ -1,4 +1,4 @@
-import 'package:save_bite/features/home/stock/domain/entites/product_stock_response_entity.dart';
+import 'package:save_bite/features/stock/domain/entites/product_stock_response_entity.dart';
 
 class ProductStockResponseModel extends ProductStockResponseEntity {
   const ProductStockResponseModel({
