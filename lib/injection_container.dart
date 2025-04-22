@@ -1,39 +1,28 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:save_bite/features/authentication/login/domain/use_case/login_email_password__use_case.dart';
-import 'package:save_bite/features/authentication/lost_image/data/data_sources/lost_image_remote_data_source.dart';
-import 'package:save_bite/features/authentication/lost_image/data/repos/lost_image_repo_imp.dart';
-import 'package:save_bite/features/authentication/lost_image/domain/use_case/lost_image_use_case.dart';
-import 'package:save_bite/features/home/data/date_sources/home_remote_data_sources.dart';
-import 'package:save_bite/features/home/data/repos/home_repo_imp.dart';
-import 'package:save_bite/features/home/domain/use_cases/add_product_use_case.dart';
-import 'package:save_bite/features/home/domain/use_cases/get_product_use_case.dart';
-import 'package:save_bite/features/home/domain/use_cases/get_stock_data_use_case.dart';
-import 'package:save_bite/features/home/domain/use_cases/upload_products_use_case.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+// Core
 import 'package:save_bite/core/network/local_data_source.dart';
 import 'package:save_bite/core/network/network_info.dart';
 
-// Authentication Imports
+// Authentication - Sign Up
 import 'package:save_bite/features/authentication/sign_up/data/datasorces/remote_data_source.dart';
 import 'package:save_bite/features/authentication/sign_up/data/repos/auth_repo_impl.dart';
 import 'package:save_bite/features/authentication/sign_up/domain/repos/auth_repo.dart';
 import 'package:save_bite/features/authentication/sign_up/domain/usecases/sign_up_use_case.dart';
 import 'package:save_bite/features/authentication/sign_up/presentation/bloc/authentication_bloc.dart';
 
-// Login Imports
+// Authentication - Login
 import 'package:save_bite/features/authentication/login/data/data_source/login_remote_data_source.dart';
 import 'package:save_bite/features/authentication/login/data/repo/login_repo_imp.dart';
 import 'package:save_bite/features/authentication/login/domain/repo/login_repo.dart';
 import 'package:save_bite/features/authentication/login/domain/use_case/login_email_password__use_case.dart';
 import 'package:save_bite/features/authentication/login/domain/use_case/login_email_image_use_case.dart';
 
-// Verification Imports
+// Verification
 import 'package:save_bite/features/authentication/verification/data/datasources/remote_data_source.dart';
 import 'package:save_bite/features/authentication/verification/data/repos/otp_repo_impl.dart';
 import 'package:save_bite/features/authentication/verification/domain/repo/verification_repo.dart';
@@ -41,13 +30,21 @@ import 'package:save_bite/features/authentication/verification/domain/usecases/c
 import 'package:save_bite/features/authentication/verification/domain/usecases/resend_otp.dart';
 import 'package:save_bite/features/authentication/verification/presentation/bloc/otp_bloc.dart';
 
-// Lost Image Imports
+// Lost Image
 import 'package:save_bite/features/authentication/lost_image/data/data_sources/lost_image_remote_data_source.dart';
 import 'package:save_bite/features/authentication/lost_image/data/repos/lost_image_repo_imp.dart';
 import 'package:save_bite/features/authentication/lost_image/domain/use_case/lost_image_use_case.dart';
 import 'package:save_bite/features/authentication/lost_image/domain/use_case/lost_image_verfication_use_case.dart';
 
-// Stock Feature Imports
+// Home Feature
+import 'package:save_bite/features/home/data/date_sources/home_remote_data_sources.dart';
+import 'package:save_bite/features/home/data/repos/home_repo_imp.dart';
+import 'package:save_bite/features/home/domain/use_cases/add_product_use_case.dart';
+import 'package:save_bite/features/home/domain/use_cases/get_product_use_case.dart';
+import 'package:save_bite/features/home/domain/use_cases/get_stock_data_use_case.dart';
+import 'package:save_bite/features/home/domain/use_cases/upload_products_use_case.dart';
+
+// Stock Feature
 import 'features/stock/data/datasorces/stock_remote_data_source.dart';
 import 'features/stock/data/repos/stock_repo_impl.dart';
 import 'features/stock/domain/repos/stock_repo.dart';
@@ -67,129 +64,6 @@ Future<void> init() async {
     _initStockFeature();
 
     print('✅ All dependencies registered successfully!');
-    sl.registerLazySingleton<LocalDataSource>(
-        () => LocalDataSourceImpl(sharedPreferences: sl()));
-
-    //! 1- Authentication Feature :
-
-    print('📦 Initializing Authentication feature...');
-
-    //✅ LoginEmailImageUseCase
-    sl.registerSingleton<LoginEmailImageUseCase>(
-      LoginEmailImageUseCase(
-        loginRepo: LoginRepoImp(
-          loginRemoteDataSource: LoginRemoteDataSourceImp(),
-        ),
-      ),
-    );
-    //✅ LoginEmailPasswordUseCase
-    sl.registerSingleton<LoginEmailPasswordUseCase>(
-      LoginEmailPasswordUseCase(
-        loginRepo: LoginRepoImp(
-          loginRemoteDataSource: LoginRemoteDataSourceImp(),
-        ),
-      ),
-    );
-    //✅ LostImageUseCase
-    sl.registerSingleton<LostImageUseCase>(
-      LostImageUseCase(
-        lostImageRepo: LostImageRepoImp(
-          lostImageRemoteDataSource: LostImageRemoteDataSourceImp(),
-        ),
-      ),
-    );
-    //✅ LostImageVerficationUseCase
-    sl.registerSingleton<LostImageVerficationUseCase>(
-      LostImageVerficationUseCase(
-        lostImageRepo: LostImageRepoImp(
-          lostImageRemoteDataSource: LostImageRemoteDataSourceImp(),
-        ),
-      ),
-    );
-
-    // ✅ Register AuthRemoteDataSource first
-    sl.registerLazySingleton<AuthRemoteDataSource>(
-        () => AuthRemoteDataSourceImpl(client: sl()));
-
-    // ✅ Register Use Cases
-    sl.registerLazySingleton(() => SignUpUseCase(authRepository: sl()));
-
-    // ✅ Register Bloc
-    sl.registerFactory(() => AuthenticationBloc(signUpUseCase: sl()));
-
-    // ✅ Register Repos
-    sl.registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(authRemoteDataSource: sl()),
-    );
-
-    //! Verification Feature
-    print('📦 Initializing Verification feature...');
-
-    // ✅ Register Verification Remote Data Source
-    sl.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImpl(
-        client: sl(), authDataSource: sl())); // ✅ Added authDataSource
-
-    // ✅ Register Verification Repository
-    sl.registerLazySingleton<VerificationRepo>(() => OtpRepoImpl(
-          networkInfo: sl(),
-          remoteDataSource: sl(),
-          localDataSource: sl(),
-        ));
-
-    // ✅ Register Use Cases
-    sl.registerLazySingleton(() => CheckCodeUseCase(verificationRepo: sl()));
-    sl.registerLazySingleton(() => ResendCodeUseCase(verificationRepo: sl()));
-
-    // ✅ Register OTP Bloc
-    sl.registerFactory(() => OTPBloc(
-          checkCodeUseCase: sl(),
-          resendCodeUseCase: sl(),
-        ));
-
-    //! 2- Home Feature :
-
-    //✅ Home Repo
-
-    //✅ GetProductsUseCase
-    sl.registerSingleton<GetProductUseCase>(
-      GetProductUseCase(
-        homeRepo: HomeRepoImp(
-          homeRemoteDataSources: HomeRemoteDataSourcesImp(
-            dio: Dio(),
-          ),
-        ),
-      ),
-    );
-    //✅ GetStockDataUseCase
-    sl.registerSingleton<GetStockDataUseCase>(
-      GetStockDataUseCase(
-        homeRepo: HomeRepoImp(
-          homeRemoteDataSources: HomeRemoteDataSourcesImp(
-            dio: Dio(),
-          ),
-        ),
-      ),
-    );
-    //✅ UploadProductsUseCase
-    sl.registerSingleton<UploadProductsUseCase>(
-      UploadProductsUseCase(
-        homeRepo: HomeRepoImp(
-          homeRemoteDataSources: HomeRemoteDataSourcesImp(
-            dio: Dio(),
-          ),
-        ),
-      ),
-    );
-    //✅ AddProductsUseCase
-    sl.registerSingleton<AddProductUseCase>(
-      AddProductUseCase(
-        homeRepo: HomeRepoImp(
-          homeRemoteDataSources: HomeRemoteDataSourcesImp(
-            dio: Dio(),
-          ),
-        ),
-      ),
-    );
   } catch (e, stackTrace) {
     print('🚨 Error during initialization: $e');
     print('Stack trace: $stackTrace');
@@ -209,7 +83,6 @@ Future<void> _initCore() async {
 
   sl.registerLazySingleton<NetworkInfo>(
           () => NetworkInfoImpl(connectionChecker: sl()));
-
   sl.registerLazySingleton<LocalDataSource>(
           () => LocalDataSourceImpl(sharedPreferences: sl()));
 }
@@ -223,21 +96,16 @@ void _initAuthentication() {
   // ✅ Sign Up
   sl.registerLazySingleton<AuthRemoteDataSource>(
           () => AuthRemoteDataSourceImpl(client: sl()));
-
   sl.registerLazySingleton<AuthRepository>(
           () => AuthRepositoryImpl(authRemoteDataSource: sl()));
-
   sl.registerLazySingleton(() => SignUpUseCase(authRepository: sl()));
   sl.registerFactory(() => AuthenticationBloc(signUpUseCase: sl()));
 
   // ✅ Login
   sl.registerLazySingleton<LoginRemoteDataSource>(
           () => LoginRemoteDataSourceImp());
-
-  // ✅ Register LoginRepo using the interface
   sl.registerLazySingleton<LoginRepo>(
           () => LoginRepoImp(loginRemoteDataSource: sl()));
-
   sl.registerLazySingleton(() => LoginEmailImageUseCase(loginRepo: sl()));
   sl.registerLazySingleton(() => LoginEmailPasswordUseCase(loginRepo: sl()));
 }
@@ -248,18 +116,15 @@ void _initAuthentication() {
 void _initVerification() {
   print('📦 Initializing Verification...');
 
-  sl.registerLazySingleton<RemoteDataSource>(() =>
-      RemoteDataSourceImpl(client: sl(), authDataSource: sl()));
-
+  sl.registerLazySingleton<RemoteDataSource>(
+          () => RemoteDataSourceImpl(client: sl(), authDataSource: sl()));
   sl.registerLazySingleton<VerificationRepo>(() => OtpRepoImpl(
     networkInfo: sl(),
     remoteDataSource: sl(),
     localDataSource: sl(),
   ));
-
   sl.registerLazySingleton(() => CheckCodeUseCase(verificationRepo: sl()));
   sl.registerLazySingleton(() => ResendCodeUseCase(verificationRepo: sl()));
-
   sl.registerFactory(() => OTPBloc(
     checkCodeUseCase: sl(),
     resendCodeUseCase: sl(),
@@ -274,12 +139,11 @@ void _initLostImage() {
 
   sl.registerLazySingleton<LostImageRemoteDataSource>(
           () => LostImageRemoteDataSourceImp());
-
   sl.registerLazySingleton<LostImageRepoImp>(
           () => LostImageRepoImp(lostImageRemoteDataSource: sl()));
-
   sl.registerLazySingleton(() => LostImageUseCase(lostImageRepo: sl()));
-  sl.registerLazySingleton(() => LostImageVerficationUseCase(lostImageRepo: sl()));
+  sl.registerLazySingleton(
+          () => LostImageVerficationUseCase(lostImageRepo: sl()));
 }
 
 // ==========================
@@ -290,10 +154,16 @@ void _initStockFeature() {
 
   sl.registerLazySingleton<StockRemoteDataSource>(
           () => StockRemoteDataSourceImp(dio: Dio()));
-
-  sl.registerLazySingleton<StockRepo>(() =>
-      StockRepoImp(stockRemoteDataSource: sl(), networkInfo: sl()));
-
+  sl.registerLazySingleton<StockRepo>(
+          () => StockRepoImp(stockRemoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton(() => StockUseCase(stockRepo: sl()));
   sl.registerFactory(() => StockBloc(stockUseCase: sl()));
+
+  // ✅ Home UseCases
+  final homeRemote = HomeRemoteDataSourcesImp(dio: Dio());
+  final homeRepo = HomeRepoImp(homeRemoteDataSources: homeRemote);
+  sl.registerSingleton(GetProductUseCase(homeRepo: homeRepo));
+  sl.registerSingleton(GetStockDataUseCase(homeRepo: homeRepo));
+  sl.registerSingleton(UploadProductsUseCase(homeRepo: homeRepo));
+  sl.registerSingleton(AddProductUseCase(homeRepo: homeRepo));
 }

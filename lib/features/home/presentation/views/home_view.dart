@@ -16,6 +16,8 @@ import 'package:save_bite/features/home/presentation/views/widgets/stock_view_bo
 import 'package:save_bite/features/home/presentation/views/widgets/tracking_view_body.dart';
 import 'package:save_bite/injection_container.dart';
 
+import '../../../stock/presentation/pages/stock_page.dart';
+
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
@@ -28,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
 
   final List<Widget> pages = [
     HomeViewBody(),
-    StockViewBody(),
+    StockPage(),
     TrackingViewBody(),
     ChatBotViewBody(),
     MoreViewBody(),

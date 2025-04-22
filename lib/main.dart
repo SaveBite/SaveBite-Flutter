@@ -93,9 +93,7 @@ class _SaveBiteState extends State<SaveBite> {
             ),
             scaffoldBackgroundColor: Color(0xffFFFFFF),
           ),
-          home:
-          // ChartScreen()
-          SplahView(),
+          home: SplahView(),
         ),
       ),
     );
