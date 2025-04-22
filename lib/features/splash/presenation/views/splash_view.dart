@@ -8,7 +8,7 @@ class SplahView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff5EDA42),
-      body: LoginEmailImageView(),
+      body: const SplashViewBody(),
     );
   }
 }
