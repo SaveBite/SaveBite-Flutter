@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 import 'package:save_bite/core/utils/functions/intial_hive.dart';
 import 'package:save_bite/features/authentication/login/domain/use_case/login_email_image_use_case.dart';
 import 'package:save_bite/features/authentication/login/domain/use_case/login_email_password__use_case.dart';
@@ -11,12 +12,25 @@ import 'package:save_bite/features/authentication/lost_image/presentation/manger
 import 'package:save_bite/features/authentication/sign_up/presentation/bloc/authentication_bloc.dart';
 import 'package:save_bite/features/authentication/verification/presentation/bloc/otp_bloc.dart';
 import 'package:save_bite/features/splash/presenation/views/splash_view.dart';
+import 'constants.dart';
 import 'core/utils/app_styles.dart';
+import 'features/authentication/login/data/model/user_model.dart';
+import 'features/home/stock/domain/entites/product_filter_entity.dart';
+import 'features/home/stock/presentation/bloc/stock_bloc.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await intialHive();
+
+  if (!Hive.isAdapterRegistered(0)) {
+    Hive.registerAdapter(UserModelAdapter());
+  }
+
+  await Hive.openBox<UserModel?>(kUserBox);
+  await Hive.openBox<bool?>(kRemmberBox);
+
   di.sl.reset();
   await di.init();
 
@@ -24,6 +38,7 @@ void main() async {
 }
 
 class SaveBite extends StatefulWidget {
+
   const SaveBite({super.key});
 
   @override
@@ -56,6 +71,12 @@ class _SaveBiteState extends State<SaveBite> {
                   di.sl.get<LostImageVerficationUseCase>(),
             ),
           ),
+
+          // StockBloc with initial event trigger
+          BlocProvider(
+            create: (_) => di.sl<StockBloc>()
+              ..add(GetStockProductsEvent(filter: ProductFilterEntity())),
+          ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -72,7 +93,9 @@ class _SaveBiteState extends State<SaveBite> {
             ),
             scaffoldBackgroundColor: Color(0xffFFFFFF),
           ),
-          home: SplahView(),
+          home:
+          // ChartScreen()
+          SplahView(),
         ),
       ),
     );
