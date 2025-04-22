@@ -32,11 +32,33 @@ class _buildLineChartState extends State<buildLineChart> {
   @override
   void initState() {
     super.initState();
-    curve1 = widget.curve1;
-    curve2 = widget.curve2;
-    curve3 = widget.curve3;
-    curve4 = widget.curve4;
+    curve1 = widget.curve1.isNotEmpty ? widget.curve1 : [FlSpot(0, 0)];
+    curve2 = widget.curve2.isNotEmpty ? widget.curve2 : [FlSpot(0, 0)];
+    curve3 = widget.curve3.isNotEmpty ? widget.curve3 : [FlSpot(0, 0)];
+    curve4 = widget.curve4.isNotEmpty ? widget.curve4 : [FlSpot(0, 0)];
     productNames = widget.productNames;
+    print("LineChart Product Names: $productNames");
+    print("LineChart initState Curves: $curve1, $curve2, $curve3, $curve4");
+  }
+
+  @override
+  void didUpdateWidget(buildLineChart oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.curve1 != widget.curve1 ||
+        oldWidget.curve2 != widget.curve2 ||
+        oldWidget.curve3 != widget.curve3 ||
+        oldWidget.curve4 != widget.curve4 ||
+        oldWidget.productNames != widget.productNames) {
+      setState(() {
+        curve1 = widget.curve1.isNotEmpty ? widget.curve1 : [FlSpot(0, 0)];
+        curve2 = widget.curve2.isNotEmpty ? widget.curve2 : [FlSpot(0, 0)];
+        curve3 = widget.curve3.isNotEmpty ? widget.curve3 : [FlSpot(0, 0)];
+        curve4 = widget.curve4.isNotEmpty ? widget.curve4 : [FlSpot(0, 0)];
+        productNames = widget.productNames;
+        print("LineChart didUpdateWidget Product Names: $productNames");
+        print("LineChart didUpdateWidget Curves: $curve1, $curve2, $curve3, $curve4");
+      });
+    }
   }
 
   double getYatX(double x, List<FlSpot> curve) {
@@ -213,7 +235,7 @@ class _buildLineChartState extends State<buildLineChart> {
                   child: AspectRatio(
                     aspectRatio: 1.5,
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 16),
+                      padding: const EdgeInsets.only(right: 16,left: 8),
                       child: LineChart(
                         key: chartKey,
                         LineChartData(
@@ -283,54 +305,81 @@ class _buildLineChartState extends State<buildLineChart> {
                           ),
                           lineTouchData: LineTouchData(enabled: false),
                           lineBarsData: [
-                            LineChartBarData(
-                              spots: curve1,
-                              isCurved: false,
-                              barWidth: 4,
-                              gradient: LinearGradient(colors: gradients[0]),
-                              dotData: FlDotData(show: false),
-                            ),
-                            LineChartBarData(
-                              spots: curve2,
-                              isCurved: false,
-                              barWidth: 4,
-                              gradient: LinearGradient(colors: gradients[1]),
-                              dotData: FlDotData(show: false),
-                            ),
-                            LineChartBarData(
-                              spots: curve3,
-                              isCurved: false,
-                              barWidth: 4,
-                              gradient: LinearGradient(colors: gradients[2]),
-                              dotData: FlDotData(show: false),
-                            ),
-                            LineChartBarData(
-                              spots: curve4,
-                              isCurved: false,
-                              barWidth: 4,
-                              gradient: LinearGradient(colors: gradients[3]),
-                              dotData: FlDotData(show: false),
-                            ),
-                            _buildDraggableDot(dotX1, dotY1, gradients[0][0]),
-                            _buildDraggableDot(dotX2, dotY2, gradients[1][0]),
-                            _buildDraggableDot(dotX3, dotY3, gradients[2][0]),
-                            _buildDraggableDot(dotX4, dotY4, gradients[3][0]),
-                          ],
-                        ),
+                            if (curve1.length > 1)
+                              LineChartBarData(
+                                spots: curve1,
+                                isCurved: false,
+                                barWidth: 4,
+                                gradient: LinearGradient(colors: gradients[0]),
+                                dotData: FlDotData(show: false),
+                              ),
+                            if (curve2.length > 1)
+                              LineChartBarData(
+                                spots: curve2,
+                                isCurved: false,
+                                barWidth: 4,
+                                gradient: LinearGradient(colors: gradients[1]),
+                                dotData: FlDotData(show: false),
+                              ),
+                            if (curve3.length > 1)
+                              LineChartBarData(
+                                spots: curve3,
+                                isCurved: false,
+                                barWidth: 4,
+                                gradient: LinearGradient(colors: gradients[2]),
+                                dotData: FlDotData(show: false),
+                              ),
+                            if (curve4.length > 1)
+                              LineChartBarData(
+                                spots: curve4,
+                                isCurved: false,
+                                barWidth: 4,
+                                gradient: LinearGradient(colors: gradients[3]),
+                                dotData: FlDotData(show: false),
+                              ),
+                            if (curve1.length > 1)
+                              _buildDraggableDot(dotX1, dotY1, gradients[0][0]),
+                            if (curve2.length > 1)
+                              _buildDraggableDot(dotX2, dotY2, gradients[1][0]),
+                            if (curve3.length > 1)
+                              _buildDraggableDot(dotX3, dotY3, gradients[2][0]),
+                            if (curve4.length > 1)
+                              _buildDraggableDot(dotX4, dotY4, gradients[3][0]),
+                          ],                        ),
                       ),
                     ),
                   ),
                 ),
 
                 // Tooltips
-                _buildTooltip(
-                    dx: dotX1, dy: dotY1, productName: productNames[0], color: gradients[0][0]),
-                _buildTooltip(
-                    dx: dotX2, dy: dotY2, productName: productNames[1], color: gradients[1][0]),
-                _buildTooltip(
-                    dx: dotX3, dy: dotY3, productName: productNames[2], color: gradients[2][0]),
-                _buildTooltip(
-                    dx: dotX4, dy: dotY4, productName: productNames[3], color: gradients[3][0]),
+                if (curve1.length > 1 && productNames[0].isNotEmpty)
+                  _buildTooltip(
+                    dx: dotX1,
+                    dy: dotY1,
+                    productName: productNames[0],
+                    color: gradients[0][0],
+                  ),
+                if (curve2.length > 1 && productNames[1].isNotEmpty)
+                  _buildTooltip(
+                    dx: dotX2,
+                    dy: dotY2,
+                    productName: productNames[1],
+                    color: gradients[1][0],
+                  ),
+                if (curve3.length > 1 && productNames[2].isNotEmpty)
+                  _buildTooltip(
+                    dx: dotX3,
+                    dy: dotY3,
+                    productName: productNames[2],
+                    color: gradients[2][0],
+                  ),
+                if (curve4.length > 1 && productNames[3].isNotEmpty)
+                  _buildTooltip(
+                    dx: dotX4,
+                    dy: dotY4,
+                    productName: productNames[3],
+                    color: gradients[3][0],
+                  ),
               ],
             ),
           ),

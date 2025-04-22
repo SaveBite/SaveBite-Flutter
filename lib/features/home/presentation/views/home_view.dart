@@ -12,7 +12,6 @@ import 'package:save_bite/features/home/presentation/views/widgets/custom_bottom
 import 'package:save_bite/features/home/presentation/views/widgets/home_view_body.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/more_icon.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/more_view_body.dart';
-import 'package:save_bite/features/home/presentation/views/widgets/stock_view_body.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/tracking_view_body.dart';
 import 'package:save_bite/injection_container.dart';
 

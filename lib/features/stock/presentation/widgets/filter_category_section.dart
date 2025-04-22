@@ -14,14 +14,15 @@ class FilterCategoryCheckbox extends StatefulWidget {
   });
 
   @override
-  State<FilterCategoryCheckbox> createState() => _FilterCategoryCheckboxState();
+  State<FilterCategoryCheckbox> createState() => FilterCategoryCheckboxState();
 }
 
-class _FilterCategoryCheckboxState extends State<FilterCategoryCheckbox> {
+class FilterCategoryCheckboxState extends State<FilterCategoryCheckbox> {
   late Map<String, List<String>> groupedData;
   Map<String, bool> parentChecked = {};
   Map<String, Map<String, bool>> childChecked = {};
   Map<String, bool> isExpanded = {};
+
 
   @override
   void initState() {
@@ -29,7 +30,8 @@ class _FilterCategoryCheckboxState extends State<FilterCategoryCheckbox> {
     _groupData(widget.stockData);
   }
 
-  void _groupData(ProductStockResponseEntity stockData) {
+// Grouping the product data by category
+void _groupData(ProductStockResponseEntity stockData) {
     groupedData = {};
     for (var item in stockData.data) {
       groupedData.putIfAbsent(item.category, () => []).add(item.productName);
@@ -43,7 +45,7 @@ class _FilterCategoryCheckboxState extends State<FilterCategoryCheckbox> {
       };
     }
   }
-
+// Toggles the state of the parent checkbox
   void _toggleParent(String category, bool? value) {
     setState(() {
       parentChecked[category] = value!;
@@ -55,6 +57,9 @@ class _FilterCategoryCheckboxState extends State<FilterCategoryCheckbox> {
 
   }
 
+
+
+  // Toggles the state of a child checkbox
   void _toggleChild(String category, String product, bool? value) {
     setState(() {
       childChecked[category]![product] = value!;
@@ -63,11 +68,26 @@ class _FilterCategoryCheckboxState extends State<FilterCategoryCheckbox> {
     widget.onSelectionChanged?.call(_checkAnySelected());
   }
 
+  // Checks if any product is selected within any category.
   bool _checkAnySelected() {
     for (var category in childChecked.values) {
       if (category.containsValue(true)) return true;
     }
     return false;
+  }
+
+  // Return selected product names
+  Set<String> getSelectedProductNames() {
+    Set<String> selected = {};
+    for (var category in childChecked.entries) {
+      for (var product in category.value.entries) {
+        if (product.value) {
+          selected.add(product.key);
+        }
+      }
+    }
+    print("Selected Product Names from Checkbox: $selected"); // Debug print
+    return selected;
   }
 
   @override

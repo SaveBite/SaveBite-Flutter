@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:save_bite/features/stock/presentation/widgets/filter_category_section.dart';
 import 'package:save_bite/features/stock/presentation/widgets/search_bar.dart';
 import '../../domain/entites/product_stock_response_entity.dart';
+import 'filter_category_section.dart';
 
 class FilterDrawer extends StatefulWidget {
   final VoidCallback? onClose;
   final ProductStockResponseEntity stockData;
+  final Function(Set<String>)? onApplyFilter;
 
-
-  const FilterDrawer({super.key, this.onClose, required this.stockData});
-
+  const FilterDrawer({
+    super.key,
+    this.onClose,
+    required this.stockData,
+    this.onApplyFilter,
+  });
   @override
   State<FilterDrawer> createState() => _FilterDrawerState();
 }
@@ -17,6 +21,7 @@ class FilterDrawer extends StatefulWidget {
 class _FilterDrawerState extends State<FilterDrawer> {
   bool isAnySelected = false;
   String searchTerm = "";
+  final GlobalKey<FilterCategoryCheckboxState> _checkboxKey = GlobalKey();
 
   void _onSelectionChanged(bool anySelected) {
     setState(() {
@@ -73,16 +78,23 @@ class _FilterDrawerState extends State<FilterDrawer> {
               const SizedBox(height: 12),
               Expanded(
                   child: FilterCategoryCheckbox(
-                stockData: widget.stockData,
-                onSelectionChanged: _onSelectionChanged,
-                    searchTerm : searchTerm
-              )),
+                      key: _checkboxKey,
+                      stockData: widget.stockData,
+                      onSelectionChanged: _onSelectionChanged,
+                      searchTerm : searchTerm
+                  )),
 
 
               // TODO : apply on the chart
               Center(
                 child: ElevatedButton(
                   onPressed: () {
+                    // Get selected product names
+                    final selectedProducts =
+                        _checkboxKey.currentState?.getSelectedProductNames() ?? {};
+                    // Call callback with selected products
+                    widget.onApplyFilter?.call(selectedProducts);
+
                     Navigator.pop(context);
                     if (widget.onClose != null) widget.onClose!();
                   },

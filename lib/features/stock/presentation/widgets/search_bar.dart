@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-Widget buildSearchBar(Color fillColor,
-    double horizontal,
-    double vertical,
-    double fontsize,
-    String hintText,
+Widget buildSearchBar(Color fillColor, double horizontal, double vertical,
+    double fontsize, String hintText,
     {Function(String)? onChanged}) {
   return Padding(
     padding: const EdgeInsets.all(8),
@@ -20,7 +17,7 @@ Widget buildSearchBar(Color fillColor,
           isDense: true,
           // Reduces overall vertical space
           contentPadding:
-          EdgeInsets.symmetric(vertical: vertical, horizontal: horizontal),
+              EdgeInsets.symmetric(vertical: vertical, horizontal: horizontal),
           // Controls height
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),
@@ -34,7 +31,6 @@ Widget buildSearchBar(Color fillColor,
             borderSide: BorderSide(color: Color(0xffEDE4E4), width: 1),
           ),
         ),
-        onChanged: onChanged
-    ),
+        onChanged: onChanged),
   );
 }

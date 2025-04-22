@@ -12,12 +12,14 @@ class StockViewBody extends StatelessWidget {
   final VoidCallback onFilterOpened;
   final VoidCallback onFilterClosed;
   final ProductStockResponseEntity stockData;
+  final Set<String> selectedProductNames;
 
   const StockViewBody({
     super.key,
     required this.onFilterOpened,
     required this.onFilterClosed,
     required this.stockData,
+    required this.selectedProductNames,
   });
 
   String formatDate(DateTime date) {
@@ -36,6 +38,28 @@ class StockViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final stockItems = stockData;
+
+    // Filter data based on selected product names
+    final filteredData = selectedProductNames.isEmpty
+        ? stockItems.data.take(4).toList()
+        : stockItems.data
+        .where((item) => selectedProductNames.contains(item.productName))
+        .take(4)
+        .toList();
+
+    final productNames = filteredData.map((item) => item.productName).toList();
+    final curves = filteredData.map((item) => mapToFlSpots(item.reorderQuantities)).toList();
+
+    // Debug prints
+    print("Selected Product Names: $selectedProductNames");
+    print("Filtered Product Names: $productNames");
+    print("Filtered Data Length: ${filteredData.length}");
+
+    // Pad curves and productNames to ensure 4 curves are passed
+    while (curves.length < 4) {
+      curves.add([FlSpot(0, 0)]); // Empty curve
+      productNames.add(""); // Empty name
+    }
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -113,20 +137,11 @@ class StockViewBody extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   buildLineChart(
-                    curve1:
-                    mapToFlSpots(stockItems.data[0].reorderQuantities),
-                    curve2:
-                    mapToFlSpots(stockItems.data[1].reorderQuantities),
-                    curve3:
-                    mapToFlSpots(stockItems.data[6].reorderQuantities),
-                    curve4:
-                    mapToFlSpots(stockItems.data[10].reorderQuantities),
-                    productNames: [
-                      stockItems.data[0].productName,
-                      stockItems.data[1].productName,
-                      stockItems.data[6].productName,
-                      stockItems.data[10].productName,
-                    ],
+                    curve1: curves[0],
+                    curve2: curves[1],
+                    curve3: curves[2],
+                    curve4: curves[3],
+                    productNames: productNames,
                   ),
                 ],
               ),
