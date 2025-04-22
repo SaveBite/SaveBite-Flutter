@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:save_bite/core/failure/failure.dart';
-import 'package:save_bite/features/home/stock/domain/entites/product_stock_response_entity.dart';
-import 'package:save_bite/features/home/stock/domain/repos/stock_repo.dart';
 import '../entites/product_filter_entity.dart';
+import '../entites/product_stock_response_entity.dart';
+import '../repos/stock_repo.dart';
 
 class StockUseCase {
   final StockRepo stockRepo;

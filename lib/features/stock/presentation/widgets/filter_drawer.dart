@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:save_bite/features/home/stock/presentation/widgets/filter_category_section.dart';
-import 'package:save_bite/features/home/stock/presentation/widgets/search_bar.dart';
+import 'package:save_bite/features/stock/presentation/widgets/search_bar.dart';
 import '../../domain/entites/product_stock_response_entity.dart';
+import 'filter_category_section.dart';
 
 class FilterDrawer extends StatefulWidget {
   final VoidCallback? onClose;
