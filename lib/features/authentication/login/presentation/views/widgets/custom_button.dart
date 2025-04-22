@@ -16,12 +16,15 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material( // Add Material widget for InkWell to work
+    return Material(
+      // Add Material widget for InkWell to work
       color: Colors.transparent, // Make Material transparent
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(4), // Match container's border radius
-        child: Ink( // Use Ink to apply background and border
+        borderRadius:
+            BorderRadius.circular(4), // Match container's border radius
+        child: Ink(
+          // Use Ink to apply background and border
           width: double.infinity,
           height: 64,
           decoration: BoxDecoration(

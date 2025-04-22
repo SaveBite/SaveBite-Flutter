@@ -10,7 +10,8 @@ String? validatePassword(String? value) {
   if (!value.contains(RegExp(r'[A-Z]'))) return 'At least one uppercase letter';
   if (!value.contains(RegExp(r'[a-z]'))) return 'At least one lowercase letter';
   if (!value.contains(RegExp(r'[0-9]'))) return 'At least one digit';
-  if (!value.contains(RegExp(r'[!@#\$&*~]'))) return 'At least one special character';
+  if (!value.contains(RegExp(r'[!@#\$&*~]')))
+    return 'At least one special character';
   return null;
 }
 

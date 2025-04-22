@@ -20,11 +20,13 @@ class ServerFailure extends Failure {
 }
 
 class CacheFailure extends Failure {
-  const CacheFailure({String message = CACHE_FAILURE_MESSAGE}) : super(message: message);
+  const CacheFailure({String message = CACHE_FAILURE_MESSAGE})
+      : super(message: message);
 }
 
 class ExistedAccountFailure extends Failure {
-  const ExistedAccountFailure() : super(message: EXISTED_ACCOUNT_FAILURE_MESSAGE);
+  const ExistedAccountFailure()
+      : super(message: EXISTED_ACCOUNT_FAILURE_MESSAGE);
 }
 
 class NoUserFailure extends Failure {
@@ -36,7 +38,8 @@ class WrongPasswordFailure extends Failure {
 }
 
 class UnmatchedPassFailure extends Failure {
-  const UnmatchedPassFailure() : super(message: UNMATCHED_PASSWORD_FAILURE_MESSAGE);
+  const UnmatchedPassFailure()
+      : super(message: UNMATCHED_PASSWORD_FAILURE_MESSAGE);
 }
 
 class NotLoggedInFailure extends Failure {
@@ -48,7 +51,8 @@ class EmailVerifiedFailure extends Failure {
 }
 
 class TooManyRequestsFailure extends Failure {
-  const TooManyRequestsFailure() : super(message: TOO_MANY_REQUESTS_FAILURE_MESSAGE);
+  const TooManyRequestsFailure()
+      : super(message: TOO_MANY_REQUESTS_FAILURE_MESSAGE);
 }
 
 class WeakPasswordFailure extends Failure {
@@ -58,8 +62,11 @@ class WeakPasswordFailure extends Failure {
 class ValidationFailure extends Failure {
   final List<String> errors;
 
-   ValidationFailure(this.errors)
-      : super(message: errors.isNotEmpty ? errors.join("\n") : VALIDATION_ERROR_MESSAGE);
+  ValidationFailure(this.errors)
+      : super(
+            message: errors.isNotEmpty
+                ? errors.join("\n")
+                : VALIDATION_ERROR_MESSAGE);
 
   @override
   List<Object?> get props => [message, errors];

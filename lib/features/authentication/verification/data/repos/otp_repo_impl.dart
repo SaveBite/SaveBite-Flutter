@@ -18,8 +18,10 @@ class OtpRepoImpl implements VerificationRepo {
   final RemoteDataSource remoteDataSource;
   final LocalDataSource localDataSource;
 
-
-  OtpRepoImpl({required this.networkInfo,required this.remoteDataSource, required this.localDataSource});
+  OtpRepoImpl(
+      {required this.networkInfo,
+      required this.remoteDataSource,
+      required this.localDataSource});
 
   @override
   Future<Either<Failure, CheckCodeResponseEntity>> checkCode(
@@ -27,7 +29,8 @@ class OtpRepoImpl implements VerificationRepo {
     try {
       final CheckCodeModel checkCodeModel = CheckCodeModel(
           otp: checkCodeEntity.otp, otp_token: checkCodeEntity.otp_token);
-      print("📤 Sending OTP verification request with: ${checkCodeModel.toJson()}");
+      print(
+          "📤 Sending OTP verification request with: ${checkCodeModel.toJson()}");
       final result = await remoteDataSource.checkCode(checkCodeModel);
       print("✅ OTP verification successful! Response: ${result.token}");
       return Right(result);
@@ -37,12 +40,14 @@ class OtpRepoImpl implements VerificationRepo {
     }
   }
 
-
   @override
-  Future<Either<Failure, ResendCodeResponseEntity>> resendOtp(ResendCodeEntity resendCodeEntity) async{
+  Future<Either<Failure, ResendCodeResponseEntity>> resendOtp(
+      ResendCodeEntity resendCodeEntity) async {
     try {
-      final ResendCodeModel resendCodeModel = ResendCodeModel(email: resendCodeEntity.email);
-      print("📤 Sending OTP verification request with: ${resendCodeModel.toJson()}");
+      final ResendCodeModel resendCodeModel =
+          ResendCodeModel(email: resendCodeEntity.email);
+      print(
+          "📤 Sending OTP verification request with: ${resendCodeModel.toJson()}");
       final result = await remoteDataSource.resendOtp(resendCodeModel);
       print("✅ OTP verification successful! Response: ${result}");
       localDataSource.cacheToken(result.otpToken);
@@ -52,8 +57,4 @@ class OtpRepoImpl implements VerificationRepo {
       return Left(ServerFailure(message: e.message));
     }
   }
-
-
 }
-
-

@@ -1,9 +1,10 @@
 import 'package:save_bite/features/authentication/verification/domain/entity/check_code_entity.dart';
 
 class CheckCodeModel extends CheckCodeEntity {
-  CheckCodeModel(
-      {required super.otp,
-        required super.otp_token,});
+  CheckCodeModel({
+    required super.otp,
+    required super.otp_token,
+  });
 
   factory CheckCodeModel.fromJson(Map<String, dynamic> json) {
     return CheckCodeModel(

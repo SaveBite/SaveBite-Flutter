@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class AuthEntity extends Equatable{
+class AuthEntity extends Equatable {
   final String token;
   final String otpToken;
   final bool isVerified;
@@ -19,6 +19,5 @@ class AuthEntity extends Equatable{
 
   @override
   // TODO: implement props
-  List<Object?> get props => [token, otpToken,isVerified,name,email,type];
-
+  List<Object?> get props => [token, otpToken, isVerified, name, email, type];
 }

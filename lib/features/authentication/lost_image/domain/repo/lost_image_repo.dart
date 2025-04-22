@@ -6,7 +6,7 @@ abstract class LostImageRepo {
     required String email,
     required String answer,
   });
-  Future<Either<Failure,String>> lostImageVerfication({
+  Future<Either<Failure, String>> lostImageVerfication({
     required String email,
     required String otp,
     required String otpToken,

@@ -53,7 +53,8 @@ class CustomTextFormField extends StatelessWidget {
                 fontFamily: 'Noto Scans',
                 color: Color(0xffCCCCCC),
               ),
-              errorStyle: const TextStyle(color: Color(0xffFF0000)), // Red color for errors
+              errorStyle: const TextStyle(
+                  color: Color(0xffFF0000)), // Red color for errors
               prefixIcon: leadingIcon,
               suffixIcon: trailingIcon,
               suffixIconColor: const Color(0xff666666),
@@ -61,7 +62,8 @@ class CustomTextFormField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Color(0xff5EDA42), width: 1),
+                borderSide:
+                    const BorderSide(color: Color(0xff5EDA42), width: 1),
                 borderRadius: BorderRadius.circular(4),
               ),
               enabledBorder: OutlineInputBorder(
@@ -72,14 +74,17 @@ class CustomTextFormField extends StatelessWidget {
                 borderSide: BorderSide(color: Color(0xffFF0000)),
               ),
               focusedErrorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xffFF0000)), // Custom color for errors
+                borderSide: BorderSide(
+                    color: Color(0xffFF0000)), // Custom color for errors
               ),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 13, vertical: 16),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 13, vertical: 16),
             ),
             validator: validator, // Use the provided validator
             obscureText: obscureText,
             keyboardType: keyboardType,
-            autovalidateMode: AutovalidateMode.onUserInteraction, // Validate as the user types
+            autovalidateMode: AutovalidateMode
+                .onUserInteraction, // Validate as the user types
           ),
           const SizedBox(height: 10),
         ],

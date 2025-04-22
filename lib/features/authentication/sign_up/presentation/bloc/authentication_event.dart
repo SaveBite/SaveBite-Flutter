@@ -13,6 +13,4 @@ class SignUpEvent extends AuthenticationEvent {
   final SignUpEntity signUpEntity;
 
   const SignUpEvent({required this.signUpEntity});
-
 }
-
