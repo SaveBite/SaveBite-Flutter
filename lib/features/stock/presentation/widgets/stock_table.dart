@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:save_bite/core/utils/app_styles.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/tabler_header_iteam.dart';
+import 'package:save_bite/features/stock/presentation/widgets/reorder_quaintity_header.dart';
 
 import '../../../home/presentation/views/widgets/product_name_header.dart';
-import '../../data/models/product_stock_response_model.dart';
 import '../../domain/entites/product_stock_response_entity.dart';
 
 class StockTable extends StatefulWidget {
@@ -32,17 +32,9 @@ class _ProductTableState extends State<StockTable> {
       ),
       dividerThickness: 0,
       columns: [
-        // DataColumn(label: TableHeaderIteam(iteamName: "Product Name")),
         DataColumn(label: ProductNameHeader()),
         DataColumn(label: TableHeaderIteam(iteamName: "Category")),
-        DataColumn(label: TableHeaderIteam(iteamName: "ReorderQuantity ")),
-        // DataColumn(label: TableHeaderIteam(iteamName: "ReorderQuantity Week2")),
-        // DataColumn(label: TableHeaderIteam(iteamName: "ReorderQuantity Week3")),
-        // DataColumn(label: TableHeaderIteam(iteamName: "ReorderQuantity Week4")),
-        // DataColumn(label: SizedBox()),
-        // DataColumn(label: SizedBox()),
-        // DataColumn(label: SizedBox()),
-
+        DataColumn(label: ReorderQuaintityHeader()),
       ],
       rows: widget.products
           .map((product) => DataRow(
@@ -80,17 +72,20 @@ class _ProductTableState extends State<StockTable> {
                   ),
                   DataCell(
                     Container(
-                      color: Colors.white,
-                      width: 166,
-                      height: 55,
-                      padding: EdgeInsets.only(left: 12),
-                      margin: EdgeInsets.only(
-                        right: 0,
-                        bottom: 2,
-                      ),
-                      alignment: Alignment.centerLeft,
-                        child: Text(product.reorderQuantities.toString().replaceAll("[", "").replaceAll("]", "").replaceAll(", ", "      "))
-                    ),
+                        color: Colors.white,
+                        width: 275,
+                        height: 55,
+                        padding: EdgeInsets.only(left: 12),
+                        margin: EdgeInsets.only(
+                          right: 0,
+                          bottom: 2,
+                        ),
+                        alignment: Alignment.centerLeft,
+                        child: Text(product.reorderQuantities
+                            .toString()
+                            .replaceAll("[", "")
+                            .replaceAll("]", "")
+                            .replaceAll(", ", "                "))),
                   ),
                 ],
               ))
