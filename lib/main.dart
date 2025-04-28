@@ -38,7 +38,6 @@ void main() async {
 }
 
 class SaveBite extends StatefulWidget {
-
   const SaveBite({super.key});
 
   @override
@@ -60,15 +59,14 @@ class _SaveBiteState extends State<SaveBite> {
           ),
           BlocProvider(
             create: (context) => LoginCubit(
-              loginEmailImageUseCase: di.sl.get<LoginEmailImageUseCase>(),
-              loginEmailPasswordUseCase: di.sl.get<LoginEmailPasswordUseCase>(),
+              loginEmailImageUseCase: di.sl<LoginEmailImageUseCase>(),
+              loginEmailPasswordUseCase: di.sl<LoginEmailPasswordUseCase>(),
             ),
           ),
           BlocProvider(
             create: (context) => LostImageCubit(
-              lostImgeUseCase: di.sl.get<LostImageUseCase>(),
-              lostImageVerficationUseCase:
-                  di.sl.get<LostImageVerficationUseCase>(),
+              lostImgeUseCase: di.sl<LostImageUseCase>(),
+              lostImageVerficationUseCase: di.sl<LostImageVerficationUseCase>(),
             ),
           ),
 
