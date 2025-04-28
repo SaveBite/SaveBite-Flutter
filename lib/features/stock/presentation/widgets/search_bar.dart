@@ -4,7 +4,7 @@ Widget buildSearchBar(Color fillColor, double horizontal, double vertical,
     double fontsize, String hintText,
     {Function(String)? onChanged}) {
   return Padding(
-    padding: const EdgeInsets.all(8),
+    padding: const EdgeInsets.symmetric(horizontal: 16),
     child: TextField(
         autocorrect: true,
         style: TextStyle(color: Colors.grey[800], fontSize: fontsize),

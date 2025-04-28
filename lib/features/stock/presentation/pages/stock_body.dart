@@ -157,7 +157,10 @@ class StockViewBody extends StatelessWidget {
             const SizedBox(height: 12),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: StockTable(products: stockData.data) ,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: StockTable(products: stockData.data),
+              ) ,
             ),
             const SizedBox(height: 20),
           ],
