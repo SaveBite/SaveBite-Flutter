@@ -3,8 +3,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:save_bite/features/stock/presentation/widgets/stock_table.dart';
 import '../../domain/entites/product_stock_response_entity.dart';
-import '../widgets/data_table.dart';
 import '../widgets/line_chart.dart';
 import '../widgets/search_bar.dart';
 
@@ -157,7 +157,7 @@ class StockViewBody extends StatelessWidget {
             const SizedBox(height: 12),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: buildDataTable(),
+              child: StockTable(products: stockData.data) ,
             ),
             const SizedBox(height: 20),
           ],

@@ -47,14 +47,14 @@ class _HomeViewState extends State<HomeView> {
       providers: [
         BlocProvider(
           create: (context) => ProductsCubit(
-            sl.get<GetProductUseCase>(),
-            sl.get<UploadProductsUseCase>(),
-            sl.get<AddProductUseCase>(),
+            sl<GetProductUseCase>(),
+            sl<UploadProductsUseCase>(),
+            sl<AddProductUseCase>(),
           ),
         ),
         BlocProvider(
           create: (context) => StockDataCubit(
-            sl.get<GetStockDataUseCase>(),
+            sl<GetStockDataUseCase>(),
           ),
         ),
       ],
@@ -71,7 +71,7 @@ class _HomeViewState extends State<HomeView> {
               topLeft: Radius.circular(16),
             ),
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.12,
+              height: 90,
               child: BottomNavigationBar(
                 onTap: onTabTapped,
                 elevation: 0,
