@@ -13,8 +13,8 @@ class StockViewBody extends StatelessWidget {
   final VoidCallback onFilterClosed;
   final ProductStockResponseEntity stockData;
   final Set<String> selectedProductNames;
-
-
+  final String searchText;
+  final Function(String) onSearchChanged;
 
   const StockViewBody({
     super.key,
@@ -22,6 +22,8 @@ class StockViewBody extends StatelessWidget {
     required this.onFilterClosed,
     required this.stockData,
     required this.selectedProductNames,
+    required this.searchText,
+    required this.onSearchChanged,
   });
 
   String formatDate(DateTime date) {
@@ -42,12 +44,28 @@ class StockViewBody extends StatelessWidget {
     final stockItems = stockData;
 
     // Filter data based on selected product names
-    final filteredData = selectedProductNames.isEmpty
-        ? stockItems.data.take(4).toList()
-        : stockItems.data
-        .where((item) => selectedProductNames.contains(item.productName))
-        .take(4)
-        .toList();
+    // final filteredChartData = selectedProductNames.isEmpty
+    //     ? stockItems.data.take(4).toList()
+    //     : stockItems.data
+    //     .where((item) => selectedProductNames.contains(item.productName))
+    //     .take(4)
+    //     .toList();
+
+    // final filteredTableData = searchText.isEmpty
+    //     ? stockItems.data
+    //     : stockItems.data.where((item) =>
+    //     item.productName.toLowerCase().contains(searchText.toLowerCase())
+    // ).toList();
+
+    final filteredData = stockItems.data.where((item) {
+      final matchesProductName = selectedProductNames.isEmpty || selectedProductNames.contains(item.productName);
+      final matchesSearchText = searchText.isEmpty || item.productName.toLowerCase().contains(searchText.toLowerCase());
+      return matchesProductName && matchesSearchText;
+    }).toList();
+
+
+
+
 
     final productNames = filteredData.map((item) => item.productName).toList();
     final curves = filteredData.map((item) => mapToFlSpots(item.reorderQuantities)).toList();
@@ -155,13 +173,14 @@ class StockViewBody extends StatelessWidget {
               10,
               14,
               'Search Product Name',
+              onChanged: onSearchChanged,
             ),
             const SizedBox(height: 12),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: StockTable(products: stockData.data),
+                child: StockTable(products: filteredData),
               ) ,
             ),
             const SizedBox(height: 20),

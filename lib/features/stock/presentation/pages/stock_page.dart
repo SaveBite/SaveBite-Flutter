@@ -18,6 +18,7 @@ class StockPage extends StatefulWidget {
 class _StockPageState extends State<StockPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Set<String> selectedProductNames = {};
+  String searchText = '';
 
   @override
   void initState() {
@@ -42,6 +43,14 @@ class _StockPageState extends State<StockPage> {
     });
   }
 
+  void _onSearchChanged(String text) {
+    setState(() {
+      searchText = text;
+      print("Search Text: $searchText");
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<StockBloc, StockState>(
@@ -63,6 +72,8 @@ class _StockPageState extends State<StockPage> {
               onFilterClosed: _closeFilter,
               stockData: state.stockData,
               selectedProductNames: selectedProductNames,
+              searchText: searchText,
+              onSearchChanged: _onSearchChanged,
             ),
           );
         } else if (state is StockError) {

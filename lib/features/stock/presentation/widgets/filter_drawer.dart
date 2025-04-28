@@ -33,7 +33,8 @@ class _FilterDrawerState extends State<FilterDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       width: MediaQuery.of(context).size.width * 0.85,
-      child: SafeArea(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height,
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(
