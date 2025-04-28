@@ -14,6 +14,8 @@ class StockViewBody extends StatelessWidget {
   final ProductStockResponseEntity stockData;
   final Set<String> selectedProductNames;
 
+
+
   const StockViewBody({
     super.key,
     required this.onFilterOpened,

@@ -18,6 +18,7 @@ class StockPage extends StatefulWidget {
 class _StockPageState extends State<StockPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Set<String> selectedProductNames = {};
+
   @override
   void initState() {
     super.initState();
