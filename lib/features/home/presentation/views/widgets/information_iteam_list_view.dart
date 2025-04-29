@@ -46,7 +46,7 @@ class _InformationIteamListViewState extends State<InformationIteamListView> {
       widget.stockDataModel.belowMinimum,
     ];
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.13,
+      height: 100,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: iteamList.length,

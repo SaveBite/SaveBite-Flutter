@@ -70,7 +70,7 @@ class _HomeViewState extends State<HomeView> {
               topLeft: Radius.circular(16),
             ),
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.12,
+              height: 90,
               child: BottomNavigationBar(
                 onTap: onTabTapped,
                 elevation: 0,
