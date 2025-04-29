@@ -6,6 +6,9 @@ class Assets {
   /// assets/images/auth_logo.svg
   static const String imagesAuthLogo = "assets/images/auth_logo.svg";
 
+  /// Assets for imagesChatBit
+  /// assets/images/chat_bit.svg
+  static const String imagesChatBit = "assets/images/chat_bit.svg";
   /// Assets for imagesBellowBar
   /// assets/images/bellow_bar.svg
   static const String imagesBellowBar = "assets/images/bellow_bar.svg";
@@ -137,5 +140,9 @@ class Assets {
   /// Assets for imagesX
   /// assets/images/x.svg
   static const String imagesX = "assets/images/x.svg";
+
+  /// Assets for tuneFilter
+  /// assets/images/x.svg
+  static const String imagesTuneFilter = "assets/images/tune_filter.svg";
 }
 

@@ -22,6 +22,7 @@ class LoginCubit extends Cubit<LoginState> {
   bool? rememberMe;
   final LoginEmailImageUseCase loginEmailImageUseCase;
   final LoginEmailPasswordUseCase loginEmailPasswordUseCase;
+
   Future<void> loginEmailPassword() async {
     emit(LoginLoading());
     var result = await loginEmailPasswordUseCase.call(
