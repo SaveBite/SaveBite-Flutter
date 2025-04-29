@@ -17,6 +17,7 @@ import 'injection_container.dart' as di;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await intialHive();
+
   di.sl.reset();
   await di.init();
 
@@ -47,7 +48,7 @@ class _SaveBiteState extends State<SaveBite> {
             create: (context) => LoginCubit(
               loginEmailImageUseCase: di.sl.get<LoginEmailImageUseCase>(),
               loginEmailPasswordUseCase: di.sl.get<LoginEmailPasswordUseCase>(),
-            )..getUserAndRememberMe(),
+            ),
           ),
           BlocProvider(
             create: (context) => LostImageCubit(

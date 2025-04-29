@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class CustomElevatedButton extends StatelessWidget {
   final String text;
   final bool isEnabled;
@@ -18,7 +19,9 @@ class CustomElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: isEnabled ? onPressed : null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: isEnabled ? Color(0xff5EDA42) : Colors.grey[400], // Green when valid
+          backgroundColor: isEnabled
+              ? Color(0xff5EDA42)
+              : Colors.grey[400], // Green when valid
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4), // Rounded corners
           ),

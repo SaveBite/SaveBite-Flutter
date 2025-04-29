@@ -26,13 +26,13 @@ class SignUpModel extends SignUpEntity {
   }
 
   Map<String, dynamic> toJson() => {
-    'user_name': userName,
-    'email': email,
-    'password': password,
-    'password_confirmation': passwordConfirmation,
-    'image': image,
-    'answer': answer,
-    'type': type,
-    'phone': phone,
-  };
+        'user_name': userName,
+        'email': email,
+        'password': password,
+        'password_confirmation': passwordConfirmation,
+        'image': image,
+        'answer': answer,
+        'type': type,
+        'phone': phone,
+      };
 }

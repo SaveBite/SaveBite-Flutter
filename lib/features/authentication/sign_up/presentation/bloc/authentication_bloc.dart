@@ -10,7 +10,8 @@ import '../../domain/usecases/sign_up_use_case.dart';
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
-class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
   final SignUpUseCase signUpUseCase;
 
   AuthenticationBloc({
@@ -19,9 +20,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     on<SignUpEvent>(_onSignUpEvent);
   }
 
-
   /// 🛠 Handles user sign-up and saves token
-  Future<void> _onSignUpEvent(SignUpEvent event, Emitter<AuthenticationState> emit) async {
+  Future<void> _onSignUpEvent(
+      SignUpEvent event, Emitter<AuthenticationState> emit) async {
     emit(LoadingState());
 
     final failureOrSuccess = await signUpUseCase(event.signUpEntity);
@@ -29,18 +30,19 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     if (emit.isDone) return;
 
     await failureOrSuccess.fold(
-          (failure) async {
+      (failure) async {
         print("🔥 Sign-Up Error: ${failure.toString()}");
 
         if (!emit.isDone) {
           if (failure is ValidationFailure) {
-            emit(ErrorAuthenticationState(message: failure.message)); // ✅ Displays API errors
+            emit(ErrorAuthenticationState(
+                message: failure.message)); // ✅ Displays API errors
           } else {
             emit(ErrorAuthenticationState(message: failure.message));
           }
         }
       },
-          (success) async {
+      (success) async {
         print("✅ Sign-Up Successful: ${success.toString()}");
 
         if (!emit.isDone) {
@@ -48,8 +50,5 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         }
       },
     );
-
-
   }
-
 }

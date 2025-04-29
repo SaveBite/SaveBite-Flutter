@@ -6,16 +6,13 @@ import 'package:save_bite/features/authentication/verification/domain/repo/verif
 import '../../../../../core/error/failure.dart';
 import '../entity/check_code_entity.dart';
 
-
 class CheckCodeUseCase {
   final VerificationRepo verificationRepo;
 
   CheckCodeUseCase({required this.verificationRepo});
 
-  Future<Either<Failure, CheckCodeResponseEntity>> call(CheckCodeEntity checkCodeEntity) async {
+  Future<Either<Failure, CheckCodeResponseEntity>> call(
+      CheckCodeEntity checkCodeEntity) async {
     return await verificationRepo.checkCode(checkCodeEntity);
   }
-
 }
-
-

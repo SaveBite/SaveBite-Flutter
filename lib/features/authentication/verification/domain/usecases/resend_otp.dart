@@ -8,17 +8,13 @@ import 'package:save_bite/features/authentication/verification/domain/repo/verif
 import '../../../../../core/error/failure.dart';
 import '../entity/check_code_entity.dart';
 
-
 class ResendCodeUseCase {
   final VerificationRepo verificationRepo;
 
   ResendCodeUseCase({required this.verificationRepo});
 
-  Future<Either<Failure, ResendCodeResponseEntity>> call(ResendCodeEntity resendCodeEntity) async {
+  Future<Either<Failure, ResendCodeResponseEntity>> call(
+      ResendCodeEntity resendCodeEntity) async {
     return await verificationRepo.resendOtp(resendCodeEntity);
   }
-
-
 }
-
-

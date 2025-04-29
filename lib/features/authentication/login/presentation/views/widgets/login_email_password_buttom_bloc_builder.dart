@@ -5,7 +5,7 @@ import 'package:save_bite/features/authentication/login/presentation/views/loadi
 import 'package:save_bite/features/authentication/login/presentation/views/widgets/custom_active_buttom.dart';
 import 'package:save_bite/features/authentication/login/presentation/views/widgets/custom_in_active_buttom.dart';
 import 'package:save_bite/features/authentication/login/presentation/views/widgets/custom_message_widget.dart';
-import 'package:save_bite/features/home/home_view.dart';
+import 'package:save_bite/features/home/presentation/views/home_view.dart';
 
 class LoginEmailPasswordButtomBlocBuilder extends StatelessWidget {
   const LoginEmailPasswordButtomBlocBuilder({

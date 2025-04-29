@@ -73,8 +73,9 @@ class _CustomDropDownState extends State<CustomDropDown> {
                     setState(() {
                       dropdownValue = options[index];
                       BlocProvider.of<LostImageCubit>(context).answer =
-                          (index+1).toString();
-                          BlocProvider.of<LostImageCubit>(context).changeLostImageButtomColor();
+                          (index + 1).toString();
+                      BlocProvider.of<LostImageCubit>(context)
+                          .changeLostImageButtomColor();
                       isExpanded = false;
                     });
                   },
