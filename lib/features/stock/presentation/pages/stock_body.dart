@@ -44,36 +44,36 @@ class StockViewBody extends StatelessWidget {
     final stockItems = stockData;
 
     // Filter data based on selected product names
-    // final filteredChartData = selectedProductNames.isEmpty
-    //     ? stockItems.data.take(4).toList()
-    //     : stockItems.data
-    //     .where((item) => selectedProductNames.contains(item.productName))
-    //     .take(4)
-    //     .toList();
+    final filteredChartData = selectedProductNames.isEmpty
+        ? stockItems.data.take(4).toList()
+        : stockItems.data
+        .where((item) => selectedProductNames.contains(item.productName))
+        .take(4)
+        .toList();
 
-    // final filteredTableData = searchText.isEmpty
-    //     ? stockItems.data
-    //     : stockItems.data.where((item) =>
-    //     item.productName.toLowerCase().contains(searchText.toLowerCase())
-    // ).toList();
+    final filteredTableData = searchText.isEmpty
+        ? stockItems.data
+        : stockItems.data.where((item) =>
+        item.productName.toLowerCase().contains(searchText.toLowerCase())
+    ).toList();
 
-    final filteredData = stockItems.data.where((item) {
-      final matchesProductName = selectedProductNames.isEmpty || selectedProductNames.contains(item.productName);
-      final matchesSearchText = searchText.isEmpty || item.productName.toLowerCase().contains(searchText.toLowerCase());
-      return matchesProductName && matchesSearchText;
-    }).toList();
-
-
+    // final filteredData = stockItems.data.where((item) {
+    //   final matchesProductName = selectedProductNames.isEmpty || selectedProductNames.contains(item.productName);
+    //   final matchesSearchText = searchText.isEmpty || item.productName.toLowerCase().contains(searchText.toLowerCase());
+    //   return matchesProductName && matchesSearchText;
+    // }).toList();
 
 
 
-    final productNames = filteredData.map((item) => item.productName).toList();
-    final curves = filteredData.map((item) => mapToFlSpots(item.reorderQuantities)).toList();
+
+
+    final productNames = filteredChartData.map((item) => item.productName).toList();
+    final curves = filteredChartData.map((item) => mapToFlSpots(item.reorderQuantities)).toList();
 
     // Debug prints
     print("Selected Product Names: $selectedProductNames");
     print("Filtered Product Names: $productNames");
-    print("Filtered Data Length: ${filteredData.length}");
+    print("Filtered Data Length: ${filteredChartData.length}");
 
     // Pad curves and productNames to ensure 4 curves are passed
     while (curves.length < 4) {
@@ -180,7 +180,7 @@ class StockViewBody extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: StockTable(products: filteredData),
+                child: StockTable(products: filteredTableData),
               ) ,
             ),
             const SizedBox(height: 20),
