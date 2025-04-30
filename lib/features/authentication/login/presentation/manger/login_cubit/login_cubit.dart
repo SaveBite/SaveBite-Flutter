@@ -69,7 +69,6 @@ class LoginCubit extends Cubit<LoginState> {
 
     if (rememberMe != null) {
       await remmberBox.put('rememberMe', rememberMe);
-      SaveUserData.rememberMe = rememberMe;
       await userBox.put('user', userModel);
     } else {
       await remmberBox.put('rememberMe', false);
