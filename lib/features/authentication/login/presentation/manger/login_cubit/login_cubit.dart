@@ -63,15 +63,17 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> saveUserAndRememberMe() async {
+    SaveUserData.user = userModel;
     var userBox = Hive.box<UserModel?>(kUserBox);
     var remmberBox = Hive.box<bool?>(kRemmberBox);
 
-    await remmberBox.put('rememberMe', rememberMe);
-    if (rememberMe!) {
+    if (rememberMe != null) {
+      await remmberBox.put('rememberMe', rememberMe);
+      SaveUserData.rememberMe = rememberMe;
       await userBox.put('user', userModel);
-      SaveUserData.user = userModel;
     } else {
-      await userBox.delete('user');
+      await remmberBox.put('rememberMe', false);
+      SaveUserData.rememberMe = false;
     }
   }
 

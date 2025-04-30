@@ -29,6 +29,8 @@ class UploadProductsBlocBuilder extends StatelessWidget {
           BlocProvider.of<StockDataCubit>(context).getStockData();
         } else if (state is AddProductFailure) {
           showOverlayWidget(context, state.errorMessage);
+          BlocProvider.of<ProductsCubit>(context).getProduct();
+          BlocProvider.of<StockDataCubit>(context).getStockData();
         }
       },
       builder: (context, state) {

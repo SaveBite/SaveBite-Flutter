@@ -29,7 +29,7 @@ class UserInfoHeader extends StatelessWidget {
           width: 2,
         ),
         Text(
-          "${SaveUserData.user!.name}!",
+          "${SaveUserData.user?.name ?? ''}!",
           style: AppStyles.styleMedium19.copyWith(
             color: Color(0xffFFFFFF),
           ),

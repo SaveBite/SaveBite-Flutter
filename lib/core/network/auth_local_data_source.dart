@@ -1,15 +1,12 @@
-import 'package:hive/hive.dart';
-import 'package:save_bite/constants.dart';
+import 'package:save_bite/features/authentication/login/data/model/save_user_data.dart';
 import 'package:save_bite/features/authentication/login/data/model/user_model.dart';
 
 class AuthLocalDataSource {
   static Future<UserModel?> getUser() async {
-    var userBox = Hive.box<UserModel?>(kUserBox);
-    return userBox.get('user');
+    return SaveUserData.user;
   }
 
   static Future<void> clearUser() async {
-    var userBox = Hive.box<UserModel?>(kUserBox);
-    await userBox.delete('user');
+    SaveUserData.user = null;
   }
 }
