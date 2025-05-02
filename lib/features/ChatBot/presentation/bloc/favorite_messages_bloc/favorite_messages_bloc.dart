@@ -23,7 +23,11 @@ class FavoriteMessagesBloc extends Bloc<FavoriteMessagesEvent, FavoriteMessagesS
         await getFavoriteMessages();
         result.fold(
               (failure) => emit(FavoriteMessagesError(failure.message)),
-              (messages) => emit(FavoriteMessagesLoaded(messages)),
+              (messages) {
+            // Filter out duplicates based on id
+            final uniqueMessages = messages.toSet();
+            emit(FavoriteMessagesLoaded(uniqueMessages));
+          },
         );
       } catch (e) {
         emit(FavoriteMessagesError(e.toString()));

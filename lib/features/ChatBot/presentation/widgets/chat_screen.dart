@@ -76,7 +76,6 @@ class ChatScreen extends StatelessWidget {
                 listener: (context, state) {
                   if (state is ChatMessageLoaded) {
                     final message = state.message;
-                    // Parse recipe only for bot messages
                     final parsedRecipe = message.me
                         ? null
                         : _parseRecipeMessage(message.message);
@@ -176,9 +175,8 @@ class ChatScreen extends StatelessWidget {
                     ),
                     if (!isBot)
                       const CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          'https://i.pravatar.cc/150?img=3',
-                        ),
+                        backgroundImage:
+                            NetworkImage('https://i.pravatar.cc/150?img=3'),
                         maxRadius: 15,
                       ),
                   ],
