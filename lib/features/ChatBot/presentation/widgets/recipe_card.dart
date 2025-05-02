@@ -22,10 +22,11 @@ class RecipeCard extends StatelessWidget {
             Text(
               '🍽️ ${recipe.title}',
               style: const TextStyle(
-                fontSize: 20.0,
+                fontSize: 15.0,
                 fontWeight: FontWeight.bold,
                 color: Color(0xff333333),
               ),
+              textAlign: TextAlign.start,
             ),
             const SizedBox(height: 8),
 
