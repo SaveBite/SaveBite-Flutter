@@ -14,6 +14,7 @@ class FilterDrawer extends StatefulWidget {
     required this.stockData,
     this.onApplyFilter,
   });
+
   @override
   State<FilterDrawer> createState() => _FilterDrawerState();
 }
@@ -31,10 +32,9 @@ class _FilterDrawerState extends State<FilterDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      width: MediaQuery.of(context).size.width * 0.85,
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height,
+    return SafeArea(
+      child: Material(
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(
@@ -49,7 +49,6 @@ class _FilterDrawerState extends State<FilterDrawer> {
                   IconButton(
                     icon: const Icon(Icons.close, color: Colors.grey),
                     onPressed: () {
-                      Navigator.pop(context);
                       if (widget.onClose != null) widget.onClose!();
                     },
                   ),
@@ -59,13 +58,18 @@ class _FilterDrawerState extends State<FilterDrawer> {
               const Text(
                 "Select the filter according to what you want.",
                 style: TextStyle(
-                    color: Color(0xffB3B3B3),
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400),
+                  color: Color(0xffB3B3B3),
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
               const SizedBox(height: 16),
               buildSearchBar(
-                Colors.transparent, 0, 0, 14, "Search Product Name or Category",
+                Colors.transparent,
+                0,
+                0,
+                14,
+                "Search Product Name or Category",
                 onChanged: (value) {
                   setState(() {
                     searchTerm = value.toLowerCase();
@@ -73,42 +77,48 @@ class _FilterDrawerState extends State<FilterDrawer> {
                 },
               ),
               const SizedBox(height: 16),
-              const Text("Category",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500, color: Colors.black)),
+              const Text(
+                "Category",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+              ),
               const SizedBox(height: 12),
               Expanded(
-                  child: FilterCategoryCheckbox(
-                      key: _checkboxKey,
-                      stockData: widget.stockData,
-                      onSelectionChanged: _onSelectionChanged,
-                      searchTerm : searchTerm
-                  )),
-
-
-              // TODO : apply on the chart
+                child: FilterCategoryCheckbox(
+                  key: _checkboxKey,
+                  stockData: widget.stockData,
+                  onSelectionChanged: _onSelectionChanged,
+                  searchTerm: searchTerm,
+                ),
+              ),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // Get selected product names
                     final selectedProducts =
-                        _checkboxKey.currentState?.getSelectedProductNames() ?? {};
-                    // Call callback with selected products
+                        _checkboxKey.currentState?.getSelectedProductNames() ??
+                            {};
                     widget.onApplyFilter?.call(selectedProducts);
-
-                    Navigator.pop(context);
                     if (widget.onClose != null) widget.onClose!();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                    isAnySelected ? const Color(0xFF5EDA42) : Colors.grey,
-                    minimumSize: const Size(220,48),
+                    backgroundColor: isAnySelected
+                        ? const Color(0xFF5EDA42)
+                        : Colors.grey,
+                    minimumSize: const Size(220, 48),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child: const Text("Apply filter",
-                      style: TextStyle(color: Colors.white,fontSize: 19,fontWeight: FontWeight.w700)),
+                  child: const Text(
+                    "Apply filter",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 19,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
             ],

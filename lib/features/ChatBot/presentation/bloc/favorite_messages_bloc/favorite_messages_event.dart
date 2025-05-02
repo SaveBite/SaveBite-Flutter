@@ -1,4 +1,9 @@
 part of 'favorite_messages_bloc.dart';
 
-@immutable
-sealed class FavoriteMessagesEvent {}
+abstract class FavoriteMessagesEvent extends Equatable {
+  const FavoriteMessagesEvent();
+  @override
+  List<Object?> get props => [];
+}
+
+class FetchFavoriteMessages extends FavoriteMessagesEvent {}

@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:save_bite/features/ChatBot/domain/entities/recipe.dart';
-import 'package:save_bite/features/ChatBot/presentation/bloc/recipe_event.dart';
-import 'package:save_bite/features/ChatBot/presentation/bloc/recipe_state.dart';
-import '../../../../core/error/failure.dart';
-import '../../domain/usecases/get_recipe.dart';
+import 'package:save_bite/features/ChatBot/presentation/bloc/recipe_bloc/recipe_event.dart';
+import 'package:save_bite/features/ChatBot/presentation/bloc/recipe_bloc/recipe_state.dart';
+import '../../../../../core/error/failure.dart';
+import '../../../domain/usecases/get_recipe.dart';
 
 class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   final GetRecipe getRecipe;
