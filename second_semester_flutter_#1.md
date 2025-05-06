@@ -120,47 +120,47 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
-    <img src="image.png" alt="Splash Screen" width="200">
+    <img src="markdown assets\image.png" alt="Splash Screen" width="200">
     <p><b>Figure 4.5.9.1:</b> Splash Screen – Displays the app logo before launching the app.</p>
   </div>
 </div>
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
-    <img src="image-1.png" alt="Login Screen" width="200">
+    <img src="markdown assets\image-1.png" alt="Login Screen" width="200">
     <p><b>Figure 4.5.9.2:</b> Login Screen (Image-Based) – Login using email and image verification.</p>
   </div>
   <div>
-    <img src="image-3.png" alt="Login Screen" width="200">
+    <img src="markdown assets\image-3.png" alt="Login Screen" width="200">
     <p><b>Figure 4.5.9.3:</b> Login Screen (Password-Based) – Allows users to log in using email and password.</p>
   </div>
 </div>
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
-    <img src="image-4.png" alt="Forget Password" width="200">
+    <img src="markdown assets\image-4.png" alt="Forget Password" width="200">
     <p><b>Figure 4.5.9.4:</b> Forget Password Screen – User answers a security question set during sign-up.</p>
   </div>
   <div>
-    <img src="image-5.png" alt="Verification" width="200">
+    <img src="markdown assets\image-5.png" alt="Verification" width="200">
     <p><b>Figure 4.5.9.5:</b> OTP Verification Screen – Users receive OTP via email for identity verification.</p>
   </div>
 </div>
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
-    <img src="image-8.png" alt="Loading" width="200">
+    <img src="markdown assets\image-8.png" alt="Loading" width="200">
     <p><b>Figure 4.5.9.6:</b> Loading Screen – Displays Loading state to return a successful state or not.</p>
   </div>
   <div>
-    <img src="image-6.png" alt="Reset Password" width="200">
+    <img src="markdown assets\image-6.png" alt="Reset Password" width="200">
     <p><b>Figure 4.5.9.7:</b> Reset Password Screen – Confirms success of the password reset process.</p>
   </div>
 </div>
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
-    <img src="image-7.png" alt="Sign up" width="200">
+    <img src="markdown assets\image-7.png" alt="Sign up" width="200">
     <p><b>Figure 4.5.9.8:</b> Sign up Screen – Collects email, password, image, username, phone number, account type, and a security question.</p>
   </div>
 </div>
@@ -170,12 +170,12 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
-    <img src="image-9.png" alt="Home First Time Screen" width="200">
+    <img src="markdown assets\image-9.png" alt="Home First Time Screen" width="200">
     <p><b>Figure 4.5.9.9:</b> Home First-Time Screen – Displays table headers and search field.</p>
   </div>
 
   <div>
-    <img src="image-11.png" alt="Home" width="200">
+    <img src="markdown assets\image-11.png" alt="Home" width="200">
     <p><b>Figure 4.5.9.10:</b> Home Screen – Shows stock summary and uploaded product table.</p>
   </div>
 </div>
@@ -184,12 +184,12 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
-    <img src="image-12.png" alt="Home Filter" width="200">
+    <img src="markdown assets\image-12.png" alt="Home Filter" width="200">
     <p><b>Figure 4.5.9.11:</b> Home Filter Screen – Allows sorting based on stock characteristics.</p>
   </div>
 
   <div>
-    <img src="image-13.png" alt="Home Add Item" width="200">
+    <img src="markdown assets\image-13.png" alt="Home Add Item" width="200">
     <p><b>Figure 4.5.9.12:</b> Add Item Screen – Prompts user to enter characteristics of a new product.</p>
   </div>
 </div>
@@ -198,24 +198,24 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
-    <img src="image-14.png" alt="Home Final" width="400">
+    <img src="markdown assets\image-14.png" alt="Home Final" width="400">
     <p><b>Figure 4.5.9.13:</b> Home Screen – Final view with stock information and table displayed.</p>
   </div>
 </div>
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
-    <img src="image-15.png" alt="Stock" width="200">
+    <img src="markdown assets\image-15.png" alt="Stock" width="200">
     <p><b>Figure 4.5.9.14:</b> Stock Screen – Displays reorder quantities using a line chart along with a data table.</p>
   </div>
 
   <div>
-    <img src="image-16.png" alt="Stock Filter" width="200">
+    <img src="markdown assets\image-16.png" alt="Stock Filter" width="200">
     <p><b>Figure 4.5.9.15:</b> Stock Filter Screen – Allows users to filter products by search or checkbox selection.</p>
   </div>
 
   <div>
-    <img src="image-17.png" alt="Stock Filter Applied" width="200">
+    <img src="markdown assets\image-17.png" alt="Stock Filter Applied" width="200">
     <p><b>Figure 4.5.9.16:</b> Stock Filter Applied Screen – Shows filtered product data rendered on the chart.</p>
   </div>
 </div>
@@ -223,12 +223,12 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
-    <img src="image-19.png" alt="Analytics" width="200">
+    <img src="markdown assets\image-19.png" alt="Analytics" width="200">
     <p><b>Figure 4.5.9.16:</b> Analytics Screen – Visualizes predicted stock levels for the next 4 weeks using a line chart.</p>
   </div>
 
   <div>
-    <img src="image-20.png" alt="Analytics Filter" width="200">
+    <img src="markdown assets\image-20.png" alt="Analytics Filter" width="200">
     <p><b>Figure 4.5.9.17:</b> Analytics Filter Screen – Allows users to filter forecast data by category before rendering the chart.</p>
   </div>
 </div>
@@ -236,26 +236,26 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
-    <img src="image-21.png" alt="Chatbot First Time" width="200">
+    <img src="markdown assets\image-21.png" alt="Chatbot First Time" width="200">
     <p><b>Figure 4.5.9.18:</b> Chatbot First-Time Screen – Displays a helpful prompt for users to initiate a query.</p>
   </div>
 </div>
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
-    <img src="image-26.png" alt="Chatbot English" width="200">
+    <img src="markdown assets\image-26.png" alt="Chatbot English" width="200">
     <p><b>Figure 4.5.9.19:</b> Chatbot Screen – Displays a recipe response in English.</p>
   </div>
 
   <div>
-    <img src="image-25.png" alt="Chatbot Arabic" width="200">
+    <img src="markdown assets\image-25.png" alt="Chatbot Arabic" width="200">
     <p><b>Figure 4.5.9.20:</b> Chatbot Screen – Displays a recipe response in Arabic.</p>
   </div>
 </div>
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
-    <img src="image-27.png" alt="Chatbot Favorites" width="200">
+    <img src="markdown assets\image-27.png" alt="Chatbot Favorites" width="200">
     <p><b>Figure 4.5.9.21:</b> Chatbot Favorites Screen – Shows saved or favorite recipe responses.</p>
   </div>
 </div>
