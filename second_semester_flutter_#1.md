@@ -7,7 +7,7 @@ This section discusses the key technologies and architectural patterns used in t
 
 ### 4.5.2 Framework: Flutter   
 Flutter is an open-source UI toolkit developed by Google that allows developers to create natively 
-compiled applications from a single codebase. The choice of Flutter for CashWise was driven by several 
+compiled applications from a single codebase. The choice of Flutter for SaveBite was driven by several 
 advantages: 
 - **Cross-Platform Compatibility**: Flutter enables the development of applications for both iOS and 
 Android platforms without the need to maintain separate codebases, significantly reducing 
@@ -124,6 +124,8 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
     <p><b>Figure 4.5.9.1:</b> Splash Screen – Displays the app logo before launching the app.</p>
   </div>
 </div>
+<br><br>
+
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
@@ -136,6 +138,9 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
   </div>
 </div>
 
+<br><br>
+
+
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
     <img src="markdown assets\image-4.png" alt="Forget Password" width="200">
@@ -146,6 +151,7 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
     <p><b>Figure 4.5.9.5:</b> OTP Verification Screen – Users receive OTP via email for identity verification.</p>
   </div>
 </div>
+<br><br>
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
@@ -157,6 +163,7 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
     <p><b>Figure 4.5.9.7:</b> Reset Password Screen – Confirms success of the password reset process.</p>
   </div>
 </div>
+<br><br>
 
 <div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
   <div>
@@ -168,7 +175,7 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
 <br><br>
 
 
-<div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
+<div style="display: flex; justify-content: center; gap: 10px; text-align: center;">
   <div>
     <img src="markdown assets\image-9.png" alt="Home First Time Screen" width="200">
     <p><b>Figure 4.5.9.9:</b> Home First-Time Screen – Displays table headers and search field.</p>
@@ -180,9 +187,9 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
   </div>
 </div>
 
-<br>
+<br><br>
 
-<div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
+<div style="display: flex; justify-content: center; gap: 10px; text-align: center;">
   <div>
     <img src="markdown assets\image-12.png" alt="Home Filter" width="200">
     <p><b>Figure 4.5.9.11:</b> Home Filter Screen – Allows sorting based on stock characteristics.</p>
@@ -194,16 +201,18 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
   </div>
 </div>
 
-<br>
+<br><br>
 
-<div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
+<div style="display: flex; justify-content: center; gap: 10px; text-align: center;">
   <div>
     <img src="markdown assets\image-14.png" alt="Home Final" width="400">
     <p><b>Figure 4.5.9.13:</b> Home Screen – Final view with stock information and table displayed.</p>
   </div>
 </div>
+<br><br>
 
-<div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
+
+<div style="display: flex; justify-content: center; gap: 10px; text-align: center;">
   <div>
     <img src="markdown assets\image-15.png" alt="Stock" width="200">
     <p><b>Figure 4.5.9.14:</b> Stock Screen – Displays reorder quantities using a line chart along with a data table.</p>
@@ -221,7 +230,7 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
 </div>
 <br> <br>
 
-<div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
+<div style="display: flex; justify-content: center; gap: 20px; text-align: center;">
   <div>
     <img src="markdown assets\image-19.png" alt="Analytics" width="200">
     <p><b>Figure 4.5.9.16:</b> Analytics Screen – Visualizes predicted stock levels for the next 4 weeks using a line chart.</p>
@@ -234,14 +243,14 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
 </div>
 <br> <br>
 
-<div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
+<div style="display: flex; justify-content: center; gap: 10px; text-align: center;">
   <div>
     <img src="markdown assets\image-21.png" alt="Chatbot First Time" width="200">
     <p><b>Figure 4.5.9.18:</b> Chatbot First-Time Screen – Displays a helpful prompt for users to initiate a query.</p>
   </div>
 </div>
 
-<div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
+<div style="display: flex; justify-content: center; gap: 10px; text-align: center;">
   <div>
     <img src="markdown assets\image-26.png" alt="Chatbot English" width="200">
     <p><b>Figure 4.5.9.19:</b> Chatbot Screen – Displays a recipe response in English.</p>
@@ -259,9 +268,84 @@ AI-powered assistant that suggests and creates recipes using leftover ingredient
     <p><b>Figure 4.5.9.21:</b> Chatbot Favorites Screen – Shows saved or favorite recipe responses.</p>
   </div>
 </div>
+<br><br>
+
 
 
 ### 4.5.10 User Flow
+
+#### Use Case Diagrams
+
+<div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
+  <div>
+    <img src="markdown assets\login_steps.png" alt="Login Use Case" width="200">
+    <p><b>Figure 4.5.10.1:</b> Authentication Use Case Diagram – Illustrates the user login process.</p>
+  </div>  
+
+  <div>
+    <img src="markdown assets\signup_usecase.png" alt="Sign Up Use Case Diagram" width="200">
+    <p><b>Figure 4.5.10.2:</b> Registration Use Case Diagram – Shows the process of new user registration.</p>
+  </div>
+
+  <div>
+    <img src="markdown assets\stock_use_case.png" alt="Stock Use Case Diagram" width="200">
+    <p><b>Figure 4.5.10.3:</b> Stock Use Case Diagram – Demonstrates stock management functionalities.</p>
+  </div>
+
+  <div>
+    <img src="markdown assets\chatbot_usecase.png" alt="Chatbot Use Case Diagram" width="200">
+    <p><b>Figure 4.5.10.4:</b> Chatbot Use Case Diagram – Outlines the functionalities of the chatbot system.</p>
+  </div>
+</div>
+
+<br><br>
+
+#### Sequence Diagrams
+
+<div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
+  <div>
+    <img src="markdown assets\login_sequence_diagram (2).png" alt="Login Sequence Diagram" width="200">
+    <p><b>Figure 4.5.10.5:</b> Authentication Sequence Diagram – Details the step-by-step login interaction flow.</p>
+  </div>
+
+  <div>
+    <img src="markdown assets\signup_sequnce_diagram.png" alt="Sign Up Sequence Diagram" width="200">
+    <p><b>Figure 4.5.10.6:</b> Registration Sequence Diagram – Presents the interaction flow during user sign-up.</p>
+  </div>
+
+  <div>
+    <img src="markdown assets\stock_sequence_diagram.png" alt="Stock Sequence Diagram" width="200">
+    <p><b>Figure 4.5.10.7:</b> Stock Sequence Diagram – Describes the interaction flow for stock operations.</p>
+  </div>
+
+  <div>
+    <img src="markdown assets\chatbot_sequence_diagram2.png" alt="Chatbot Sequence Diagram" width="200">
+    <p><b>Figure 4.5.10.8:</b> Chatbot Sequence Diagram – Details the interaction flow between user and chatbot.</p>
+  </div>
+</div>
+
+
+#### Activity Diagrams
+
+<div style="display: flex; justify-content: center; gap: 40px; text-align: center;">
+  <div>
+    <img src="markdown assets\loding_system_arch.png" alt="Login Activity Diagram" width="200">
+    <p><b>Figure 4.5.10.9:</b> Authentication Activity Diagram.</p>
+  </div>
+
+  <div>
+    <img src="markdown assets\signup_system_arch2.png" alt="Sign Up Activity Diagram" width="200">
+    <p><b>Figure 4.5.10.10:</b> Registration Activity Diagram .</p>
+  </div>
+
+  <div>
+    <img src="markdown assets\stock_activity_diagram.png" alt="Stock Activity Diagram" width="200">
+    <p><b>Figure 4.5.10.11:</b> Stock Activity Diagram.</p>
+  </div>
+</div>
+
+
+
 
 
 
@@ -304,3 +388,46 @@ Each feature (e.g., `auth`, `home`, `stock`,`chatbot`,`analytics`) is divided in
 - `presentation`: Screens, Blocs, widgets, and UI logic.
 
 This modular structure ensures **testability**, **scalability**, and **easy maintenance** as the app grows.
+
+
+
+
+# List of Figures
+
+1. **Figure 4.5.9.1** — Splash Screen – Displays the app logo
+2. **Figure 4.5.9.2** — Login Screen (Image-Based)
+3. **Figure 4.5.9.3** — Login Screen (Password-Based)
+4. **Figure 4.5.9.4** — Forget Password Screen
+5. **Figure 4.5.9.5** — OTP Verification Screen
+6. **Figure 4.5.9.6** — Loading Screen
+7. **Figure 4.5.9.7** — Reset Password Screen
+8. **Figure 4.5.9.8** — Sign up Screen
+9. **Figure 4.5.9.9** — Home First-Time Screen
+10. **Figure 4.5.9.10** — Home Screen
+11. **Figure 4.5.9.11** — Home Filter Screen
+12. **Figure 4.5.9.12** — Add Item Screen
+13. **Figure 4.5.9.13** — Home Screen – Final view
+14. **Figure 4.5.9.14** — Stock Screen
+15. **Figure 4.5.9.15** — Stock Filter Screen
+16. **Figure 4.5.9.16** — Stock Filter Applied Screen
+17. **Figure 4.5.9.17** — Analytics Screen
+18. **Figure 4.5.9.18** — Analytics Filter Screen
+19. **Figure 4.5.9.19** — Chatbot First-Time Screen
+20. **Figure 4.5.9.20** — Chatbot Screen – Recipe Response (English)
+21. **Figure 4.5.9.21** — Chatbot Screen – Recipe Response (Arabic)
+22. **Figure 4.5.9.22** — Chatbot Favorites Screen
+
+---
+
+23. **Figure 4.5.10.1** — Authentication Use Case Diagram
+24. **Figure 4.5.10.2** — Registration Use Case Diagram
+25. **Figure 4.5.10.3** — Stock Use Case Diagram
+26. **Figure 4.5.10.4** — Chatbot Use Case Diagram
+27. **Figure 4.5.10.5** — Authentication Sequence Diagram
+28. **Figure 4.5.10.6** — Registration Sequence Diagram
+29. **Figure 4.5.10.7** — Stock Sequence Diagram
+30. **Figure 4.5.10.8** — Chatbot Sequence Diagram
+31. **Figure 4.5.10.9** — Authentication Activity Diagram
+32. **Figure 4.5.10.10** — Registration Activity Diagram
+33. **Figure 4.5.10.11** — Stock Activity Diagram
+
