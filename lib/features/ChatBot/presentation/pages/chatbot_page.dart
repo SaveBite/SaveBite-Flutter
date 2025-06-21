@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../injection_container.dart';
+import '../../domain/entities/recipe.dart';
 import '../../domain/usecases/get_chat_messages.dart';
 import '../bloc/chat_bloc/chat_bloc.dart';
 import '../bloc/chat_bloc/chat_event.dart';
@@ -55,12 +56,40 @@ class _ChatBotViewBodyState extends State<ChatBotViewBody> {
           (messages) {
         if (mounted) {
           setState(() {
-            _messages.addAll(messages);
+            _messages.addAll(messages.map((msg) {
+              // Parse message to detect if it’s a recipe
+              final parsedRecipe = _parseRecipeMessage(msg.message);
+              return StoreMessageResponse(
+                id: msg.id,
+                message: msg.message,
+                me: msg.me,
+                createdAt: msg.createdAt,
+                favourite: msg.favourite,
+                isRecipe: parsedRecipe != null,
+                recipe: parsedRecipe,
+              );
+            }).toList());
             _scrollToBottom();
           });
         }
       },
     );
+  }
+
+  // Copy the parseRecipeMessage function from ChatScreen
+  Recipe? _parseRecipeMessage(String message) {
+    try {
+      final lines = message.split('\n');
+      if (lines.length < 4) return null;
+      return Recipe(
+        title: lines[0],
+        prepTime: lines[1].split(': ')[1],
+        ingredients: lines[2].split(': ')[1].split(', '),
+        instructions: lines[3].split(': ')[1].split(', '),
+      );
+    } catch (e) {
+      return null;
+    }
   }
 
   @override

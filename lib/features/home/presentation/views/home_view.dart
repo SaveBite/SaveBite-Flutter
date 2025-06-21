@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:save_bite/core/utils/app_assets.dart';
-import 'package:save_bite/features/ChatBot/domain/entities/store_message.dart';
 import 'package:save_bite/features/home/domain/use_cases/add_product_use_case.dart';
 import 'package:save_bite/features/home/domain/use_cases/get_product_use_case.dart';
 import 'package:save_bite/features/home/domain/use_cases/get_stock_data_use_case.dart';
@@ -16,12 +14,9 @@ import 'package:save_bite/features/home/presentation/views/widgets/more_view_bod
 import 'package:save_bite/features/home/presentation/views/widgets/tracking_view_body.dart';
 import 'package:save_bite/injection_container.dart';
 
-import '../../../ChatBot/presentation/bloc/chat_bloc/chat_bloc.dart';
-import '../../../ChatBot/presentation/bloc/chat_bloc/chat_event.dart';
-import '../../../ChatBot/presentation/bloc/favorite_messages_bloc/favorite_messages_bloc.dart';
 import '../../../ChatBot/presentation/pages/chatbot_page.dart';
+import '../../../ChatBot/presentation/widgets/favourite_drawer.dart';
 import '../../../stock/presentation/pages/stock_page.dart';
-
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -47,123 +42,6 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  void _showChatbotMenu(BuildContext context) {
-    showGeneralDialog(
-      context: context,
-      barrierDismissible: true,
-      barrierLabel: "Favourite Recipes",
-      barrierColor: Colors.black54,
-      transitionDuration: const Duration(milliseconds: 300),
-      pageBuilder: (context, animation, secondaryAnimation) {
-        return Align(
-          alignment: Alignment.centerLeft,
-          child: FractionallySizedBox(
-            widthFactor: 0.75,
-            heightFactor: 1.0,
-            child: Material(
-              color: Color(0xffF2F2F2),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-                child: BlocProvider(
-                  create: (context) => sl<FavoriteMessagesBloc>()
-                    ..add(FetchFavoriteMessages()),
-                  child: BlocBuilder<FavoriteMessagesBloc, FavoriteMessagesState>(
-                    builder: (context, state) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Favorites (${state is FavoriteMessagesLoaded ? state.messages.length : 0})",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'Noto Sans',
-                                ),
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.close),
-                                onPressed: () => Navigator.pop(context),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 16),
-                          if (state is FavoriteMessagesLoading)
-                            Center(child: CircularProgressIndicator())
-                          else if (state is FavoriteMessagesError)
-                            Center(child: Text(state.message))
-                          else if (state is FavoriteMessagesLoaded)
-                              Expanded(
-                                child: ListView.builder(
-                                  itemCount: state.messages.length,
-                                  itemBuilder: (context, index) {
-                                    final message = state.messages.toList()[index];
-                                    return ListTile(
-                                      leading: CircleAvatar(
-                                        radius: 10,
-                                        backgroundColor: Colors.grey[300],
-                                        child: Icon(Icons.timer, size: 16),
-                                      ),
-                                      title: Text(
-                                        message.message.length > 20
-                                            ? '${message.message.substring(0, 20)}...'
-                                            : message.message,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'Noto Sans',
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        "Ready in: 10 mins", // Adjust based on actual data
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      trailing: Icon(
-                                        Icons.favorite,
-                                        color: Colors.red,
-                                      ),
-                                      onTap: () {
-                                        final botMessage = StoreMessage(
-                                          message: message.message,
-                                          is_bot: true,
-                                        );
-                                        context.read<ChatBloc>().add(
-                                          SendChatMessageEvent(botMessage),
-                                        );
-                                        Navigator.pop(context);
-                                      },
-                                    );
-                                  },
-                                ),
-                              )
-                            else
-                              Center(child: Text("No favorites yet")),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-      transitionBuilder: (context, animation, secondaryAnimation, child) {
-        return SlideTransition(
-          position: Tween<Offset>(
-            begin: const Offset(-1, 0),
-            end: Offset.zero,
-          ).animate(animation),
-          child: child,
-        );
-      },
-    );
-  }
-
   PreferredSizeWidget? _buildAppBarForIndex(int index) {
     switch (index) {
       case 1:
@@ -182,10 +60,7 @@ class _HomeViewState extends State<HomeView> {
         return AppBar(title: Text("Tracking"));
       case 3:
         return AppBar(
-          leading: IconButton(
-            icon: SvgPicture.asset(Assets.imagesFavouriteMenu),
-            onPressed: () => _showChatbotMenu(context),
-          ),
+          leading: FavoritesDrawer(),
           title: Text(
             "Chatbite",
             style: TextStyle(
@@ -238,7 +113,7 @@ class _HomeViewState extends State<HomeView> {
               topLeft: Radius.circular(16),
             ),
             child: SizedBox(
-              height: 90,
+              height: 84,
               child: BottomNavigationBar(
                 onTap: onTabTapped,
                 elevation: 0,
