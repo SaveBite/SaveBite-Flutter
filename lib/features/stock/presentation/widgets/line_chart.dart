@@ -37,9 +37,9 @@ class _buildLineChartState extends State<buildLineChart> {
     curve3 = widget.curve3.isNotEmpty ? widget.curve3 : [FlSpot(0, 0)];
     curve4 = widget.curve4.isNotEmpty ? widget.curve4 : [FlSpot(0, 0)];
     productNames = widget.productNames;
-    print("LineChart Product Names: $productNames");
-    print("LineChart initState Curves: $curve1, $curve2, $curve3, $curve4");
-  }
+  //   print("LineChart Product Names: $productNames");
+  //   print("LineChart initState Curves: $curve1, $curve2, $curve3, $curve4");
+   }
 
   @override
   void didUpdateWidget(buildLineChart oldWidget) {
@@ -55,8 +55,8 @@ class _buildLineChartState extends State<buildLineChart> {
         curve3 = widget.curve3.isNotEmpty ? widget.curve3 : [FlSpot(0, 0)];
         curve4 = widget.curve4.isNotEmpty ? widget.curve4 : [FlSpot(0, 0)];
         productNames = widget.productNames;
-        print("LineChart didUpdateWidget Product Names: $productNames");
-        print("LineChart didUpdateWidget Curves: $curve1, $curve2, $curve3, $curve4");
+        // print("LineChart didUpdateWidget Product Names: $productNames");
+        // print("LineChart didUpdateWidget Curves: $curve1, $curve2, $curve3, $curve4");
       });
     }
   }

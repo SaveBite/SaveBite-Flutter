@@ -144,5 +144,36 @@ class Assets {
   /// Assets for tuneFilter
   /// assets/images/x.svg
   static const String imagesTuneFilter = "assets/images/tune_filter.svg";
+
+  /// Assets for chef
+  /// assets/images/chef.svg
+  static const String imagesChef = "assets/images/chef.svg";
+
+  /// Assets for menu
+  /// assets/images/menu.svg
+  static const String imagesMenu = "assets/images/book.svg";
+
+  /// Assets for chef
+  /// assets/images/clock.svg
+  static const String imagesClock = "assets/images/clock.svg";
+
+
+  /// Assets for protected
+  /// assets/images/protected.svg
+  static const String imagesProtected = "assets/images/protected_icon.svg";
+
+
+  /// Assets for choose ingrediants menu
+  /// assets/images/menu_#2.svg
+  static const String imagesChooseMenu = "assets/images/menu_#2.svg";
+
+  /// Assets for send
+  /// assets/images/send.svg
+  static const String imagesSend = "assets/images/send.svg";
+
+
+  /// Assets for chatbot favourite drawer menu
+  /// assets/images/menu_#3.svg
+  static const String imagesFavouriteMenu = "assets/images/menu_#3.svg";
 }
 

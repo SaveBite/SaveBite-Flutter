@@ -45,11 +45,27 @@ import 'package:save_bite/features/home/domain/use_cases/get_stock_data_use_case
 import 'package:save_bite/features/home/domain/use_cases/upload_products_use_case.dart';
 
 // Stock Feature
+import 'features/ChatBot/data/repos/chat_repos_impl.dart';
+import 'features/ChatBot/domain/usecases/get_chat_messages.dart';
+import 'features/ChatBot/presentation/bloc/chat_bloc/chat_bloc.dart';
+import 'features/ChatBot/presentation/bloc/favorite_messages_bloc/favorite_messages_bloc.dart';
 import 'features/stock/data/datasorces/stock_remote_data_source.dart';
 import 'features/stock/data/repos/stock_repo_impl.dart';
 import 'features/stock/domain/repos/stock_repo.dart';
 import 'features/stock/domain/usecases/stock_usecase.dart';
 import 'features/stock/presentation/bloc/stock_bloc.dart';
+
+// Chatbot Feature
+import 'features/ChatBot/data/datasources/chat_remote_data_source.dart';
+import 'features/ChatBot/data/datasources/recipe_remote_data_source.dart';
+import 'features/ChatBot/data/repos/recipe_repository_impl.dart';
+import 'features/ChatBot/domain/repo/chat_repository.dart';
+import 'features/ChatBot/domain/repo/recipe_repository.dart';
+import 'features/ChatBot/domain/usecases/get_favorite_messages.dart';
+import 'features/ChatBot/domain/usecases/get_recipe.dart';
+import 'features/ChatBot/domain/usecases/send_message.dart';
+import 'features/ChatBot/domain/usecases/toggle_favorite.dart';
+import 'features/ChatBot/presentation/bloc/recipe_bloc/recipe_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -62,6 +78,7 @@ Future<void> init() async {
     _initVerification();
     _initLostImage();
     _initStockFeature();
+    _initChatbotFeature();
 
     print('✅ All dependencies registered successfully!');
   } catch (e, stackTrace) {
@@ -166,4 +183,37 @@ void _initStockFeature() {
   sl.registerSingleton(GetStockDataUseCase(homeRepo: homeRepo));
   sl.registerSingleton(UploadProductsUseCase(homeRepo: homeRepo));
   sl.registerSingleton(AddProductUseCase(homeRepo: homeRepo));
+}
+
+// ==========================
+// 🔹 Chatbot Feature
+// ==========================
+void _initChatbotFeature() {
+  print('📦 Initializing Chatbot Feature...');
+
+  // Recipe
+  sl.registerLazySingleton<RecipeRemoteDataSource>(
+          () => RecipeRemoteDataSource());
+  sl.registerLazySingleton<RecipeRepository>(
+          () => RecipeRepositoryImpl(
+        remoteDataSource: sl(),
+        networkInfo: sl(),
+      ));
+  sl.registerLazySingleton(() => GetRecipe(sl()));
+  sl.registerFactory(() => RecipeBloc(sl()));
+
+  // Chat
+  sl.registerLazySingleton<ChatRemoteDataSource>(
+          () => ChatRemoteDataSourceImpl(dio: sl()));
+  sl.registerLazySingleton<ChatRepository>(
+          () => ChatRepositoryImpl(
+        remoteDataSource: sl(),
+        networkInfo: sl(),
+      ));
+  sl.registerLazySingleton(() => SendMessage(sl()));
+  sl.registerLazySingleton(() => ToggleFavorite(sl()));
+  sl.registerLazySingleton(() => GetFavoriteMessages(sl()));
+  sl.registerLazySingleton(() => GetChatMessages(sl()));
+  sl.registerFactory(() => ChatBloc(sl(), sl()));
+  sl.registerFactory(() => FavoriteMessagesBloc(sl()));
 }

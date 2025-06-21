@@ -7,7 +7,6 @@ import 'package:save_bite/features/home/domain/use_cases/get_stock_data_use_case
 import 'package:save_bite/features/home/domain/use_cases/upload_products_use_case.dart';
 import 'package:save_bite/features/home/presentation/manger/products_cubit/products_cubit.dart';
 import 'package:save_bite/features/home/presentation/manger/stock_data_cubit/stock_data_cubit.dart';
-import 'package:save_bite/features/home/presentation/views/widgets/chact_bot_view_body.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/custom_bottom_navigation_bar_iteam.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/home_view_body.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/more_icon.dart';
@@ -15,6 +14,8 @@ import 'package:save_bite/features/home/presentation/views/widgets/more_view_bod
 import 'package:save_bite/features/home/presentation/views/widgets/tracking_view_body.dart';
 import 'package:save_bite/injection_container.dart';
 
+import '../../../ChatBot/presentation/pages/chatbot_page.dart';
+import '../../../ChatBot/presentation/widgets/favourite_drawer.dart';
 import '../../../stock/presentation/pages/stock_page.dart';
 
 class HomeView extends StatefulWidget {
@@ -41,6 +42,46 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  PreferredSizeWidget? _buildAppBarForIndex(int index) {
+    switch (index) {
+      case 1:
+        return AppBar(
+          toolbarHeight: 55,
+          backgroundColor: const Color(0xffFFFFFF),
+          elevation: 0,
+          centerTitle: true,
+          title: Text(
+            "Stock",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          shape: Border(bottom: BorderSide(color: Color(0xffCCCCCC))),
+        );
+      case 2:
+        return AppBar(title: Text("Tracking"));
+      case 3:
+        return AppBar(
+          leading: FavoritesDrawer(),
+          title: Text(
+            "Chatbite",
+            style: TextStyle(
+              fontSize: 19,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Noto Sans',
+            ),
+          ),
+          centerTitle: true,
+          backgroundColor: const Color(0xffFFFFFF),
+          elevation: 0,
+          shape: Border(bottom: BorderSide(color: Color(0xffCCCCCC))),
+          toolbarHeight: 55,
+        );
+      case 4:
+        return AppBar(title: Text("More"));
+      default:
+        return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -60,6 +101,7 @@ class _HomeViewState extends State<HomeView> {
       ],
       child: SafeArea(
         child: Scaffold(
+          appBar: _buildAppBarForIndex(currentIndex),
           backgroundColor: Color(0xffF2F2F2),
           body: IndexedStack(
             index: currentIndex,
@@ -71,7 +113,7 @@ class _HomeViewState extends State<HomeView> {
               topLeft: Radius.circular(16),
             ),
             child: SizedBox(
-              height: 90,
+              height: 84,
               child: BottomNavigationBar(
                 onTap: onTabTapped,
                 elevation: 0,

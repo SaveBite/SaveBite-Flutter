@@ -21,7 +21,7 @@ class StockBloc extends Bloc<StockEvent, StockState> {
   Future<void> _onGetStockProducts(
       GetStockProductsEvent event, Emitter<StockState> emit) async {
     emit(StockLoading());
-    print("📦 StockBloc: Fetching stock...");
+    // print("📦 StockBloc: Fetching stock...");
 
     final Either<Failure, ProductStockResponseEntity> result =
     await stockUseCase(event.filter); // ✅ Now using the use case
