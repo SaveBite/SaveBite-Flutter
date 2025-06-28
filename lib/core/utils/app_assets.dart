@@ -6,9 +6,6 @@ class Assets {
   /// assets/images/auth_logo.svg
   static const String imagesAuthLogo = "assets/images/auth_logo.svg";
 
-  /// Assets for imagesChatBit
-  /// assets/images/chat_bit.svg
-  static const String imagesChatBit = "assets/images/chat_bit.svg";
   /// Assets for imagesBellowBar
   /// assets/images/bellow_bar.svg
   static const String imagesBellowBar = "assets/images/bellow_bar.svg";
@@ -20,6 +17,18 @@ class Assets {
   /// Assets for imagesCalender
   /// assets/images/calender.svg
   static const String imagesCalender = "assets/images/calender.svg";
+
+  /// Assets for imagesCategoryOverStatcking
+  /// assets/images/category_over_statcking.svg
+  static const String imagesCategoryOverStatcking = "assets/images/category_over_statcking.svg";
+
+  /// Assets for imagesCategoryOverstockingSlider
+  /// assets/images/category_overstocking_slider.svg
+  static const String imagesCategoryOverstockingSlider = "assets/images/category_overstocking_slider.svg";
+
+  /// Assets for imagesChatBit
+  /// assets/images/chat_bit.svg
+  static const String imagesChatBit = "assets/images/chat_bit.svg";
 
   /// Assets for imagesChatBite
   /// assets/images/chat_bite.svg
@@ -36,6 +45,10 @@ class Assets {
   /// Assets for imagesDownIcon
   /// assets/images/down_icon.svg
   static const String imagesDownIcon = "assets/images/down_icon.svg";
+
+  /// Assets for imagesDropDownIteam
+  /// assets/images/drop_down_iteam.svg
+  static const String imagesDropDownIteam = "assets/images/drop_down_iteam.svg";
 
   /// Assets for imagesEyeOff
   /// assets/images/eye_off.svg
@@ -60,6 +73,10 @@ class Assets {
   /// Assets for imagesFrame
   /// assets/images/Frame.svg
   static const String imagesFrame = "assets/images/Frame.svg";
+
+  /// Assets for imagesGreenRate
+  /// assets/images/green_rate.svg
+  static const String imagesGreenRate = "assets/images/green_rate.svg";
 
   /// Assets for imagesHome
   /// assets/images/home.svg
@@ -101,6 +118,30 @@ class Assets {
   /// assets/images/product_search.svg
   static const String imagesProductSearch = "assets/images/product_search.svg";
 
+  /// Assets for imagesRedRate
+  /// assets/images/red_rate.svg
+  static const String imagesRedRate = "assets/images/red_rate.svg";
+
+  /// Assets for imagesReorderAccuracyRate
+  /// assets/images/reorder_accuracy_rate.svg
+  static const String imagesReorderAccuracyRate = "assets/images/reorder_accuracy_rate.svg";
+
+  /// Assets for imagesReorderAcuracyRateSlider
+  /// assets/images/reorder_acuracy_rate_slider.svg
+  static const String imagesReorderAcuracyRateSlider = "assets/images/reorder_acuracy_rate_slider.svg";
+
+  /// Assets for imagesReturnBack
+  /// assets/images/return_back.svg
+  static const String imagesReturnBack = "assets/images/return_back.svg";
+
+  /// Assets for imagesRevenue
+  /// assets/images/revenue.svg
+  static const String imagesRevenue = "assets/images/revenue.svg";
+
+  /// Assets for imagesRevenueSlider
+  /// assets/images/revenue_slider.svg
+  static const String imagesRevenueSlider = "assets/images/revenue_slider.svg";
+
   /// Assets for imagesSearch
   /// assets/images/search.svg
   static const String imagesSearch = "assets/images/search.svg";
@@ -108,6 +149,14 @@ class Assets {
   /// Assets for imagesSplashLogo
   /// assets/images/splash_logo.svg
   static const String imagesSplashLogo = "assets/images/splash_logo.svg";
+
+  /// Assets for imagesSpoilAgeRate
+  /// assets/images/spoil_age_rate.svg
+  static const String imagesSpoilAgeRate = "assets/images/spoil_age_rate.svg";
+
+  /// Assets for imagesSpoilAgeRateSlider
+  /// assets/images/spoil_age_rate_slider.svg
+  static const String imagesSpoilAgeRateSlider = "assets/images/spoil_age_rate_slider.svg";
 
   /// Assets for imagesStock
   /// assets/images/stock.svg
@@ -117,6 +166,14 @@ class Assets {
   /// assets/images/stock_on_hand.svg
   static const String imagesStockOnHand = "assets/images/stock_on_hand.svg";
 
+  /// Assets for imagesStockTurnOverRate
+  /// assets/images/stock_turn_over_rate.svg
+  static const String imagesStockTurnOverRate = "assets/images/stock_turn_over_rate.svg";
+
+  /// Assets for imagesStockTurnOverRateSlider
+  /// assets/images/stock_turn_over_rate_slider.svg
+  static const String imagesStockTurnOverRateSlider = "assets/images/stock_turn_over_rate_slider.svg";
+
   /// Assets for imagesTapleHeaderIcon
   /// assets/images/taple_header_icon.svg
   static const String imagesTapleHeaderIcon = "assets/images/taple_header_icon.svg";
@@ -124,6 +181,10 @@ class Assets {
   /// Assets for imagesTracking
   /// assets/images/tracking.svg
   static const String imagesTracking = "assets/images/tracking.svg";
+
+  /// Assets for imagesTuneFilter
+  /// assets/images/tune_filter.svg
+  static const String imagesTuneFilter = "assets/images/tune_filter.svg";
 
   /// Assets for imagesUploadFile
   /// assets/images/upload_file.svg
@@ -137,12 +198,16 @@ class Assets {
   /// assets/images/verified_icon.svg
   static const String imagesVerifiedIcon = "assets/images/verified_icon.svg";
 
+  /// Assets for imagesWasteToSalesRatioSlider
+  /// assets/images/waste_to_sales_ratio_slider.svg
+  static const String imagesWasteToSalesRatioSlider = "assets/images/waste_to_sales_ratio_slider.svg";
+
+  /// Assets for imagesWateToSalesRatio
+  /// assets/images/wate_to_sales_ratio.svg
+  static const String imagesWateToSalesRatio = "assets/images/wate_to_sales_ratio.svg";
+
   /// Assets for imagesX
   /// assets/images/x.svg
   static const String imagesX = "assets/images/x.svg";
-
-  /// Assets for tuneFilter
-  /// assets/images/x.svg
-  static const String imagesTuneFilter = "assets/images/tune_filter.svg";
 }
 

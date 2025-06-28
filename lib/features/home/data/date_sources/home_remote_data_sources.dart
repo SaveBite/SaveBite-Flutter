@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:save_bite/constants.dart';
 import 'package:save_bite/features/authentication/login/data/model/save_user_data.dart';
 import 'package:save_bite/features/home/data/models/product_model.dart';
 import 'package:save_bite/features/home/data/models/stock_data_model.dart';
@@ -25,6 +26,7 @@ abstract class HomeRemoteDataSources {
 
 class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
   final Dio dio;
+  final String baseUrl = kBaseUrl;
 
   HomeRemoteDataSourcesImp({required this.dio});
   @override
@@ -32,7 +34,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
       {String? productName, String? sortBy}) async {
     if (productName != null) {
       Response response = await dio.get(
-        'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/products?search=$productName',
+        '$baseUrl/products?search=$productName',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${SaveUserData.user!.token}',
@@ -47,7 +49,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
       return products;
     } else if (sortBy != null) {
       Response response = await dio.get(
-        'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/products?status=$sortBy',
+        '$baseUrl/products?status=$sortBy',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${SaveUserData.user!.token}',
@@ -62,7 +64,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
       return products;
     } else if (productName != null && sortBy != null) {
       Response response = await dio.get(
-        'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/products?search=$productName&status=$sortBy',
+        '$baseUrl/products?search=$productName&status=$sortBy',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${SaveUserData.user!.token}',
@@ -77,7 +79,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
       return products;
     } else {
       Response response = await dio.get(
-        'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/products',
+        '$baseUrl/products',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${SaveUserData.user!.token}',
@@ -96,7 +98,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
   @override
   Future<StockDataModel> getStockData() async {
     Response response = await dio.get(
-      'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/products',
+      '$baseUrl/products',
       options: Options(
         headers: {
           'Authorization': 'Bearer ${SaveUserData.user!.token}',
@@ -120,7 +122,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
     });
 
     Response response = await dio.post(
-      "https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/products/upload",
+      "$baseUrl/products/upload",
       data: formData,
       options: Options(
         headers: {
@@ -150,7 +152,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
     required String month,
   }) async {
     Response response = await dio.post(
-      'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/products/',
+      '$baseUrl/products/',
       options: Options(
         headers: {
           'Authorization': 'Bearer ${SaveUserData.user!.token}',

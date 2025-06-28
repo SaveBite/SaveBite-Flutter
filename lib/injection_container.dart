@@ -51,6 +51,12 @@ import 'features/stock/domain/repos/stock_repo.dart';
 import 'features/stock/domain/usecases/stock_usecase.dart';
 import 'features/stock/presentation/bloc/stock_bloc.dart';
 
+// Anyltics Feature
+import 'package:save_bite/features/analytics/data/data_sources/anayltics_remote_data_sources.dart';
+import 'package:save_bite/features/analytics/data/repos/anayltics_repo_imp.dart';
+import 'package:save_bite/features/analytics/domain/use_case/fetch_anyltics_details_use_case.dart';
+import 'package:save_bite/features/analytics/domain/use_case/get_sales_data_use_case.dart';
+
 final sl = GetIt.instance;
 
 Future<void> init() async {
@@ -82,9 +88,9 @@ Future<void> _initCore() async {
   sl.registerLazySingleton(() => InternetConnectionChecker());
 
   sl.registerLazySingleton<NetworkInfo>(
-          () => NetworkInfoImpl(connectionChecker: sl()));
+      () => NetworkInfoImpl(connectionChecker: sl()));
   sl.registerLazySingleton<LocalDataSource>(
-          () => LocalDataSourceImpl(sharedPreferences: sl()));
+      () => LocalDataSourceImpl(sharedPreferences: sl()));
 }
 
 // ==========================
@@ -95,17 +101,17 @@ void _initAuthentication() {
 
   // ✅ Sign Up
   sl.registerLazySingleton<AuthRemoteDataSource>(
-          () => AuthRemoteDataSourceImpl(client: sl()));
+      () => AuthRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<AuthRepository>(
-          () => AuthRepositoryImpl(authRemoteDataSource: sl()));
+      () => AuthRepositoryImpl(authRemoteDataSource: sl()));
   sl.registerLazySingleton(() => SignUpUseCase(authRepository: sl()));
   sl.registerFactory(() => AuthenticationBloc(signUpUseCase: sl()));
 
   // ✅ Login
   sl.registerLazySingleton<LoginRemoteDataSource>(
-          () => LoginRemoteDataSourceImp());
+      () => LoginRemoteDataSourceImp());
   sl.registerLazySingleton<LoginRepo>(
-          () => LoginRepoImp(loginRemoteDataSource: sl()));
+      () => LoginRepoImp(loginRemoteDataSource: sl()));
   sl.registerLazySingleton(() => LoginEmailImageUseCase(loginRepo: sl()));
   sl.registerLazySingleton(() => LoginEmailPasswordUseCase(loginRepo: sl()));
 }
@@ -117,18 +123,18 @@ void _initVerification() {
   print('📦 Initializing Verification...');
 
   sl.registerLazySingleton<RemoteDataSource>(
-          () => RemoteDataSourceImpl(client: sl(), authDataSource: sl()));
+      () => RemoteDataSourceImpl(client: sl(), authDataSource: sl()));
   sl.registerLazySingleton<VerificationRepo>(() => OtpRepoImpl(
-    networkInfo: sl(),
-    remoteDataSource: sl(),
-    localDataSource: sl(),
-  ));
+        networkInfo: sl(),
+        remoteDataSource: sl(),
+        localDataSource: sl(),
+      ));
   sl.registerLazySingleton(() => CheckCodeUseCase(verificationRepo: sl()));
   sl.registerLazySingleton(() => ResendCodeUseCase(verificationRepo: sl()));
   sl.registerFactory(() => OTPBloc(
-    checkCodeUseCase: sl(),
-    resendCodeUseCase: sl(),
-  ));
+        checkCodeUseCase: sl(),
+        resendCodeUseCase: sl(),
+      ));
 }
 
 // ==========================
@@ -138,12 +144,12 @@ void _initLostImage() {
   print('📦 Initializing Lost Image...');
 
   sl.registerLazySingleton<LostImageRemoteDataSource>(
-          () => LostImageRemoteDataSourceImp());
+      () => LostImageRemoteDataSourceImp());
   sl.registerLazySingleton<LostImageRepoImp>(
-          () => LostImageRepoImp(lostImageRemoteDataSource: sl()));
+      () => LostImageRepoImp(lostImageRemoteDataSource: sl()));
   sl.registerLazySingleton(() => LostImageUseCase(lostImageRepo: sl()));
   sl.registerLazySingleton(
-          () => LostImageVerficationUseCase(lostImageRepo: sl()));
+      () => LostImageVerficationUseCase(lostImageRepo: sl()));
 }
 
 // ==========================
@@ -153,9 +159,9 @@ void _initStockFeature() {
   print('📦 Initializing Stock Feature...');
 
   sl.registerLazySingleton<StockRemoteDataSource>(
-          () => StockRemoteDataSourceImp(dio: Dio()));
+      () => StockRemoteDataSourceImp(dio: Dio()));
   sl.registerLazySingleton<StockRepo>(
-          () => StockRepoImp(stockRemoteDataSource: sl(), networkInfo: sl()));
+      () => StockRepoImp(stockRemoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton(() => StockUseCase(stockRepo: sl()));
   sl.registerFactory(() => StockBloc(stockUseCase: sl()));
 
@@ -166,4 +172,13 @@ void _initStockFeature() {
   sl.registerSingleton(GetStockDataUseCase(homeRepo: homeRepo));
   sl.registerSingleton(UploadProductsUseCase(homeRepo: homeRepo));
   sl.registerSingleton(AddProductUseCase(homeRepo: homeRepo));
+
+  //✅ Anyltics UseCase
+  final anylticsRemote = AnaylticsRemoteDataSourcesImp(dio: Dio());
+  final anaylticsRepo =
+      AnaylticsRepoImp(anaylticsRemoteDataSources: anylticsRemote);
+  sl.registerSingleton<FetchAnylticsDetailsUseCase>(
+      FetchAnylticsDetailsUseCase(anaylticsRepo: anaylticsRepo));
+  sl.registerSingleton<GetSalesDataUseCase>(
+      GetSalesDataUseCase(anaylticsRepo: anaylticsRepo));
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:save_bite/constants.dart';
 import 'package:save_bite/features/authentication/login/data/model/user_model.dart';
 
 abstract class LoginRemoteDataSource {
@@ -12,6 +13,7 @@ abstract class LoginRemoteDataSource {
 }
 
 class LoginRemoteDataSourceImp extends LoginRemoteDataSource {
+  final baseUrl = kBaseUrl;
   @override
   Future<UserModel> loginEmailImage(
       {required String email, required File image}) async {
@@ -24,7 +26,7 @@ class LoginRemoteDataSourceImp extends LoginRemoteDataSource {
     });
 
     var response = await dio.post(
-      'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/auth/sign/in',
+      '$baseUrl/auth/sign/in',
       data: formData,
       onSendProgress: (int sent, int total) {},
     );
@@ -39,7 +41,7 @@ class LoginRemoteDataSourceImp extends LoginRemoteDataSource {
       {required String email, required String password}) async {
     var dio = Dio();
     var response = await dio.post(
-      'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/auth/sign/in',
+      '$baseUrl/auth/sign/in',
       data: {
         'email': email,
         'password': password,

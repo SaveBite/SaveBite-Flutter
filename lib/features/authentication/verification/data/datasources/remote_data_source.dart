@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:save_bite/constants.dart';
 import 'package:save_bite/features/authentication/verification/data/models/check_code_response_model.dart';
 import 'package:save_bite/features/authentication/verification/domain/entity/check_code_response_entity.dart';
 import '../../../../../core/error/exceptions.dart';
@@ -15,8 +16,7 @@ abstract class RemoteDataSource {
 }
 
 // ✅ API Base URL
-const String BASE_URL =
-    "https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile";
+const String BASE_URL = kBaseUrl;
 
 class RemoteDataSourceImpl implements RemoteDataSource {
   final http.Client client;

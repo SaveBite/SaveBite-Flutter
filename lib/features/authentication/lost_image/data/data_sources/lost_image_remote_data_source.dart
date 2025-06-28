@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:save_bite/constants.dart';
 
 abstract class LostImageRemoteDataSource {
   Future<String> lostImage({
@@ -13,12 +14,13 @@ abstract class LostImageRemoteDataSource {
 }
 
 class LostImageRemoteDataSourceImp extends LostImageRemoteDataSource {
+  final String baseUrl = kBaseUrl;
   @override
   Future<String> lostImage(
       {required String email, required String answer}) async {
     var dio = Dio();
     var response = await dio.post(
-      'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/lost-image',
+      '$baseUrl/lost-image',
       data: {
         'email': email,
         'answer': answer,
@@ -37,7 +39,7 @@ class LostImageRemoteDataSourceImp extends LostImageRemoteDataSource {
       required String otptoken}) async {
     var dio = Dio();
     var response = await dio.post(
-      'https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile/lost-image-check-code',
+      '$baseUrl/lost-image-check-code',
       data: {
         'email': email,
         'otp': otp,

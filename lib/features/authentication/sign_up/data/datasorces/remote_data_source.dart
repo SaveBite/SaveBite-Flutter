@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:save_bite/constants.dart';
 import '../../../../../core/error/exceptions.dart';
 import '../../domain/entities/auth_entity.dart';
 import '../models/auth_model.dart';
@@ -12,8 +13,7 @@ abstract class AuthRemoteDataSource {
   String? get authToken;
 }
 
-const String BASE_URL =
-    "https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile";
+const String BASE_URL = kBaseUrl;
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final http.Client client;

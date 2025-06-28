@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
+import 'package:save_bite/constants.dart';
 import 'package:save_bite/features/stock/data/models/product_filter_model.dart';
 import '../../../../core/network/auth_local_data_source.dart';
 import '../../domain/entites/product_filter_entity.dart';
@@ -12,8 +11,7 @@ abstract class StockRemoteDataSource {
 }
 
 // ✅ API Base URL
-const String BASE_URL =
-    "https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile";
+const String BASE_URL = kBaseUrl;
 
 class StockRemoteDataSourceImp extends StockRemoteDataSource {
   final Dio dio;
@@ -32,13 +30,13 @@ class StockRemoteDataSourceImp extends StockRemoteDataSource {
               .toQueryParameters();
 
       final response = await dio.get("$BASE_URL/stock",
-        queryParameters: queryParams,
-        options: Options(headers: {
-          'Authorization': 'Bearer $token',
-          'Accept': 'application/json',
-        },
-        )
-      );
+          queryParameters: queryParams,
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer $token',
+              'Accept': 'application/json',
+            },
+          ));
 
       print("📡 API RESPONSE: ${response.data}");
 
