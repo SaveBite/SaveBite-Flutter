@@ -12,6 +12,8 @@ import 'package:save_bite/features/authentication/sign_up/presentation/bloc/auth
 import 'package:save_bite/features/authentication/verification/presentation/bloc/otp_bloc.dart';
 import 'package:save_bite/features/splash/presenation/views/splash_view.dart';
 import 'core/utils/app_styles.dart';
+import 'features/ChatBot/presentation/bloc/chat_bloc/chat_bloc.dart';
+import 'features/ChatBot/presentation/bloc/recipe_bloc/recipe_bloc.dart';
 import 'features/stock/domain/entites/product_filter_entity.dart';
 import 'features/stock/presentation/bloc/stock_bloc.dart';
 import 'injection_container.dart' as di;
@@ -59,11 +61,15 @@ class _SaveBiteState extends State<SaveBite> {
               lostImageVerficationUseCase: di.sl<LostImageVerficationUseCase>(),
             ),
           ),
-
-          // StockBloc with initial event trigger
           BlocProvider(
             create: (_) => di.sl<StockBloc>()
               ..add(GetStockProductsEvent(filter: ProductFilterEntity())),
+          ),
+          BlocProvider(
+            create: (_) => di.sl<RecipeBloc>(),
+          ),
+          BlocProvider(
+            create: (_) => di.sl<ChatBloc>(),
           ),
         ],
         child: MaterialApp(

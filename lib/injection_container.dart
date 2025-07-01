@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:save_bite/features/authentication/lost_image/domain/repo/lost_image_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Core
@@ -45,6 +46,10 @@ import 'package:save_bite/features/home/domain/use_cases/get_stock_data_use_case
 import 'package:save_bite/features/home/domain/use_cases/upload_products_use_case.dart';
 
 // Stock Feature
+import 'features/ChatBot/data/repos/chat_repos_impl.dart';
+import 'features/ChatBot/domain/usecases/get_chat_messages.dart';
+import 'features/ChatBot/presentation/bloc/chat_bloc/chat_bloc.dart';
+import 'features/ChatBot/presentation/bloc/favorite_messages_bloc/favorite_messages_bloc.dart';
 import 'features/stock/data/datasorces/stock_remote_data_source.dart';
 import 'features/stock/data/repos/stock_repo_impl.dart';
 import 'features/stock/domain/repos/stock_repo.dart';
@@ -57,6 +62,18 @@ import 'package:save_bite/features/analytics/data/repos/anayltics_repo_imp.dart'
 import 'package:save_bite/features/analytics/domain/use_case/fetch_anyltics_details_use_case.dart';
 import 'package:save_bite/features/analytics/domain/use_case/get_sales_data_use_case.dart';
 
+// Chatbot Feature
+import 'features/ChatBot/data/datasources/chat_remote_data_source.dart';
+import 'features/ChatBot/data/datasources/recipe_remote_data_source.dart';
+import 'features/ChatBot/data/repos/recipe_repository_impl.dart';
+import 'features/ChatBot/domain/repo/chat_repository.dart';
+import 'features/ChatBot/domain/repo/recipe_repository.dart';
+import 'features/ChatBot/domain/usecases/get_favorite_messages.dart';
+import 'features/ChatBot/domain/usecases/get_recipe.dart';
+import 'features/ChatBot/domain/usecases/send_message.dart';
+import 'features/ChatBot/domain/usecases/toggle_favorite.dart';
+import 'features/ChatBot/presentation/bloc/recipe_bloc/recipe_bloc.dart';
+
 final sl = GetIt.instance;
 
 Future<void> init() async {
@@ -68,6 +85,7 @@ Future<void> init() async {
     _initVerification();
     _initLostImage();
     _initStockFeature();
+    _initChatbotFeature();
 
     print('✅ All dependencies registered successfully!');
   } catch (e, stackTrace) {
@@ -145,7 +163,7 @@ void _initLostImage() {
 
   sl.registerLazySingleton<LostImageRemoteDataSource>(
       () => LostImageRemoteDataSourceImp());
-  sl.registerLazySingleton<LostImageRepoImp>(
+  sl.registerLazySingleton<LostImageRepo>(
       () => LostImageRepoImp(lostImageRemoteDataSource: sl()));
   sl.registerLazySingleton(() => LostImageUseCase(lostImageRepo: sl()));
   sl.registerLazySingleton(
@@ -181,4 +199,35 @@ void _initStockFeature() {
       FetchAnylticsDetailsUseCase(anaylticsRepo: anaylticsRepo));
   sl.registerSingleton<GetSalesDataUseCase>(
       GetSalesDataUseCase(anaylticsRepo: anaylticsRepo));
+}
+
+// ==========================
+// 🔹 Chatbot Feature
+// ==========================
+void _initChatbotFeature() {
+  print('📦 Initializing Chatbot Feature...');
+
+  // Recipe
+  sl.registerLazySingleton<RecipeRemoteDataSource>(
+      () => RecipeRemoteDataSource());
+  sl.registerLazySingleton<RecipeRepository>(() => RecipeRepositoryImpl(
+        remoteDataSource: sl(),
+        networkInfo: sl(),
+      ));
+  sl.registerLazySingleton(() => GetRecipe(sl()));
+  sl.registerFactory(() => RecipeBloc(sl()));
+
+  // Chat
+  sl.registerLazySingleton<ChatRemoteDataSource>(
+      () => ChatRemoteDataSourceImpl(dio: sl()));
+  sl.registerLazySingleton<ChatRepository>(() => ChatRepositoryImpl(
+        remoteDataSource: sl(),
+        networkInfo: sl(),
+      ));
+  sl.registerLazySingleton(() => SendMessage(sl()));
+  sl.registerLazySingleton(() => ToggleFavorite(sl()));
+  sl.registerLazySingleton(() => GetFavoriteMessages(sl()));
+  sl.registerLazySingleton(() => GetChatMessages(sl()));
+  sl.registerFactory(() => ChatBloc(sl(), sl()));
+  sl.registerFactory(() => FavoriteMessagesBloc(sl()));
 }

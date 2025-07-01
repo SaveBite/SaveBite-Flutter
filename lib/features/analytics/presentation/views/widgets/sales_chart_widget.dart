@@ -1,7 +1,14 @@
+import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:save_bite/core/utils/app_assets.dart';
+import 'package:save_bite/core/utils/app_styles.dart';
 import 'package:save_bite/features/analytics/domain/entity/sales_data_entity.dart';
+
+extension LogExt on double {
+  double log10() => log(this) / ln10;
+}
 
 class SalesChartWidget extends StatelessWidget {
   final SalesDataEntity salesData;
@@ -23,18 +30,8 @@ class SalesChartWidget extends StatelessWidget {
       return Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(16),
           color: Colors.white,
-          border:
-              Border.all(color: Colors.blueAccent.withOpacity(0.5), width: 1.5),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black12,
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 3),
-            ),
-          ],
         ),
         child: const Center(
           child: Text('No sales data available to display chart.'),
@@ -42,32 +39,38 @@ class SalesChartWidget extends StatelessWidget {
       );
     }
 
+    final uniqueSales = <String, double>{};
+    for (var item in salesData.weeklySales) {
+      uniqueSales[item.week] = item.salesPredictions.toDouble();
+    }
+    final cleanedWeeklySales = uniqueSales.entries.toList();
+    final limitedSales = cleanedWeeklySales.take(4).toList();
+
     List<FlSpot> spots = [];
     List<String> weekLabels = [];
 
-    double minSales = salesData.weeklySales
-        .map((e) => e.salesPredictions)
-        .reduce((a, b) => a < b ? a : b)
-        .toDouble();
-    double maxSales = salesData.weeklySales
-        .map((e) => e.salesPredictions)
-        .reduce((a, b) => a > b ? a : b)
-        .toDouble();
-
-    double minY = (minSales * 0.8).floorToDouble();
-    double maxY = (maxSales * 1.2).ceilToDouble();
-    if (minY < 0) minY = 0;
-
-    const double interval = 2000;
-    maxY = (maxY / interval).ceil() * interval;
-    minY = (minY / interval).floor() * interval;
-    if (minY < 0) minY = 0;
-
-    for (int i = 0; i < salesData.weeklySales.length; i++) {
-      final weeklySale = salesData.weeklySales[i];
-      spots.add(FlSpot(i.toDouble(), weeklySale.salesPredictions.toDouble()));
+    for (int i = 0; i < limitedSales.length; i++) {
+      spots.add(FlSpot(i.toDouble(), limitedSales[i].value));
       weekLabels.add('Week ${i + 1}');
     }
+
+    double minSales = limitedSales.map((e) => e.value).reduce(min);
+    double maxSales = limitedSales.map((e) => e.value).reduce(max);
+
+    double rawInterval = (maxSales - minSales) / 5;
+
+    double roundToNiceNumber(double value) {
+      double magnitude = pow(10, value.log10().floorToDouble()).toDouble();
+      double residual = value / magnitude;
+      if (residual < 1.5) return 1 * magnitude;
+      if (residual < 3) return 2 * magnitude;
+      if (residual < 7) return 5 * magnitude;
+      return 10 * magnitude;
+    }
+
+    double interval = roundToNiceNumber(rawInterval);
+    double minY = (minSales / interval).floor() * interval;
+    double maxY = minY + interval * 5;
 
     final List<Color> lineGradientColors = [
       const Color(0xFFE040FB).withOpacity(0.8),
@@ -81,31 +84,19 @@ class SalesChartWidget extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(16), // ✅ Border radius = 16
         color: Colors.white,
-        border: Border.all(
-          color: Colors.blueAccent.withOpacity(0.5),
-          width: 1.5,
-        ),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(0, 3),
-          ),
-        ],
+        // ✅ لا يوجد Border ظاهر
       ),
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Sales Analytics',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.green,
+            style: AppStyles.styleBold19.copyWith(
+              color: const Color(0xff5EDA42),
+              fontSize: 17,
             ),
           ),
           const SizedBox(height: 10),
@@ -120,12 +111,17 @@ class SalesChartWidget extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.calendar_today,
-                      size: 18, color: Colors.grey),
+                  Transform.scale(
+                    scale: 1,
+                    child: Image.asset(Assets.imagesCalender22),
+                  ),
                   const SizedBox(width: 8),
                   Text(
                     dateRangeText,
-                    style: TextStyle(color: Colors.grey.shade700),
+                    style: AppStyles.styleRegular11.copyWith(
+                      color: const Color(0xff999999),
+                      fontSize: 10,
+                    ),
                   ),
                 ],
               ),
@@ -138,16 +134,12 @@ class SalesChartWidget extends StatelessWidget {
               LineChartData(
                 gridData: FlGridData(
                   show: true,
-                  drawVerticalLine: true,
-                  horizontalInterval: interval / 2,
-                  verticalInterval: 1,
-                  getDrawingHorizontalLine: (value) => const FlLine(
-                    color: Color(0xfff3f3f3),
+                  drawVerticalLine: false, // ✅ no vertical lines
+                  horizontalInterval: interval,
+                  getDrawingHorizontalLine: (value) => FlLine(
+                    color: const Color(0xfff3f3f3),
                     strokeWidth: 1,
-                  ),
-                  getDrawingVerticalLine: (value) => const FlLine(
-                    color: Color(0xfff3f3f3),
-                    strokeWidth: 1,
+                    dashArray: [4, 4], // ✅ dashed horizontal lines
                   ),
                 ),
                 titlesData: FlTitlesData(
@@ -157,18 +149,16 @@ class SalesChartWidget extends StatelessWidget {
                       reservedSize: 60,
                       interval: interval,
                       getTitlesWidget: (value, meta) {
-                        if (value % interval != 0)
-                          return const SizedBox.shrink();
                         return SideTitleWidget(
                           meta: meta,
                           space: 8,
                           child: Text(
-                            '${(value ~/ 1000)}k',
-                            // 👇 You can edit Y axis style here
-                            style: const TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey,
+                            value >= 1000
+                                ? '${(value ~/ 1000)}k'
+                                : value.toInt().toString(),
+                            style: AppStyles.styleRegular13.copyWith(
+                              color: const Color(0xff999999),
+                              fontSize: 11,
                             ),
                           ),
                         );
@@ -190,11 +180,9 @@ class SalesChartWidget extends StatelessWidget {
                           space: 8.0,
                           child: Text(
                             weekLabels[value.toInt()],
-                            // 👇 You can edit X axis style here
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
+                            style: AppStyles.styleRegular13.copyWith(
+                              color: const Color(0xff999999),
+                              fontSize: 11,
                             ),
                           ),
                         );
@@ -207,17 +195,16 @@ class SalesChartWidget extends StatelessWidget {
                       sideTitles: SideTitles(showTitles: false)),
                 ),
                 borderData: FlBorderData(
-                  show: true,
-                  border: Border.all(color: const Color(0xff37434d), width: 1),
+                  show: false, // ✅ no border for chart area
                 ),
                 minX: 0,
-                maxX: (salesData.weeklySales.length - 1).toDouble(),
-                minY: minY - interval / 2,
-                maxY: maxY + interval / 2,
+                maxX: (spots.length - 1).toDouble(),
+                minY: minY,
+                maxY: maxY,
                 lineBarsData: [
                   LineChartBarData(
                     spots: spots,
-                    isCurved: false, // 👈 ZIGZAG line
+                    isCurved: true,
                     gradient: LinearGradient(
                       colors: lineGradientColors,
                       begin: Alignment.centerLeft,

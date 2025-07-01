@@ -28,6 +28,7 @@ class _AnylticsViewBodyState extends State<AnylticsViewBody> {
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             FetchAnaylticsDetailsBlocBuilder(),
             SizedBox(

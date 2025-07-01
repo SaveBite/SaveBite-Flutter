@@ -1,5 +1,3 @@
-// stock_page.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/stock_bloc.dart';
@@ -16,7 +14,6 @@ class StockPage extends StatefulWidget {
 }
 
 class _StockPageState extends State<StockPage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Set<String> selectedProductNames = {};
   String searchText = '';
 
@@ -29,17 +26,54 @@ class _StockPageState extends State<StockPage> {
   }
 
   void _openFilter() {
-    _scaffoldKey.currentState?.openEndDrawer();
-  }
-
-  void _closeFilter() {
-    Navigator.of(context).maybePop(); // Closes the drawer if open
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: 'Dismiss',
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Align(
+          alignment: Alignment.centerRight,
+          child: FractionallySizedBox(
+            widthFactor: 0.75,
+            heightFactor: 1.0,
+            child: BlocBuilder<StockBloc, StockState>(
+              builder: (context, state) {
+                if (state is StockLoaded) {
+                  return FilterDrawer(
+                    onClose: () => Navigator.of(context).pop(),
+                    stockData: state.stockData,
+                    onApplyFilter: _applyFilter,
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
+          ),
+        );
+      },
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(1, 0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: child,
+        );
+      },
+    );
   }
 
   void _applyFilter(Set<String> selectedProducts) {
     setState(() {
       selectedProductNames = selectedProducts;
       print("Selected Products: $selectedProductNames");
+    });
+  }
+
+  void _resetFilter() {
+    setState(() {
+      selectedProductNames = {};
+      print("Filter Reset: selectedProductNames cleared");
     });
   }
 
@@ -50,7 +84,6 @@ class _StockPageState extends State<StockPage> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<StockBloc, StockState>(
@@ -58,22 +91,18 @@ class _StockPageState extends State<StockPage> {
         if (state is StockLoading) {
           return const Center(child: LoadingWidget());
         } else if (state is StockLoaded) {
-          print("Building StockPage with selectedProductNames: $selectedProductNames");
-          return Scaffold(
-            backgroundColor: const Color(0xffF2F2F2),
-            key: _scaffoldKey,
-            endDrawer: FilterDrawer(
-              onClose: _closeFilter,
-              stockData: state.stockData,
-              onApplyFilter: _applyFilter,
-            ),
-            body: StockViewBody(
-              onFilterOpened: _openFilter,
-              onFilterClosed: _closeFilter,
-              stockData: state.stockData,
-              selectedProductNames: selectedProductNames,
-              searchText: searchText,
-              onSearchChanged: _onSearchChanged,
+          return SafeArea(
+            child: Scaffold(
+              backgroundColor: const Color(0xffF2F2F2),
+              body: StockViewBody(
+                onFilterOpened: _openFilter,
+                onFilterClosed: () {},
+                onResetFilter: _resetFilter,
+                stockData: state.stockData,
+                selectedProductNames: selectedProductNames,
+                searchText: searchText,
+                onSearchChanged: _onSearchChanged,
+              ),
             ),
           );
         } else if (state is StockError) {

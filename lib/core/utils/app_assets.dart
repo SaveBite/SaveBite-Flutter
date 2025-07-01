@@ -18,6 +18,14 @@ class Assets {
   /// assets/images/calender.svg
   static const String imagesCalender = "assets/images/calender.svg";
 
+  /// Assets for imagesCalender2
+  /// assets/images/calender2.svg
+  static const String imagesCalender2 = "assets/images/calender2.svg";
+
+  /// Assets for imagesCalender22
+  /// assets/images/calender22.png
+  static const String imagesCalender22 = "assets/images/calender22.png";
+
   /// Assets for imagesCategoryOverStatcking
   /// assets/images/category_over_statcking.svg
   static const String imagesCategoryOverStatcking = "assets/images/category_over_statcking.svg";
@@ -33,6 +41,18 @@ class Assets {
   /// Assets for imagesChatBite
   /// assets/images/chat_bite.svg
   static const String imagesChatBite = "assets/images/chat_bite.svg";
+
+  /// Assets for imagesChef
+  /// assets/images/chef.svg
+  static const String imagesChef = "assets/images/chef.svg";
+
+  /// Assets for imagesChooseMenu
+  /// assets/images/choose_menu.svg
+  static const String imagesChooseMenu = "assets/images/choose_menu.svg";
+
+  /// Assets for imagesClock
+  /// assets/images/clock.svg
+  static const String imagesClock = "assets/images/clock.svg";
 
   /// Assets for imagesClose
   /// assets/images/close.svg
@@ -57,6 +77,10 @@ class Assets {
   /// Assets for imagesEyeOn
   /// assets/images/eye_on.svg
   static const String imagesEyeOn = "assets/images/eye_on.svg";
+
+  /// Assets for imagesFavouriteMenu
+  /// assets/images/favourite_menu.svg
+  static const String imagesFavouriteMenu = "assets/images/favourite_menu.svg";
 
   /// Assets for imagesFilter
   /// assets/images/filter.svg
@@ -90,6 +114,10 @@ class Assets {
   /// assets/images/left_icon.svg
   static const String imagesLeftIcon = "assets/images/left_icon.svg";
 
+  /// Assets for imagesMenu
+  /// assets/images/menu.svg
+  static const String imagesMenu = "assets/images/menu.svg";
+
   /// Assets for imagesMore
   /// assets/images/more.svg
   static const String imagesMore = "assets/images/more.svg";
@@ -118,6 +146,10 @@ class Assets {
   /// assets/images/product_search.svg
   static const String imagesProductSearch = "assets/images/product_search.svg";
 
+  /// Assets for imagesProtected
+  /// assets/images/protected.svg
+  static const String imagesProtected = "assets/images/protected.svg";
+
   /// Assets for imagesRedRate
   /// assets/images/red_rate.svg
   static const String imagesRedRate = "assets/images/red_rate.svg";
@@ -145,6 +177,10 @@ class Assets {
   /// Assets for imagesSearch
   /// assets/images/search.svg
   static const String imagesSearch = "assets/images/search.svg";
+
+  /// Assets for imagesSend
+  /// assets/images/send.svg
+  static const String imagesSend = "assets/images/send.svg";
 
   /// Assets for imagesSplashLogo
   /// assets/images/splash_logo.svg
