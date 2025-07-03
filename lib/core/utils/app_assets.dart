@@ -58,6 +58,14 @@ class Assets {
   /// assets/images/close.svg
   static const String imagesClose = "assets/images/close.svg";
 
+  /// Assets for imagesDeleteTracking
+  /// assets/images/delete_tracking.svg
+  static const String imagesDeleteTracking = "assets/images/delete_tracking.svg";
+
+  /// Assets for imagesDeleteTrackingProduct
+  /// assets/images/delete_tracking_product.svg
+  static const String imagesDeleteTrackingProduct = "assets/images/delete_tracking_product.svg";
+
   /// Assets for imagesDotIcon
   /// assets/images/dot_icon.svg
   static const String imagesDotIcon = "assets/images/dot_icon.svg";
@@ -69,6 +77,10 @@ class Assets {
   /// Assets for imagesDropDownIteam
   /// assets/images/drop_down_iteam.svg
   static const String imagesDropDownIteam = "assets/images/drop_down_iteam.svg";
+
+  /// Assets for imagesEditTracking
+  /// assets/images/edit_tracking.svg
+  static const String imagesEditTracking = "assets/images/edit_tracking.svg";
 
   /// Assets for imagesEyeOff
   /// assets/images/eye_off.svg
@@ -217,6 +229,18 @@ class Assets {
   /// Assets for imagesTracking
   /// assets/images/tracking.svg
   static const String imagesTracking = "assets/images/tracking.svg";
+
+  /// Assets for imagesTrackingDotButton
+  /// assets/images/tracking_dot_button.svg
+  static const String imagesTrackingDotButton = "assets/images/tracking_dot_button.svg";
+
+  /// Assets for imagesTrackingPlus
+  /// assets/images/tracking_plus.svg
+  static const String imagesTrackingPlus = "assets/images/tracking_plus.svg";
+
+  /// Assets for imagesTrackingViewDetailsDart
+  /// assets/images/tracking_view_details.dart.svg
+  static const String imagesTrackingViewDetailsDart = "assets/images/tracking_view_details.dart.svg";
 
   /// Assets for imagesTuneFilter
   /// assets/images/tune_filter.svg

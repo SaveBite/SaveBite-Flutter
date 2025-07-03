@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:save_bite/core/utils/app_assets.dart';
+import 'package:save_bite/core/utils/app_styles.dart';
 import 'package:save_bite/features/home/domain/use_cases/add_product_use_case.dart';
 import 'package:save_bite/features/home/domain/use_cases/get_product_use_case.dart';
 import 'package:save_bite/features/home/domain/use_cases/get_stock_data_use_case.dart';
@@ -11,7 +12,10 @@ import 'package:save_bite/features/home/presentation/views/widgets/custom_bottom
 import 'package:save_bite/features/home/presentation/views/widgets/home_view_body.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/more_icon.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/more_view_body.dart';
-import 'package:save_bite/features/home/presentation/views/widgets/tracking_view_body.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/delete_tracking_product_use_case.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/get_tracking_products_use_case.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/presentation/manger/tarcking_cubit/tracking_cubit.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/presentation/views/tracking_view.dart';
 import 'package:save_bite/injection_container.dart';
 
 import '../../../ChatBot/presentation/pages/chatbot_page.dart';
@@ -31,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
   final List<Widget> pages = [
     HomeViewBody(),
     StockPage(),
-    TrackingViewBody(),
+    TrackingView(),
     ChatBotViewBody(),
     MoreViewBody(),
   ];
@@ -54,10 +58,30 @@ class _HomeViewState extends State<HomeView> {
             "Stock",
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          shape: Border(bottom: BorderSide(color: Color(0xffCCCCCC))),
+          shape: Border(
+            bottom: BorderSide(
+              color: Color(0xffCCCCCC),
+            ),
+          ),
         );
       case 2:
-        return AppBar(title: Text("Tracking"));
+        return AppBar(
+          backgroundColor: const Color(0xffFFFFFF),
+          elevation: 0,
+          centerTitle: true,
+          title: Text(
+            "Tracking",
+            style: AppStyles.styleMedium19.copyWith(
+              color: const Color(0xff000000),
+              fontSize: 17,
+            ),
+          ),
+          shape: const Border(
+            bottom: BorderSide(
+              color: Color(0xffCCCCCC),
+            ),
+          ),
+        );
       case 3:
         return AppBar(
           leading: FavoritesDrawer(),
@@ -76,7 +100,23 @@ class _HomeViewState extends State<HomeView> {
           toolbarHeight: 55,
         );
       case 4:
-        return AppBar(title: Text("More"));
+        return AppBar(
+          backgroundColor: const Color(0xffFFFFFF),
+          elevation: 0,
+          centerTitle: true,
+          title: Text(
+            "More",
+            style: AppStyles.styleMedium19.copyWith(
+              color: const Color(0xff000000),
+              fontSize: 17,
+            ),
+          ),
+          shape: const Border(
+            bottom: BorderSide(
+              color: Color(0xffCCCCCC),
+            ),
+          ),
+        );
       default:
         return null;
     }
@@ -98,6 +138,12 @@ class _HomeViewState extends State<HomeView> {
             sl<GetStockDataUseCase>(),
           ),
         ),
+        BlocProvider(
+          create: (context) => TrackingCubit(
+            getTrackingProductsUseCase: sl<GetTrackingProductsUseCase>(),
+            deleteTrackingProductUseCase: sl<DeleteTrackingProductUseCase>(),
+          ),
+        )
       ],
       child: SafeArea(
         child: Scaffold(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:save_bite/core/utils/app_assets.dart';
 import 'package:save_bite/core/utils/app_styles.dart';
-import 'package:save_bite/features/analytics/presentation/views/anyltics_view.dart';
 import 'package:save_bite/features/authentication/login/data/model/save_user_data.dart';
 
 class UserInfoHeader extends StatelessWidget {
@@ -37,15 +36,7 @@ class UserInfoHeader extends StatelessWidget {
         ),
         Spacer(),
         GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return AnylticsView();
-                },
-              ),
-            );
-          },
+          onTap: () {},
           child: CircleAvatar(
             backgroundColor: Colors.white70,
             child: SvgPicture.asset(Assets.imagesNotification),

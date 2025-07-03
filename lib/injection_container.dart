@@ -3,6 +3,10 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:save_bite/features/authentication/lost_image/domain/repo/lost_image_repo.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/data/data_source/tracking_remote_data_source.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/data/repo/tracking_repo_imp.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/delete_tracking_product_use_case.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/get_tracking_products_use_case.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Core
@@ -230,4 +234,13 @@ void _initChatbotFeature() {
   sl.registerLazySingleton(() => GetChatMessages(sl()));
   sl.registerFactory(() => ChatBloc(sl(), sl()));
   sl.registerFactory(() => FavoriteMessagesBloc(sl()));
+
+  //✅ Tracking UseCase
+  final trackingRemote = TrackingRemoteDataSourceImp();
+  final trackingRepo =
+      TrackingRepoImp(trackingRemoteDataSource: trackingRemote);
+  sl.registerSingleton<GetTrackingProductsUseCase>(
+      GetTrackingProductsUseCase(trackingRepo: trackingRepo));
+  sl.registerSingleton<DeleteTrackingProductUseCase>(
+      DeleteTrackingProductUseCase(repo: trackingRepo));
 }
