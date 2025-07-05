@@ -11,7 +11,7 @@ import 'package:save_bite/features/home/presentation/manger/stock_data_cubit/sto
 import 'package:save_bite/features/home/presentation/views/widgets/custom_bottom_navigation_bar_iteam.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/home_view_body.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/more_icon.dart';
-import 'package:save_bite/features/home/presentation/views/widgets/more_view_body.dart';
+import 'package:save_bite/features/more/presentation/views/widgets/more_view_body.dart';
 import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/delete_tracking_product_use_case.dart';
 import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/get_tracking_products_use_case.dart';
 import 'package:save_bite/features/tracking/display_tracking_data/presentation/manger/tarcking_cubit/tracking_cubit.dart';
@@ -37,7 +37,7 @@ class _HomeViewState extends State<HomeView> {
     StockPage(),
     TrackingView(),
     ChatBotViewBody(),
-    MoreViewBody(),
+    MoreViewBody()
   ];
 
   void onTabTapped(int index) {

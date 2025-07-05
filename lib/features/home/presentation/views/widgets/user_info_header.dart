@@ -14,8 +14,10 @@ class UserInfoHeader extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          backgroundColor: Color(0xffFFFFFF),
-          child: SvgPicture.asset(Assets.imagesPeople),
+          radius: 25,
+          backgroundImage: NetworkImage(
+            'https://i.pravatar.cc/150?img=3',
+          ),
         ),
         SizedBox(
           width: 8,
