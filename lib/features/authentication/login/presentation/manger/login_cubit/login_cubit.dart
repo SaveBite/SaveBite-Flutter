@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:save_bite/constants.dart';
@@ -66,6 +67,8 @@ class LoginCubit extends Cubit<LoginState> {
     SaveUserData.user = userModel;
     var userBox = Hive.box<UserModel?>(kUserBox);
     var remmberBox = Hive.box<bool?>(kRemmberBox);
+    debugPrint("✅ Token: ${userBox.get('user')?.token}");
+
 
     if (rememberMe != null) {
       await remmberBox.put('rememberMe', rememberMe);

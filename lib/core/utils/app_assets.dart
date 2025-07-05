@@ -175,5 +175,14 @@ class Assets {
   /// Assets for chatbot favourite drawer menu
   /// assets/images/menu_#3.svg
   static const String imagesFavouriteMenu = "assets/images/menu_#3.svg";
+
+
+  /// Assets for back
+  /// assets/images/back.svg
+  static const String back = "assets/images/back.svg";
+
+  /// Assets for image
+  /// assets/images/image.svg
+  static const String image = "assets/images/image.svg";
 }
 

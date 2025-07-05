@@ -1,29 +1,39 @@
+// domain/entities/tracking_product.dart
 import 'package:equatable/equatable.dart';
-import 'package:image_picker/image_picker.dart';
 
-class TrackingProductEntity extends Equatable {
+class TrackingProduct extends Equatable {
   final int? id;
   final String name;
   final String numberId;
   final String category;
-  final int quantity;
   final String label;
+  final int quantity;
   final String? startDate;
   final String endDate;
-  final XFile? image;
+  final String? imageUrl;
 
-  const TrackingProductEntity({
+  const TrackingProduct({
     this.id,
     required this.name,
     required this.numberId,
     required this.category,
-    required this.quantity,
     required this.label,
+    required this.quantity,
     this.startDate,
     required this.endDate,
-    this.image,
+    this.imageUrl,
   });
 
   @override
-  List<Object?> get props => [id, name, numberId, category, quantity, label, startDate, endDate, image];
+  List<Object?> get props => [
+    id,
+    name,
+    numberId,
+    category,
+    label,
+    quantity,
+    startDate,
+    endDate,
+    imageUrl,
+  ];
 }

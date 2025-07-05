@@ -14,6 +14,7 @@ import 'package:save_bite/features/splash/presenation/views/splash_view.dart';
 import 'core/utils/app_styles.dart';
 import 'features/ChatBot/presentation/bloc/chat_bloc/chat_bloc.dart';
 import 'features/ChatBot/presentation/bloc/recipe_bloc/recipe_bloc.dart';
+import 'features/Tracking/Presentation/bloc/tracking_product_bloc.dart';
 import 'features/stock/domain/entites/product_filter_entity.dart';
 import 'features/stock/presentation/bloc/stock_bloc.dart';
 import 'injection_container.dart' as di;
@@ -71,6 +72,9 @@ class _SaveBiteState extends State<SaveBite> {
           BlocProvider(
             create: (_) => di.sl<ChatBloc>(),
           ),
+          BlocProvider(
+            create: (_) => di.sl<TrackingAddEditBloc>(),
+          ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -87,7 +91,10 @@ class _SaveBiteState extends State<SaveBite> {
             ),
             scaffoldBackgroundColor: Color(0xffFFFFFF),
           ),
+          // home: TrackingAddEditPage(),
+          // home: AddEditProductPage(isEdit: false), // Default to add screen
           home: SplahView(),
+
         ),
       ),
     );

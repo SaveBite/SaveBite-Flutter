@@ -16,7 +16,7 @@ abstract class RemoteDataSource {
 
 // ✅ API Base URL
 const String BASE_URL =
-    "https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile";
+    "https://save-bite.ghonim.makkah.solutions/api/v1/mobile";
 
 class RemoteDataSourceImpl implements RemoteDataSource {
   final http.Client client;

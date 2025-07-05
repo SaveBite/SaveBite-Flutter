@@ -13,7 +13,7 @@ abstract class AuthRemoteDataSource {
 }
 
 const String BASE_URL =
-    "https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile";
+    "https://save-bite.ghonim.makkah.solutions/api/v1/mobile";
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final http.Client client;

@@ -1,3 +1,4 @@
+// init.dart
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -45,27 +46,37 @@ import 'package:save_bite/features/home/domain/use_cases/get_stock_data_use_case
 import 'package:save_bite/features/home/domain/use_cases/upload_products_use_case.dart';
 
 // Stock Feature
-import 'features/ChatBot/data/repos/chat_repos_impl.dart';
-import 'features/ChatBot/domain/usecases/get_chat_messages.dart';
-import 'features/ChatBot/presentation/bloc/chat_bloc/chat_bloc.dart';
-import 'features/ChatBot/presentation/bloc/favorite_messages_bloc/favorite_messages_bloc.dart';
-import 'features/stock/data/datasorces/stock_remote_data_source.dart';
-import 'features/stock/data/repos/stock_repo_impl.dart';
-import 'features/stock/domain/repos/stock_repo.dart';
-import 'features/stock/domain/usecases/stock_usecase.dart';
-import 'features/stock/presentation/bloc/stock_bloc.dart';
+import 'package:save_bite/features/stock/data/datasources/stock_remote_data_source.dart';
+import 'package:save_bite/features/stock/data/repos/stock_repo_impl.dart';
+import 'package:save_bite/features/stock/domain/repos/stock_repo.dart';
+import 'package:save_bite/features/stock/domain/usecases/stock_usecase.dart';
+import 'package:save_bite/features/stock/presentation/bloc/stock_bloc.dart';
 
 // Chatbot Feature
-import 'features/ChatBot/data/datasources/chat_remote_data_source.dart';
-import 'features/ChatBot/data/datasources/recipe_remote_data_source.dart';
-import 'features/ChatBot/data/repos/recipe_repository_impl.dart';
-import 'features/ChatBot/domain/repo/chat_repository.dart';
-import 'features/ChatBot/domain/repo/recipe_repository.dart';
-import 'features/ChatBot/domain/usecases/get_favorite_messages.dart';
-import 'features/ChatBot/domain/usecases/get_recipe.dart';
-import 'features/ChatBot/domain/usecases/send_message.dart';
-import 'features/ChatBot/domain/usecases/toggle_favorite.dart';
-import 'features/ChatBot/presentation/bloc/recipe_bloc/recipe_bloc.dart';
+import 'package:save_bite/features/ChatBot/data/datasources/chat_remote_data_source.dart';
+import 'package:save_bite/features/ChatBot/data/datasources/recipe_remote_data_source.dart';
+import 'package:save_bite/features/ChatBot/data/repos/recipe_repository_impl.dart';
+import 'package:save_bite/features/ChatBot/domain/repo/chat_repository.dart';
+import 'package:save_bite/features/ChatBot/domain/repo/recipe_repository.dart';
+import 'package:save_bite/features/ChatBot/domain/usecases/get_favorite_messages.dart';
+import 'package:save_bite/features/ChatBot/domain/usecases/get_recipe.dart';
+import 'package:save_bite/features/ChatBot/domain/usecases/send_message.dart';
+import 'package:save_bite/features/ChatBot/domain/usecases/toggle_favorite.dart';
+import 'package:save_bite/features/ChatBot/presentation/bloc/recipe_bloc/recipe_bloc.dart';
+import 'package:save_bite/features/ChatBot/data/repos/chat_repos_impl.dart';
+import 'package:save_bite/features/ChatBot/domain/usecases/get_chat_messages.dart';
+import 'package:save_bite/features/ChatBot/presentation/bloc/chat_bloc/chat_bloc.dart';
+import 'package:save_bite/features/ChatBot/presentation/bloc/favorite_messages_bloc/favorite_messages_bloc.dart';
+
+// Tracking Feature
+import 'package:save_bite/features/Tracking/data/datasources/tracking_product_remote_data_source.dart';
+import 'package:save_bite/features/Tracking/data/repos/tracking_product_repo_impl.dart';
+import 'package:save_bite/features/Tracking/domain/repos/tracking_product_repo.dart';
+import 'package:save_bite/features/Tracking/domain/usecases/extract_date_from_image_use_case.dart';
+
+import 'features/Tracking/Presentation/bloc/tracking_product_bloc.dart';
+import 'features/Tracking/domain/usecases/add_product_usecase.dart';
+import 'features/Tracking/domain/usecases/edit_product_use_case.dart';
 
 final sl = GetIt.instance;
 
@@ -79,6 +90,7 @@ Future<void> init() async {
     _initLostImage();
     _initStockFeature();
     _initChatbotFeature();
+    _initTrackingFeature();
 
     print('✅ All dependencies registered successfully!');
   } catch (e, stackTrace) {
@@ -99,9 +111,9 @@ Future<void> _initCore() async {
   sl.registerLazySingleton(() => InternetConnectionChecker());
 
   sl.registerLazySingleton<NetworkInfo>(
-          () => NetworkInfoImpl(connectionChecker: sl()));
+      () => NetworkInfoImpl(connectionChecker: sl()));
   sl.registerLazySingleton<LocalDataSource>(
-          () => LocalDataSourceImpl(sharedPreferences: sl()));
+      () => LocalDataSourceImpl(sharedPreferences: sl()));
 }
 
 // ==========================
@@ -112,17 +124,17 @@ void _initAuthentication() {
 
   // ✅ Sign Up
   sl.registerLazySingleton<AuthRemoteDataSource>(
-          () => AuthRemoteDataSourceImpl(client: sl()));
+      () => AuthRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<AuthRepository>(
-          () => AuthRepositoryImpl(authRemoteDataSource: sl()));
+      () => AuthRepositoryImpl(authRemoteDataSource: sl()));
   sl.registerLazySingleton(() => SignUpUseCase(authRepository: sl()));
   sl.registerFactory(() => AuthenticationBloc(signUpUseCase: sl()));
 
   // ✅ Login
   sl.registerLazySingleton<LoginRemoteDataSource>(
-          () => LoginRemoteDataSourceImp());
+      () => LoginRemoteDataSourceImp());
   sl.registerLazySingleton<LoginRepo>(
-          () => LoginRepoImp(loginRemoteDataSource: sl()));
+      () => LoginRepoImp(loginRemoteDataSource: sl()));
   sl.registerLazySingleton(() => LoginEmailImageUseCase(loginRepo: sl()));
   sl.registerLazySingleton(() => LoginEmailPasswordUseCase(loginRepo: sl()));
 }
@@ -134,18 +146,18 @@ void _initVerification() {
   print('📦 Initializing Verification...');
 
   sl.registerLazySingleton<RemoteDataSource>(
-          () => RemoteDataSourceImpl(client: sl(), authDataSource: sl()));
+      () => RemoteDataSourceImpl(client: sl(), authDataSource: sl()));
   sl.registerLazySingleton<VerificationRepo>(() => OtpRepoImpl(
-    networkInfo: sl(),
-    remoteDataSource: sl(),
-    localDataSource: sl(),
-  ));
+        networkInfo: sl(),
+        remoteDataSource: sl(),
+        localDataSource: sl(),
+      ));
   sl.registerLazySingleton(() => CheckCodeUseCase(verificationRepo: sl()));
   sl.registerLazySingleton(() => ResendCodeUseCase(verificationRepo: sl()));
   sl.registerFactory(() => OTPBloc(
-    checkCodeUseCase: sl(),
-    resendCodeUseCase: sl(),
-  ));
+        checkCodeUseCase: sl(),
+        resendCodeUseCase: sl(),
+      ));
 }
 
 // ==========================
@@ -155,12 +167,12 @@ void _initLostImage() {
   print('📦 Initializing Lost Image...');
 
   sl.registerLazySingleton<LostImageRemoteDataSource>(
-          () => LostImageRemoteDataSourceImp());
+      () => LostImageRemoteDataSourceImp());
   sl.registerLazySingleton<LostImageRepoImp>(
-          () => LostImageRepoImp(lostImageRemoteDataSource: sl()));
+      () => LostImageRepoImp(lostImageRemoteDataSource: sl()));
   sl.registerLazySingleton(() => LostImageUseCase(lostImageRepo: sl()));
   sl.registerLazySingleton(
-          () => LostImageVerficationUseCase(lostImageRepo: sl()));
+      () => LostImageVerficationUseCase(lostImageRepo: sl()));
 }
 
 // ==========================
@@ -170,14 +182,14 @@ void _initStockFeature() {
   print('📦 Initializing Stock Feature...');
 
   sl.registerLazySingleton<StockRemoteDataSource>(
-          () => StockRemoteDataSourceImp(dio: Dio()));
+      () => StockRemoteDataSourceImp(dio: sl()));
   sl.registerLazySingleton<StockRepo>(
-          () => StockRepoImp(stockRemoteDataSource: sl(), networkInfo: sl()));
+      () => StockRepoImp(stockRemoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton(() => StockUseCase(stockRepo: sl()));
   sl.registerFactory(() => StockBloc(stockUseCase: sl()));
 
-  // ✅ Home UseCases
-  final homeRemote = HomeRemoteDataSourcesImp(dio: Dio());
+// ✅ Home UseCases
+  final homeRemote = HomeRemoteDataSourcesImp(dio: sl());
   final homeRepo = HomeRepoImp(homeRemoteDataSources: homeRemote);
   sl.registerSingleton(GetProductUseCase(homeRepo: homeRepo));
   sl.registerSingleton(GetStockDataUseCase(homeRepo: homeRepo));
@@ -191,22 +203,20 @@ void _initStockFeature() {
 void _initChatbotFeature() {
   print('📦 Initializing Chatbot Feature...');
 
-  // Recipe
+// Recipe
   sl.registerLazySingleton<RecipeRemoteDataSource>(
-          () => RecipeRemoteDataSource());
-  sl.registerLazySingleton<RecipeRepository>(
-          () => RecipeRepositoryImpl(
+      () => RecipeRemoteDataSource());
+  sl.registerLazySingleton<RecipeRepository>(() => RecipeRepositoryImpl(
         remoteDataSource: sl(),
         networkInfo: sl(),
       ));
   sl.registerLazySingleton(() => GetRecipe(sl()));
   sl.registerFactory(() => RecipeBloc(sl()));
 
-  // Chat
+// Chat
   sl.registerLazySingleton<ChatRemoteDataSource>(
-          () => ChatRemoteDataSourceImpl(dio: sl()));
-  sl.registerLazySingleton<ChatRepository>(
-          () => ChatRepositoryImpl(
+      () => ChatRemoteDataSourceImpl(dio: sl()));
+  sl.registerLazySingleton<ChatRepository>(() => ChatRepositoryImpl(
         remoteDataSource: sl(),
         networkInfo: sl(),
       ));
@@ -216,4 +226,31 @@ void _initChatbotFeature() {
   sl.registerLazySingleton(() => GetChatMessages(sl()));
   sl.registerFactory(() => ChatBloc(sl(), sl()));
   sl.registerFactory(() => FavoriteMessagesBloc(sl()));
+}
+
+// ==========================
+// 🔹 Tracking Feature
+// ==========================
+void _initTrackingFeature() {
+  print('📦 Initializing Tracking Feature...');
+
+// DataSources
+  sl.registerLazySingleton<TrackingRemoteDataSource>(() =>
+      TrackingRemoteDataSourceImpl( client: sl()));
+
+// Repositories
+  sl.registerLazySingleton<TrackingRepository>(
+      () => TrackingRepositoryImpl(remoteDataSource: sl()));
+
+// Use Cases
+  sl.registerLazySingleton<AddTrackingProductUseCase>(() => AddTrackingProductUseCase(sl()));
+  sl.registerLazySingleton<UpdateTrackingProductUseCase>(() => UpdateTrackingProductUseCase(sl()));
+  sl.registerLazySingleton<ExtractDateFromImageUseCase>(() => ExtractDateFromImageUseCase(sl()));
+
+// Bloc
+  sl.registerFactory<TrackingAddEditBloc>(() => TrackingAddEditBloc(
+        addTrackingProductUseCase: sl(),
+        updateTrackingProductUseCase: sl(),
+        extractDateFromImageUseCase: sl(),
+      ));
 }

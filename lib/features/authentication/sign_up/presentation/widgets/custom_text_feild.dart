@@ -61,6 +61,10 @@ class CustomTextFormField extends StatelessWidget {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
+
+
+
+
               focusedBorder: OutlineInputBorder(
                 borderSide:
                     const BorderSide(color: Color(0xff5EDA42), width: 1),
@@ -83,8 +87,8 @@ class CustomTextFormField extends StatelessWidget {
             validator: validator, // Use the provided validator
             obscureText: obscureText,
             keyboardType: keyboardType,
-            autovalidateMode: AutovalidateMode
-                .onUserInteraction, // Validate as the user types
+            // autovalidateMode: AutovalidateMode
+            //     .onUserInteraction,
           ),
           const SizedBox(height: 10),
         ],

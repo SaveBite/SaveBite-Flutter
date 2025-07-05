@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:save_bite/features/stock/data/models/product_filter_model.dart';
 import '../../../../core/network/auth_local_data_source.dart';
@@ -11,9 +10,7 @@ abstract class StockRemoteDataSource {
   Future<ProductStockResponseEntity> stockProducts(ProductFilterEntity filter);
 }
 
-// ✅ API Base URL
-const String BASE_URL =
-    "https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile";
+const String BASE_URL = "https://save-bite.ghonim.makkah.solutions/api/v1/mobile";
 
 class StockRemoteDataSourceImp extends StockRemoteDataSource {
   final Dio dio;
@@ -21,33 +18,63 @@ class StockRemoteDataSourceImp extends StockRemoteDataSource {
   StockRemoteDataSourceImp({required this.dio});
 
   @override
-  Future<ProductStockResponseEntity> stockProducts(
-      ProductFilterEntity filter) async {
+  Future<ProductStockResponseEntity> stockProducts(ProductFilterEntity filter) async {
     final user = await AuthLocalDataSource.getUser();
     final token = user?.token;
 
-    try {
-      final queryParams =
-          ProductFilterModel(search: filter.search, category: filter.category)
-              .toQueryParameters();
+    final queryParams = ProductFilterModel(
+      search: filter.search,
+      category: filter.category,
+    ).toQueryParameters();
 
-      final response = await dio.get("$BASE_URL/stock",
+    try {
+      print('📥 Sending Stock API request with token: $token and filter: ${jsonEncode(queryParams)}');
+
+      final response = await dio.get(
+        "$BASE_URL/stock",
         queryParameters: queryParams,
-        options: Options(headers: {
-          'Authorization': 'Bearer $token',
-          'Accept': 'application/json',
-        },
-        )
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Accept': '*/*',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'User-Agent': 'PostmanRuntime/7.44.1',
+          },
+        ),
       );
 
-      // print("📡 API RESPONSE: ${response.data}");
+      print("📡 API RESPONSE: ${response.data}");
 
-      // Parse response into ProductStockResponseModel
-      return ProductStockResponseModel.fromJson(response.data);
+      if (response.statusCode == 200) {
+        final data = response.data['data'];
+        if (data == null ||
+            data['start_date'] == null ||
+            data['end_date'] == null ||
+            data['data'] == null ||
+            data['data'] is! List) {
+          throw Exception("Invalid or incomplete stock response data");
+        }
+        return ProductStockResponseModel.fromJson(response.data);
+      } else {
+        throw DioException(
+          response: response,
+          requestOptions: response.requestOptions,
+          type: DioExceptionType.badResponse,
+        );
+      }
+    } on DioException catch (e) {
+      print("❌ DioException occurred");
+      print("Message: ${e.message}");
+      print("Status Code: ${e.response?.statusCode}");
+      print("Response Data: ${e.response?.data}");
+      throw e;
     } catch (e) {
+      print("❌ Unexpected error: $e");
       throw DioException(
         requestOptions: RequestOptions(path: "/stock"),
-        error: "Failed to fetch stock data",
+        error: "Unexpected stock parsing error: ${e.toString()}",
+        type: DioExceptionType.unknown,
       );
     }
   }

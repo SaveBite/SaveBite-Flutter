@@ -90,7 +90,34 @@ class _StockPageState extends State<StockPage> {
       builder: (context, state) {
         if (state is StockLoading) {
           return const Center(child: LoadingWidget());
-        } else if (state is StockLoaded) {
+        }
+        // else if (state is StockLoaded) {
+        //   return SafeArea(
+        //     child: Scaffold(
+        //       backgroundColor: const Color(0xffF2F2F2),
+        //       body: StockViewBody(
+        //         onFilterOpened: _openFilter,
+        //         onFilterClosed: () {},
+        //         onResetFilter: _resetFilter,
+        //         stockData: state.stockData,
+        //         selectedProductNames: selectedProductNames,
+        //         searchText: searchText,
+        //         onSearchChanged: _onSearchChanged,
+        //       ),
+        //     ),
+        //   );
+        // }
+        else if (state is StockLoaded) {
+          if (state.stockData.data.isEmpty) {
+            return const Center(
+              child: Text(
+                "No stock data found. Please upload a valid CSV.",
+                style: TextStyle(color: Colors.grey, fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+            );
+          }
+
           return SafeArea(
             child: Scaffold(
               backgroundColor: const Color(0xffF2F2F2),
@@ -105,9 +132,18 @@ class _StockPageState extends State<StockPage> {
               ),
             ),
           );
-        } else if (state is StockError) {
-          return Center(child: Text(state.message));
         }
+
+
+
+        else if (state is StockError) {
+          return Center(
+            child: Text(
+              state.message,
+              style: const TextStyle(color: Colors.red, fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+          );        }
         return const SizedBox.shrink();
       },
     );

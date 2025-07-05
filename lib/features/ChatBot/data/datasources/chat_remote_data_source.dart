@@ -20,7 +20,7 @@ abstract class ChatRemoteDataSource {
 class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   final Dio dio;
   static const String baseUrl =
-      "https://save-bite.ghoneim.makkah.tech/DashBoard/api/v1/mobile";
+      "https://save-bite.ghonim.makkah.solutions/api/v1/mobile";
 
   ChatRemoteDataSourceImpl({required this.dio});
 
