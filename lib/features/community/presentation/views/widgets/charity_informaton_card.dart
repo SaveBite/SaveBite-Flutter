@@ -7,11 +7,13 @@ class CharityInformatonCard extends StatelessWidget {
   final String organizatonName;
   final String cityName;
   final String oragnizationLocation;
+  final String oraganizationDescription;
   const CharityInformatonCard({
     super.key,
     required this.organizatonName,
     required this.cityName,
     required this.oragnizationLocation,
+    required this.oraganizationDescription,
   });
 
   @override
@@ -23,9 +25,14 @@ class CharityInformatonCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Image.asset(
-            fit: BoxFit.fill,
-            Assets.imagesCharityDonation,
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Image.asset(
+              fit: BoxFit.fill,
+              Assets.imagesCharityDonation,
+            ),
           ),
           SizedBox(
             height: 6,

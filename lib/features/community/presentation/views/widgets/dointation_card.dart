@@ -33,8 +33,8 @@ class DonationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
-      height: 525,
+      width: 250,
+      height: 800,
       decoration: BoxDecoration(
         color: const Color(0xffFFFFFF),
         borderRadius: BorderRadius.circular(12),
@@ -45,7 +45,7 @@ class DonationCard extends StatelessWidget {
           // Header Row
           Container(
             height: 37,
-            width: 200,
+            width: 250,
             decoration: BoxDecoration(
               color: Color(0xffEDFBEA),
               borderRadius: BorderRadius.only(
@@ -102,8 +102,7 @@ class DonationCard extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 12),
-
+          Spacer(),
           // Donated
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -151,7 +150,6 @@ class DonationCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-
           // Status
           Container(
             height: 28,

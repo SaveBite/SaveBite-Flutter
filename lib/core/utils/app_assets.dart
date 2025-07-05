@@ -22,6 +22,10 @@ class Assets {
   /// assets/images/auth_logo.svg
   static const String imagesAuthLogo = "assets/images/auth_logo.svg";
 
+  /// Assets for imagesBankElTaam
+  /// assets/images/bank_el_taam.png
+  static const String imagesBankElTaam = "assets/images/bank_el_taam.png";
+
   /// Assets for imagesBellowBar
   /// assets/images/bellow_bar.svg
   static const String imagesBellowBar = "assets/images/bellow_bar.svg";
