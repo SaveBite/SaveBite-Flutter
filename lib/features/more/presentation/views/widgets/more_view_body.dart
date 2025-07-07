@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:save_bite/core/utils/app_assets.dart';
 import 'package:save_bite/features/analytics/presentation/views/anyltics_view.dart';
 import 'package:save_bite/features/authentication/login/data/model/save_user_data.dart';
+import 'package:save_bite/features/authentication/login/presentation/manger/login_cubit/login_cubit.dart';
 import 'package:save_bite/features/authentication/login/presentation/views/login_email_image_view.dart';
 import 'package:save_bite/features/community/presentation/views/community_view.dart';
 import 'package:save_bite/features/more/presentation/views/widgets/change_photo_widget.dart';
@@ -78,8 +80,11 @@ class MoreViewBody extends StatelessWidget {
                     },
                   ),
                 );
-                SaveUserData.rememberMe = null;
+                BlocProvider.of<LoginCubit>(context).userModel = null;
+                BlocProvider.of<LoginCubit>(context).rememberMe = false;
                 SaveUserData.user = null;
+                SaveUserData.rememberMe = false;
+                BlocProvider.of<LoginCubit>(context).saveUserAndRememberMe();
               },
             ),
           ],
