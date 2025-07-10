@@ -17,7 +17,6 @@ import 'package:save_bite/injection_container.dart';
 
 import '../../../ChatBot/presentation/pages/chatbot_page.dart';
 import '../../../ChatBot/presentation/widgets/favourite_drawer.dart';
-import '../../../Tracking/Presentation/pages/add_edit_product.dart';
 import '../../../stock/presentation/pages/stock_page.dart';
 
 class HomeView extends StatefulWidget {

@@ -4,8 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../core/utils/app_assets.dart';
-import '../../../../core/widgets/loading_widget.dart';
+import '../../../../../core/utils/app_assets.dart';
+import '../../../../../core/widgets/loading_widget.dart';
+
 import '../../domain/entities/tracking_product_request_entity.dart';
 import '../bloc/tracking_product_bloc.dart';
 import '../bloc/tracking_product_event.dart';

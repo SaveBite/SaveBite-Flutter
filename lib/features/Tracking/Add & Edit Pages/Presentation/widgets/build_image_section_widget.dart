@@ -6,44 +6,73 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../core/utils/app_assets.dart';
+import '../../../../../core/utils/app_assets.dart';
 import '../bloc/tracking_product_bloc.dart';
 import '../bloc/tracking_product_event.dart';
 import '../bloc/tracking_product_state.dart';
 
-class ImageSectionWidget extends StatelessWidget {
-  const ImageSectionWidget({super.key});
+class ImageSectionWidget extends StatefulWidget {
+  // final String? imagePath;
+  // final Function(String?) onPickImage;
+  // final VoidCallback onClearImage;
+
+  const ImageSectionWidget(
+      {super.key,
+      // required this.imagePath,
+      // required this.onPickImage,
+      // required this.onClearImage
+      });
+
+  @override
+  State<ImageSectionWidget> createState() => _ImageSectionWidgetState();
+}
+
+class _ImageSectionWidgetState extends State<ImageSectionWidget> {
+  late String? _selectedFile;
+  final ImagePicker _picker = ImagePicker();
+  late bool _hasError;
+
+  // Future<void> _pickImage() async {
+  //   final XFile? pickedFile =
+  //       await _picker.pickImage(source: ImageSource.gallery);
+  //
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //       _selectedFile = pickedFile.path;
+  //       _hasError = false;
+  //     });
+  //     widget.onPickImage(pickedFile.path);
+  //   }
+  // }
+  //
+  // void _clearImage() {
+  //   setState(() {
+  //     _selectedFile = null;
+  //     _hasError = true;
+  //   });
+  //   widget.onClearImage();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TrackingAddEditBloc, TrackingAddEditState>(
-      // Simplified buildWhen to check for TrackingAddEditInitial and relevant property changes
-      // buildWhen: (previous, current) {
-      //   if (current is! TrackingAddEditInitial ||
-      //       previous is! TrackingAddEditInitial) {
-      //     return current is TrackingAddEditInitial;
-      //   }
-      //   return current.selectedImage != previous.selectedImage ||
-      //       current.imageUrl != previous.imageUrl ||
-      //       current.isLoadingImage != previous.isLoadingImage;
-      // },
-
-        buildWhen: (previous, current) {
-          if (current is! TrackingAddEditInitial || previous is! TrackingAddEditInitial) {
-            return current is TrackingAddEditInitial;
-          }
-
-          final prev = previous as TrackingAddEditInitial;
-          final curr = current as TrackingAddEditInitial;
-
-          final imageChanged = prev.selectedImage?.path != curr.selectedImage?.path;
-
-          return imageChanged ||
-              prev.imageUrl != curr.imageUrl ||
-              prev.isLoadingImage != curr.isLoadingImage;
+      buildWhen: (previous, current) {
+        if (current is! TrackingAddEditInitial ||
+            previous is! TrackingAddEditInitial) {
+          return current is TrackingAddEditInitial;
         }
-,
-        builder: (context, state) {
+
+        final prev = previous as TrackingAddEditInitial;
+        final curr = current as TrackingAddEditInitial;
+
+        final imageChanged =
+            prev.selectedImage?.path != curr.selectedImage?.path;
+
+        return imageChanged ||
+            prev.imageUrl != curr.imageUrl ||
+            prev.isLoadingImage != curr.isLoadingImage;
+      },
+      builder: (context, state) {
         // Early return if state is not TrackingAddEditInitial
         if (state is! TrackingAddEditInitial) return const SizedBox.shrink();
 
@@ -54,6 +83,7 @@ class ImageSectionWidget extends StatelessWidget {
         final imageUrl = initialState.imageUrl;
         final isLoadingImage = initialState.isLoadingImage;
         final hasImage = selectedImage != null || imageUrl != null;
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -122,7 +152,8 @@ class ImageSectionWidget extends StatelessWidget {
                                       fit: BoxFit.cover,
                                       key: ValueKey(selectedImage.path),
                                     );
-                                  } else if (imageUrl != null && imageUrl.isNotEmpty) {
+                                  } else if (imageUrl != null &&
+                                      imageUrl.isNotEmpty) {
                                     return Image.network(
                                       imageUrl,
                                       fit: BoxFit.cover,
@@ -175,7 +206,8 @@ class ImageSectionWidget extends StatelessWidget {
                             Expanded(
                               child: ElevatedButton(
                                 // onPressed: () => bloc.add(ClearSelectedImage()),
-                                onPressed: () => Future.microtask(() => bloc.add(ClearSelectedImage())),
+                                onPressed: () => Future.microtask(
+                                    () => bloc.add(ClearSelectedImage())),
 
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.red,

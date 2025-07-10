@@ -27,6 +27,7 @@ class _ProductFormWidgetState extends State<ProductFormWidget> {
   late final TextEditingController _quantityController;
   late final TextEditingController _startDateController;
   late final TextEditingController _expiryDateController;
+  late final TabController _imageController;
 
   bool _isInitialized = false;
 

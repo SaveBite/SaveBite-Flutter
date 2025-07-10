@@ -91,7 +91,9 @@ class PickImage extends TrackingAddEditEvent {
 
 class SubmitForm extends TrackingAddEditEvent {}
 
-class ClearSelectedImage extends TrackingAddEditEvent {}
+class ClearSelectedImage extends TrackingAddEditEvent {
+
+}
 
 class ScanImage extends TrackingAddEditEvent {}
 

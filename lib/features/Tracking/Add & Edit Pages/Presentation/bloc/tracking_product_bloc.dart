@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:save_bite/features/Tracking/Presentation/bloc/tracking_product_event.dart';
-import 'package:save_bite/features/Tracking/Presentation/bloc/tracking_product_state.dart';
+import 'package:save_bite/features/Tracking/Add%20&%20Edit%20Pages/Presentation/bloc/tracking_product_event.dart';
+import 'package:save_bite/features/Tracking/Add%20&%20Edit%20Pages/Presentation/bloc/tracking_product_state.dart';
 import '../../domain/usecases/add_product_usecase.dart';
 import '../../domain/usecases/edit_product_use_case.dart';
 import '../../domain/usecases/extract_date_from_image_use_case.dart';
@@ -34,6 +34,7 @@ class TrackingAddEditBloc extends Bloc<TrackingAddEditEvent, TrackingAddEditStat
     on<ScanImage>(_onScanImage);
     on<SubmitForm>(_onSubmitForm);
     on<ClearForm>(_onClearForm);
+    // on<ClearSelectedImage>((e, emit)=> _onClearSelectedImage(emit, nubmerId : e.numberId))
   }
 
 
@@ -98,6 +99,7 @@ class TrackingAddEditBloc extends Bloc<TrackingAddEditEvent, TrackingAddEditStat
         String? quantity,
         String? startDate,
         String? expiryDate,
+        String? imageUrl, //new
       }) {
     final current = state;
     if (current is TrackingAddEditInitial) {
@@ -109,6 +111,7 @@ class TrackingAddEditBloc extends Bloc<TrackingAddEditEvent, TrackingAddEditStat
         quantity: quantity,
         startDate: startDate,
         expiryDate: expiryDate,
+        imageUrl: imageUrl,  //new
       ));
     } else {
       print('Cannot update state, current state is not TrackingAddEditInitial: $current'); // Debug log
@@ -146,7 +149,7 @@ class TrackingAddEditBloc extends Bloc<TrackingAddEditEvent, TrackingAddEditStat
       print('Clearing selectedImage and imageUrl'); // Debug log
       final newState = current.copyWith(
         newSelectedImage: null,
-        imageUrl: '',
+        imageUrl: null,
         expiryDate: '',
         startDate: '',
         isLoadingImage: false,
