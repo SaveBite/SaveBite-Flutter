@@ -12,6 +12,8 @@ import 'package:save_bite/features/home/presentation/views/widgets/custom_bottom
 import 'package:save_bite/features/home/presentation/views/widgets/home_view_body.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/more_icon.dart';
 import 'package:save_bite/features/more/presentation/views/widgets/more_view_body.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/data/data_source/tracking_remote_data_source.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/data/repo/tracking_repo_imp.dart';
 import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/delete_tracking_product_use_case.dart';
 import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/get_tracking_products_use_case.dart';
 import 'package:save_bite/features/tracking/display_tracking_data/presentation/manger/tarcking_cubit/tracking_cubit.dart';
@@ -140,8 +142,16 @@ class _HomeViewState extends State<HomeView> {
         ),
         BlocProvider(
           create: (context) => TrackingCubit(
-            getTrackingProductsUseCase: sl<GetTrackingProductsUseCase>(),
-            deleteTrackingProductUseCase: sl<DeleteTrackingProductUseCase>(),
+            getTrackingProductsUseCase: GetTrackingProductsUseCase(
+              trackingRepo: TrackingRepoImp(
+                trackingRemoteDataSource: TrackingRemoteDataSourceImp(),
+              ),
+            ),
+            deleteTrackingProductUseCase: DeleteTrackingProductUseCase(
+              repo: TrackingRepoImp(
+                trackingRemoteDataSource: TrackingRemoteDataSourceImp(),
+              ),
+            ),
           ),
         )
       ],

@@ -1,14 +1,16 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:save_bite/core/utils/app_assets.dart';
 import 'package:save_bite/core/utils/app_styles.dart';
+import 'package:save_bite/features/analytics/data/data_sources/anayltics_remote_data_sources.dart';
+import 'package:save_bite/features/analytics/data/repos/anayltics_repo_imp.dart';
 import 'package:save_bite/features/analytics/domain/use_case/fetch_anyltics_details_use_case.dart';
 import 'package:save_bite/features/analytics/domain/use_case/get_sales_data_use_case.dart';
 import 'package:save_bite/features/analytics/presentation/manger/fetch_anayltics_details_cubit/fetch_anayltics_details_cubit.dart';
 import 'package:save_bite/features/analytics/presentation/manger/sales_cubit/sales_cubit.dart';
 import 'package:save_bite/features/analytics/presentation/views/widgets/anyltics_view_body.dart';
-import 'package:save_bite/injection_container.dart';
 
 class AnylticsView extends StatefulWidget {
   const AnylticsView({super.key});
@@ -24,12 +26,25 @@ class _AnylticsViewState extends State<AnylticsView> {
       providers: [
         BlocProvider(
           create: (context) => FetchAnaylticsDetailsCubit(
-            sl.get<FetchAnylticsDetailsUseCase>(),
+            FetchAnylticsDetailsUseCase(
+              anaylticsRepo: AnaylticsRepoImp(
+                anaylticsRemoteDataSources: AnaylticsRemoteDataSourcesImp(
+                  dio: Dio(),
+                ),
+              ),
+            ),
           ),
         ),
         BlocProvider(
-          create: (context) =>
-              SalesCubit(getSalesDataUseCase: sl.get<GetSalesDataUseCase>()),
+          create: (context) => SalesCubit(
+            getSalesDataUseCase: GetSalesDataUseCase(
+              anaylticsRepo: AnaylticsRepoImp(
+                anaylticsRemoteDataSources: AnaylticsRemoteDataSourcesImp(
+                  dio: Dio(),
+                ),
+              ),
+            ),
+          ),
         ),
       ],
       child: Scaffold(

@@ -3,10 +3,6 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:save_bite/features/authentication/lost_image/domain/repo/lost_image_repo.dart';
-import 'package:save_bite/features/tracking/display_tracking_data/data/data_source/tracking_remote_data_source.dart';
-import 'package:save_bite/features/tracking/display_tracking_data/data/repo/tracking_repo_imp.dart';
-import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/delete_tracking_product_use_case.dart';
-import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/get_tracking_products_use_case.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Core
@@ -59,12 +55,6 @@ import 'features/stock/data/repos/stock_repo_impl.dart';
 import 'features/stock/domain/repos/stock_repo.dart';
 import 'features/stock/domain/usecases/stock_usecase.dart';
 import 'features/stock/presentation/bloc/stock_bloc.dart';
-
-// Anyltics Feature
-import 'package:save_bite/features/analytics/data/data_sources/anayltics_remote_data_sources.dart';
-import 'package:save_bite/features/analytics/data/repos/anayltics_repo_imp.dart';
-import 'package:save_bite/features/analytics/domain/use_case/fetch_anyltics_details_use_case.dart';
-import 'package:save_bite/features/analytics/domain/use_case/get_sales_data_use_case.dart';
 
 // Chatbot Feature
 import 'features/ChatBot/data/datasources/chat_remote_data_source.dart';
@@ -194,15 +184,6 @@ void _initStockFeature() {
   sl.registerSingleton(GetStockDataUseCase(homeRepo: homeRepo));
   sl.registerSingleton(UploadProductsUseCase(homeRepo: homeRepo));
   sl.registerSingleton(AddProductUseCase(homeRepo: homeRepo));
-
-  //✅ Anyltics UseCase
-  final anylticsRemote = AnaylticsRemoteDataSourcesImp(dio: Dio());
-  final anaylticsRepo =
-      AnaylticsRepoImp(anaylticsRemoteDataSources: anylticsRemote);
-  sl.registerSingleton<FetchAnylticsDetailsUseCase>(
-      FetchAnylticsDetailsUseCase(anaylticsRepo: anaylticsRepo));
-  sl.registerSingleton<GetSalesDataUseCase>(
-      GetSalesDataUseCase(anaylticsRepo: anaylticsRepo));
 }
 
 // ==========================
@@ -234,13 +215,4 @@ void _initChatbotFeature() {
   sl.registerLazySingleton(() => GetChatMessages(sl()));
   sl.registerFactory(() => ChatBloc(sl(), sl()));
   sl.registerFactory(() => FavoriteMessagesBloc(sl()));
-
-  //✅ Tracking UseCase
-  final trackingRemote = TrackingRemoteDataSourceImp();
-  final trackingRepo =
-      TrackingRepoImp(trackingRemoteDataSource: trackingRemote);
-  sl.registerSingleton<GetTrackingProductsUseCase>(
-      GetTrackingProductsUseCase(trackingRepo: trackingRepo));
-  sl.registerSingleton<DeleteTrackingProductUseCase>(
-      DeleteTrackingProductUseCase(repo: trackingRepo));
 }
