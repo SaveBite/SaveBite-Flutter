@@ -20,7 +20,7 @@ class LostImageRemoteDataSourceImp extends LostImageRemoteDataSource {
       {required String email, required String answer}) async {
     var dio = Dio();
     var response = await dio.post(
-      '$baseUrl/lost-image',
+      'https://save-bite.ghonim.makkah.solutions/api/v1/mobile/lost-image',
       data: {
         'email': email,
         'answer': answer,
@@ -39,7 +39,7 @@ class LostImageRemoteDataSourceImp extends LostImageRemoteDataSource {
       required String otptoken}) async {
     var dio = Dio();
     var response = await dio.post(
-      '$baseUrl/lost-image-check-code',
+      'https://save-bite.ghonim.makkah.solutions/api/v1/mobile/lost-image-check-code',
       data: {
         'email': email,
         'otp': otp,

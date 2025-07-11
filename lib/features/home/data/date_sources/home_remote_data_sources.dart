@@ -34,7 +34,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
       {String? productName, String? sortBy}) async {
     if (productName != null) {
       Response response = await dio.get(
-        '$baseUrl/products?search=$productName',
+        'https://save-bite.ghonim.makkah.solutions/api/v1/mobile/products?search=$productName',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${SaveUserData.user!.token}',
@@ -49,7 +49,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
       return products;
     } else if (sortBy != null) {
       Response response = await dio.get(
-        '$baseUrl/products?status=$sortBy',
+        'https://save-bite.ghonim.makkah.solutions/api/v1/mobile/products?status=$sortBy',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${SaveUserData.user!.token}',
@@ -64,7 +64,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
       return products;
     } else if (productName != null && sortBy != null) {
       Response response = await dio.get(
-        '$baseUrl/products?search=$productName&status=$sortBy',
+        'https://save-bite.ghonim.makkah.solutions/api/v1/mobile/products?search=$productName&status=$sortBy',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${SaveUserData.user!.token}',
@@ -79,7 +79,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
       return products;
     } else {
       Response response = await dio.get(
-        '$baseUrl/products',
+        'https://save-bite.ghonim.makkah.solutions/api/v1/mobile/products',
         options: Options(
           headers: {
             'Authorization': 'Bearer ${SaveUserData.user!.token}',
@@ -98,7 +98,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
   @override
   Future<StockDataModel> getStockData() async {
     Response response = await dio.get(
-      '$baseUrl/products',
+      'https://save-bite.ghonim.makkah.solutions/api/v1/mobile/products',
       options: Options(
         headers: {
           'Authorization': 'Bearer ${SaveUserData.user!.token}',
@@ -122,7 +122,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
     });
 
     Response response = await dio.post(
-      "$baseUrl/products/upload",
+      "https://save-bite.ghonim.makkah.solutions/api/v1/mobile/products/upload",
       data: formData,
       options: Options(
         headers: {
@@ -130,6 +130,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
         },
       ),
     );
+    print("📤 CSV Upload Response: ${response.data}");
     String message = response.data["message"];
     if (message == "File Uploaded Successfully") {
       return message;
@@ -152,7 +153,7 @@ class HomeRemoteDataSourcesImp extends HomeRemoteDataSources {
     required String month,
   }) async {
     Response response = await dio.post(
-      '$baseUrl/products/',
+      'https://save-bite.ghonim.makkah.solutions/api/v1/mobile/products/',
       options: Options(
         headers: {
           'Authorization': 'Bearer ${SaveUserData.user!.token}',

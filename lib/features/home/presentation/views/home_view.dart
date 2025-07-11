@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:save_bite/core/utils/app_assets.dart';
 import 'package:save_bite/core/utils/app_styles.dart';
 import 'package:save_bite/features/home/domain/use_cases/add_product_use_case.dart';
@@ -11,6 +12,7 @@ import 'package:save_bite/features/home/presentation/manger/stock_data_cubit/sto
 import 'package:save_bite/features/home/presentation/views/widgets/custom_bottom_navigation_bar_iteam.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/home_view_body.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/more_icon.dart';
+import 'package:save_bite/features/home/presentation/views/widgets/tracking_view_body.dart';
 import 'package:save_bite/features/more/presentation/views/widgets/more_view_body.dart';
 import 'package:save_bite/features/tracking/display_tracking_data/data/data_source/tracking_remote_data_source.dart';
 import 'package:save_bite/features/tracking/display_tracking_data/data/repo/tracking_repo_imp.dart';
@@ -33,95 +35,107 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int currentIndex = 0;
+  bool isAddingOrEditing = false; // Track if in Add/Edit mode
+  String?
+      currentProductAction; // Track the action ("Add Product" or "Edit Product")
 
-  final List<Widget> pages = [
-    HomeViewBody(),
-    StockPage(),
-    TrackingView(),
-    ChatBotViewBody(),
-    MoreViewBody()
-  ];
+  late final List<Widget> pages; // Declare as late final
+
+  @override
+  void initState() {
+    super.initState();
+    pages = [
+      HomeViewBody(),
+      StockPage(),
+      TrackingViewBody(onProductAction: _handleProductAction),
+      ChatBotViewBody(),
+      MoreViewBody(),
+    ];
+  }
 
   void onTabTapped(int index) {
     setState(() {
       currentIndex = index;
+      isAddingOrEditing = false; // Reset when switching tabs
+      currentProductAction = null;
     });
   }
 
-  PreferredSizeWidget? _buildAppBarForIndex(int index) {
-    switch (index) {
-      case 1:
-        return AppBar(
-          toolbarHeight: 55,
-          backgroundColor: const Color(0xffFFFFFF),
-          elevation: 0,
-          centerTitle: true,
-          title: Text(
-            "Stock",
-            style: Theme.of(context).textTheme.titleMedium,
+  void _handleProductAction(bool isEdit) {
+    setState(() {
+      isAddingOrEditing = true;
+      currentProductAction = isEdit ? 'Edit Product' : 'Add Product';
+    });
+  }
+
+  PreferredSizeWidget? _buildAppBar() {
+    if (currentIndex == 2 &&
+        isAddingOrEditing &&
+        currentProductAction != null) {
+      return AppBar(
+        title: Text(
+          currentProductAction!,
+          style: TextStyle(
+            fontSize: 19,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Noto Sans',
           ),
-          shape: Border(
-            bottom: BorderSide(
-              color: Color(0xffCCCCCC),
-            ),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color(0xffFFFFFF),
+        elevation: 0,
+        shape: Border(bottom: BorderSide(color: Color(0xffCCCCCC))),
+        toolbarHeight: 55,
+      );
+    } else if (currentIndex == 2) {
+      return AppBar(
+        title: Text(
+          "Tracking",
+          style: TextStyle(
+            fontSize: 19,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Noto Sans',
           ),
-        );
-      case 2:
-        return AppBar(
-          backgroundColor: const Color(0xffFFFFFF),
-          elevation: 0,
-          centerTitle: true,
-          title: Text(
-            "Tracking",
-            style: AppStyles.styleMedium19.copyWith(
-              color: const Color(0xff000000),
-              fontSize: 17,
-            ),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color(0xffFFFFFF),
+        elevation: 0,
+        shape: Border(bottom: BorderSide(color: Color(0xffCCCCCC))),
+        toolbarHeight: 55,
+      );
+    } else if (currentIndex == 1) {
+      return AppBar(
+        toolbarHeight: 55,
+        backgroundColor: const Color(0xffFFFFFF),
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          "Stock",
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        shape: Border(bottom: BorderSide(color: Color(0xffCCCCCC))),
+      );
+    } else if (currentIndex == 3) {
+      return AppBar(
+        leading: FavoritesDrawer(),
+        title: Text(
+          "Chatbite",
+          style: TextStyle(
+            fontSize: 19,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Noto Sans',
           ),
-          shape: const Border(
-            bottom: BorderSide(
-              color: Color(0xffCCCCCC),
-            ),
-          ),
-        );
-      case 3:
-        return AppBar(
-          leading: FavoritesDrawer(),
-          title: Text(
-            "Chatbite",
-            style: TextStyle(
-              fontSize: 19,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'Noto Sans',
-            ),
-          ),
-          centerTitle: true,
-          backgroundColor: const Color(0xffFFFFFF),
-          elevation: 0,
-          shape: Border(bottom: BorderSide(color: Color(0xffCCCCCC))),
-          toolbarHeight: 55,
-        );
-      case 4:
-        return AppBar(
-          backgroundColor: const Color(0xffFFFFFF),
-          elevation: 0,
-          centerTitle: true,
-          title: Text(
-            "More",
-            style: AppStyles.styleMedium19.copyWith(
-              color: const Color(0xff000000),
-              fontSize: 17,
-            ),
-          ),
-          shape: const Border(
-            bottom: BorderSide(
-              color: Color(0xffCCCCCC),
-            ),
-          ),
-        );
-      default:
-        return null;
+        ),
+        centerTitle: true,
+        backgroundColor: const Color(0xffFFFFFF),
+        elevation: 0,
+        shape: Border(bottom: BorderSide(color: Color(0xffCCCCCC))),
+        toolbarHeight: 55,
+      );
+    } else if (currentIndex == 4) {
+      return AppBar(title: Text("More"));
     }
+    return null;
   }
 
   @override
@@ -157,7 +171,7 @@ class _HomeViewState extends State<HomeView> {
       ],
       child: SafeArea(
         child: Scaffold(
-          appBar: _buildAppBarForIndex(currentIndex),
+          appBar: _buildAppBar(),
           backgroundColor: Color(0xffF2F2F2),
           body: IndexedStack(
             index: currentIndex,

@@ -13,7 +13,8 @@ abstract class AuthRemoteDataSource {
   String? get authToken;
 }
 
-const String BASE_URL = kBaseUrl;
+const String BASE_URL =
+    "https://save-bite.ghonim.makkah.solutions/api/v1/mobile";
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final http.Client client;

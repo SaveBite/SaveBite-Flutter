@@ -26,12 +26,15 @@ class LoginRemoteDataSourceImp extends LoginRemoteDataSource {
     });
 
     var response = await dio.post(
-      '$baseUrl/auth/sign/in',
+      'https://save-bite.ghonim.makkah.solutions/api/v1/mobile/auth/sign/in',
       data: formData,
       onSendProgress: (int sent, int total) {},
     );
+    print("📩 Response: ${response.data}");
+
     Map<String, dynamic> userInfo = response.data; // Access data directly
     UserModel userModel = UserModel.fromJson(userInfo);
+    print(response);
 
     return (userModel);
   }
@@ -41,7 +44,7 @@ class LoginRemoteDataSourceImp extends LoginRemoteDataSource {
       {required String email, required String password}) async {
     var dio = Dio();
     var response = await dio.post(
-      '$baseUrl/auth/sign/in',
+      'https://save-bite.ghonim.makkah.solutions/api/v1/mobile/auth/sign/in',
       data: {
         'email': email,
         'password': password,
@@ -50,7 +53,7 @@ class LoginRemoteDataSourceImp extends LoginRemoteDataSource {
 
     Map<String, dynamic> userInfo = response.data; // Access data directly
     UserModel userModel = UserModel.fromJson(userInfo);
-
+    print(userModel);
     return (userModel);
   }
 }
