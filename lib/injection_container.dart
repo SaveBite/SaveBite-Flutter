@@ -71,13 +71,13 @@ import 'package:save_bite/features/ChatBot/presentation/bloc/favorite_messages_b
 // Tracking Feature
 
 
-import 'features/Tracking/Add & Edit Pages/Presentation/bloc/tracking_product_bloc.dart';
-import 'features/Tracking/Add & Edit Pages/data/datasources/tracking_product_remote_data_source.dart';
-import 'features/Tracking/Add & Edit Pages/data/repos/tracking_product_repo_impl.dart';
-import 'features/Tracking/Add & Edit Pages/domain/repos/tracking_product_repo.dart';
-import 'features/Tracking/Add & Edit Pages/domain/usecases/add_product_usecase.dart';
-import 'features/Tracking/Add & Edit Pages/domain/usecases/edit_product_use_case.dart';
-import 'features/Tracking/Add & Edit Pages/domain/usecases/extract_date_from_image_use_case.dart';
+import 'features/tracking/Add & Edit Pages/Presentation/bloc/tracking_product_bloc.dart';
+import 'features/tracking/Add & Edit Pages/data/datasources/tracking_product_remote_data_source.dart';
+import 'features/tracking/Add & Edit Pages/data/repos/tracking_product_repo_impl.dart';
+import 'features/tracking/Add & Edit Pages/domain/repos/tracking_product_repo.dart';
+import 'features/tracking/Add & Edit Pages/domain/usecases/add_product_usecase.dart';
+import 'features/tracking/Add & Edit Pages/domain/usecases/edit_product_use_case.dart';
+import 'features/tracking/Add & Edit Pages/domain/usecases/extract_date_from_image_use_case.dart';
 
 
 final sl = GetIt.instance;

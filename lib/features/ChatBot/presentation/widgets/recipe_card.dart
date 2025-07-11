@@ -35,11 +35,13 @@ class RecipeCard extends StatelessWidget {
               children: [
                 const Icon(Icons.schedule, size: 18, color: Colors.grey),
                 const SizedBox(width: 6),
-                Text(
-                  'Ready in: ${recipe.prepTime ?? 'N/A'}',
-                  style: const TextStyle(
-                    fontSize: 14.0,
-                    color: Color(0xff666666),
+                Flexible(
+                  child: Text(
+                    'Ready in: ${recipe.prepTime ?? 'N/A'}',
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                      color: Color(0xff666666),
+                    ),
                   ),
                 ),
               ],

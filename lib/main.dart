@@ -14,7 +14,7 @@ import 'package:save_bite/features/splash/presenation/views/splash_view.dart';
 import 'core/utils/app_styles.dart';
 import 'features/ChatBot/presentation/bloc/chat_bloc/chat_bloc.dart';
 import 'features/ChatBot/presentation/bloc/recipe_bloc/recipe_bloc.dart';
-import 'features/Tracking/Add & Edit Pages/Presentation/bloc/tracking_product_bloc.dart';
+import 'features/tracking/Add & Edit Pages/Presentation/bloc/tracking_product_bloc.dart';
 import 'features/stock/domain/entites/product_filter_entity.dart';
 import 'features/stock/presentation/bloc/stock_bloc.dart';
 import 'injection_container.dart' as di;

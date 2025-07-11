@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../Tracking/Add & Edit Pages/Presentation/pages/add_edit_product.dart';
-import '../../../../Tracking/Add & Edit Pages/domain/entities/tracking_product_request_entity.dart';
+import '../../../../tracking/Add & Edit Pages/Presentation/pages/add_edit_product.dart';
+import '../../../../tracking/Add & Edit Pages/domain/entities/tracking_product_request_entity.dart';
 
 typedef ProductActionCallback = void Function(bool isEdit);
 
