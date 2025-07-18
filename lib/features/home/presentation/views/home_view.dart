@@ -125,7 +125,21 @@ class _HomeViewState extends State<HomeView> {
         toolbarHeight: 55,
       );
     } else if (currentIndex == 4) {
-      return AppBar(title: Text("More"));
+      return AppBar(
+        title: Text(
+          "More",
+          style: TextStyle(
+            fontSize: 19,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Noto Sans',
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color(0xffFFFFFF),
+        elevation: 0,
+        shape: Border(bottom: BorderSide(color: Color(0xffCCCCCC))),
+        toolbarHeight: 55,
+      );
     }
     return null;
   }
