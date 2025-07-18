@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:save_bite/core/utils/app_assets.dart';
-import 'package:save_bite/core/utils/app_styles.dart';
 import 'package:save_bite/features/home/domain/use_cases/add_product_use_case.dart';
 import 'package:save_bite/features/home/domain/use_cases/get_product_use_case.dart';
 import 'package:save_bite/features/home/domain/use_cases/get_stock_data_use_case.dart';
@@ -14,12 +12,6 @@ import 'package:save_bite/features/home/presentation/views/widgets/home_view_bod
 import 'package:save_bite/features/home/presentation/views/widgets/more_icon.dart';
 import 'package:save_bite/features/home/presentation/views/widgets/tracking_view_body.dart';
 import 'package:save_bite/features/more/presentation/views/widgets/more_view_body.dart';
-import 'package:save_bite/features/tracking/display_tracking_data/data/data_source/tracking_remote_data_source.dart';
-import 'package:save_bite/features/tracking/display_tracking_data/data/repo/tracking_repo_imp.dart';
-import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/delete_tracking_product_use_case.dart';
-import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/get_tracking_products_use_case.dart';
-import 'package:save_bite/features/tracking/display_tracking_data/presentation/manger/tarcking_cubit/tracking_cubit.dart';
-import 'package:save_bite/features/tracking/display_tracking_data/presentation/views/tracking_view.dart';
 import 'package:save_bite/injection_container.dart';
 
 import '../../../ChatBot/presentation/pages/chatbot_page.dart';
@@ -154,20 +146,6 @@ class _HomeViewState extends State<HomeView> {
             sl<GetStockDataUseCase>(),
           ),
         ),
-        BlocProvider(
-          create: (context) => TrackingCubit(
-            getTrackingProductsUseCase: GetTrackingProductsUseCase(
-              trackingRepo: TrackingRepoImp(
-                trackingRemoteDataSource: TrackingRemoteDataSourceImp(),
-              ),
-            ),
-            deleteTrackingProductUseCase: DeleteTrackingProductUseCase(
-              repo: TrackingRepoImp(
-                trackingRemoteDataSource: TrackingRemoteDataSourceImp(),
-              ),
-            ),
-          ),
-        )
       ],
       child: SafeArea(
         child: Scaffold(

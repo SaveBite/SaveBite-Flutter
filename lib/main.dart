@@ -11,6 +11,11 @@ import 'package:save_bite/features/authentication/lost_image/presentation/manger
 import 'package:save_bite/features/authentication/sign_up/presentation/bloc/authentication_bloc.dart';
 import 'package:save_bite/features/authentication/verification/presentation/bloc/otp_bloc.dart';
 import 'package:save_bite/features/splash/presenation/views/splash_view.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/data/data_source/tracking_remote_data_source.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/data/repo/tracking_repo_imp.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/delete_tracking_product_use_case.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/domain/use_case/get_tracking_products_use_case.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/presentation/manger/tarcking_cubit/tracking_cubit.dart';
 import 'core/utils/app_styles.dart';
 import 'features/ChatBot/presentation/bloc/chat_bloc/chat_bloc.dart';
 import 'features/ChatBot/presentation/bloc/recipe_bloc/recipe_bloc.dart';
@@ -75,6 +80,20 @@ class _SaveBiteState extends State<SaveBite> {
           BlocProvider(
             create: (_) => di.sl<TrackingAddEditBloc>(),
           ),
+          BlocProvider(
+            create: (context) => TrackingCubit(
+              getTrackingProductsUseCase: GetTrackingProductsUseCase(
+                trackingRepo: TrackingRepoImp(
+                  trackingRemoteDataSource: TrackingRemoteDataSourceImp(),
+                ),
+              ),
+              deleteTrackingProductUseCase: DeleteTrackingProductUseCase(
+                repo: TrackingRepoImp(
+                  trackingRemoteDataSource: TrackingRemoteDataSourceImp(),
+                ),
+              ),
+            ),
+          )
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -94,7 +113,6 @@ class _SaveBiteState extends State<SaveBite> {
           // home: TrackingAddEditPage(),
           // home: AddEditProductPage(isEdit: false), // Default to add screen
           home: SplahView(),
-
         ),
       ),
     );

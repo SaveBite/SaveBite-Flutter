@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:save_bite/core/utils/app_assets.dart';
 import 'package:save_bite/core/utils/app_styles.dart';
+import 'package:save_bite/features/home/presentation/views/widgets/tracking_view_body.dart';
+import 'package:save_bite/features/tracking/Add%20&%20Edit%20Pages/Presentation/pages/add_edit_product.dart';
 
 class CustomTrackingButton extends StatefulWidget {
-  const CustomTrackingButton({super.key});
+  final ProductActionCallback onProductAction;
+
+  const CustomTrackingButton({super.key, required this.onProductAction});
 
   @override
   State<CustomTrackingButton> createState() => _CustomTrackingButtonState();
@@ -36,7 +40,14 @@ class _CustomTrackingButtonState extends State<CustomTrackingButton>
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // هنا تحط الوظيفة اللي عايزها تتنفذ عند الضغط
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AddEditProductPage(
+              onPageOpened: (isEdit) => widget.onProductAction(isEdit),
+            ),
+          ),
+        );
       },
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,

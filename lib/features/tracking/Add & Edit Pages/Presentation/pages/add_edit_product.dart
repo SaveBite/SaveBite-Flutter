@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/presentation/manger/tarcking_cubit/tracking_cubit.dart';
 
 import '../../../../../core/utils/app_assets.dart';
 import '../../../../../core/widgets/loading_widget.dart';
@@ -30,7 +30,8 @@ class AddEditProductPage extends StatelessWidget {
     final isEdit = initialProduct != null || productId != null;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       onPageOpened(isEdit);
-      print('Initializing AddEditProductPage, isEdit: $isEdit, product: $initialProduct, productId: $productId'); // Debug log
+      print(
+          'Initializing AddEditProductPage, isEdit: $isEdit, product: $initialProduct, productId: $productId'); // Debug log
       context.read<TrackingAddEditBloc>().add(InitializeForm(initialProduct));
     });
 
@@ -63,7 +64,7 @@ class AddEditProductPage extends StatelessWidget {
         ),
       ),
       body: BlocConsumer<TrackingAddEditBloc, TrackingAddEditState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is TrackingAddEditFailure) {
             print('Failure state: ${state.errorMessage}'); // Debug log
             ScaffoldMessenger.of(context).showSnackBar(
@@ -74,13 +75,14 @@ class AddEditProductPage extends StatelessWidget {
             );
           } else if (state is TrackingAddEditLoaded) {
             print('Success state: ${state.product}'); // Debug log
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('${isEdit ? 'Updated' : 'Added'} successfully!'),
-                duration: Duration(seconds: 2),
-              ),
-            );
-            Navigator.pop(context);
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   SnackBar(
+            //     content: Text('${isEdit ? 'Updated' : 'Added'} successfully!'),
+            //     duration: Duration(seconds: 2),
+            //   ),
+            // );
+            Navigator.of(context).pop();
+            await BlocProvider.of<TrackingCubit>(context).getTrackingProducts();
           }
         },
         builder: (context, state) {

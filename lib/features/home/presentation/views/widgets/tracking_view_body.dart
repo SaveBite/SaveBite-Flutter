@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:save_bite/features/tracking/display_tracking_data/presentation/views/tracking_view.dart';
 
 import '../../../../tracking/Add & Edit Pages/Presentation/pages/add_edit_product.dart';
 import '../../../../tracking/Add & Edit Pages/domain/entities/tracking_product_request_entity.dart';
@@ -82,21 +83,22 @@ class TrackingViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Tracking View',
-            style: TextStyle(fontSize: 24),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () => _showProductActionDialog(context),
-            child: Text('Manage Product'),
-          ),
-        ],
-      ),
-    );
+    return TrackingView(onProductAction: onProductAction);
+    // return Center(
+    //   child: Column(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     children: [
+    //       Text(
+    //         'Tracking View',
+    //         style: TextStyle(fontSize: 24),
+    //       ),
+    //       SizedBox(height: 20),
+    //       ElevatedButton(
+    //         onPressed: () => _showProductActionDialog(context),
+    //         child: Text('Manage Product'),
+    //       ),
+    //     ],
+    //   ),
+    // );
   }
 }

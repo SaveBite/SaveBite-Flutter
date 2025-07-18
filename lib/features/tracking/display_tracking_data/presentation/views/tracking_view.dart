@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:save_bite/features/home/presentation/views/widgets/tracking_view_body.dart';
 import 'package:save_bite/features/tracking/display_tracking_data/presentation/views/widgets/custom_tracking_buttom.dart';
 import 'package:save_bite/features/tracking/display_tracking_data/presentation/views/widgets/tracking_allert_widget.dart';
 import 'package:save_bite/features/tracking/display_tracking_data/presentation/views/widgets/tracking_table.dart';
@@ -7,7 +8,9 @@ import 'package:save_bite/features/tracking/display_tracking_data/presentation/m
 import 'package:save_bite/features/tracking/display_tracking_data/domain/entity/tracking_product_entity.dart';
 
 class TrackingView extends StatefulWidget {
-  const TrackingView({super.key});
+  final ProductActionCallback onProductAction;
+
+  const TrackingView({super.key, required this.onProductAction});
 
   @override
   State<TrackingView> createState() => _TrackingViewState();
@@ -123,7 +126,9 @@ class _TrackingViewState extends State<TrackingView> {
                   ),
                 ),
 
-                const CustomTrackingButton(),
+                CustomTrackingButton(
+                  onProductAction: widget.onProductAction,
+                ),
 
                 // Body
                 Expanded(
